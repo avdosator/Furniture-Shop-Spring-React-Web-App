@@ -1,18 +1,19 @@
 package com.avdo.spring_app.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Value;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "profile")
+@Data
 public class Profile {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "firstname")
@@ -32,6 +33,5 @@ public class Profile {
 
     @Column(name = "date_created")
     private Date dateCreated;
-
 
 }
