@@ -2,16 +2,11 @@ package com.avdo.spring.app.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.sql.Date;
 
 @Entity
 @Table(name = "profile")
 @Data
-@Getter
-@Setter
 public class User {
 
     @Id

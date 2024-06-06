@@ -4,7 +4,9 @@ import com.avdo.spring.app.dto.CreateUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements  UserService {
 
     @Autowired
@@ -16,7 +18,7 @@ public class UserServiceImpl implements  UserService {
         userRepository.save(user);
     }
 
-    public class UserMapper {
+    public static class UserMapper {
         public static User mapToUser(CreateUserRequest createUserRequest) {
             User user = new User();
             user.setUsername(createUserRequest.getUsername());

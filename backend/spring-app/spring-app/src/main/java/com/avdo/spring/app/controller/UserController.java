@@ -4,11 +4,15 @@ import com.avdo.spring.app.dto.CreateUserRequest;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+
 
 @RestController
 public class UserController {
@@ -17,11 +21,18 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/users")
-    ResponseEntity<?> createUser (@Valid @RequestBody CreateUserRequest createUserRequest) {
-        try {
-            return new ResponseEntity<>(this.userService.createUser(userDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(this.errorMapper.createErrorMap(e), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
+        if (result.hasErrors()) {
+            // If there are validation errors, construct a custom error response
+            List<String> errors = result.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errors);
+        } else {
+            // If data is valid, proceed with user creation
+            userService.createUser(createUserRequest);
+            return ResponseEntity.ok().build();
         }
     }
 
