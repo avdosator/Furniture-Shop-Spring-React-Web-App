@@ -18,8 +18,11 @@ public class UserController {
 
     @PostMapping("/users")
     ResponseEntity<?> createUser (@Valid @RequestBody CreateUserRequest createUserRequest) {
-
-        return  ResponseEntity.status(HttpStatus.CREATED).body("User successfully created");
+        try {
+            return new ResponseEntity<>(this.userService.createUser(userDto), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(this.errorMapper.createErrorMap(e), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
