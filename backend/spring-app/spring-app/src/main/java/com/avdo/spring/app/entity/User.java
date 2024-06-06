@@ -1,15 +1,14 @@
-package com.avdo.spring_app.model;
+package com.avdo.spring.app.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Value;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "profile")
 @Data
-public class Profile {
+public class User {
 
     @Id
     @Column(name = "id")

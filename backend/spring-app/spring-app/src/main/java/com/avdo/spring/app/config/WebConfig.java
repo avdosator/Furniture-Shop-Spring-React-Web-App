@@ -1,4 +1,4 @@
-package com.avdo.spring_app.config;
+package com.avdo.spring.app.config;
 
 
 import org.springframework.context.annotation.Bean;

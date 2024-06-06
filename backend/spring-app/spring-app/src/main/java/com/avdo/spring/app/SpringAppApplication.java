@@ -1,8 +1,7 @@
-package com.avdo.spring_app;
+package com.avdo.spring.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication()
 public class SpringAppApplication {
