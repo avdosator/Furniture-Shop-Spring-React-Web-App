@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Service
 public class UserServiceImpl implements  UserService {
 
@@ -33,6 +36,7 @@ public class UserServiceImpl implements  UserService {
             user.setLastname(createUserRequest.getLastname());
             user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
             user.setEmail(createUserRequest.getEmail());
+            user.setDateCreated(Date.valueOf(LocalDate.now()));
             return user;
         }
     }

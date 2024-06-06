@@ -16,8 +16,9 @@ public class WebConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
-                        .allowedMethods("GET")
+                        //.allowedOrigins(/*"http://localhost:5173"*/"https://hoppscotch.io/")
+                        .allowedOriginPatterns("*")
+                        .allowedMethods("GET", "POST")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
