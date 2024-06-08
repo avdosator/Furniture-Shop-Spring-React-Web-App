@@ -31,7 +31,8 @@ public class UserServiceImpl implements  UserService {
 
     @Override
     public User authenticate(LoginUserRequest loginUserRequest) {
-        
+
+        return userRepository.findByEmail(loginUserRequest.getEmail()).orElseThrow();
     }
 
     public  class UserMapper {
