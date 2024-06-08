@@ -40,4 +40,9 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public String loginUser() {
+        return "You are logged in";
+    }
+
 }
