@@ -1,6 +1,7 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.dto.CreateUserRequest;
+import com.avdo.spring.app.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;

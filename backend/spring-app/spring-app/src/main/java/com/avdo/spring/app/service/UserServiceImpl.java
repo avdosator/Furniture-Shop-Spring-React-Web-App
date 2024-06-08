@@ -1,6 +1,7 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.dto.CreateUserRequest;
+import com.avdo.spring.app.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class UserServiceImpl implements  UserService {
     public void createUser(CreateUserRequest createUserRequest) {
         User user = new UserMapper().mapToUser(createUserRequest);
         userRepository.save(user);
+    }
+
+    @Override
+    public User authenticate(LoginUserRequest loginUserRequest) {
+        
     }
 
     public  class UserMapper {
