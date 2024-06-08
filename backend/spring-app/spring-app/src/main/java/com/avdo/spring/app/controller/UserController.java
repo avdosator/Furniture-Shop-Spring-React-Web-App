@@ -1,6 +1,7 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.dto.CreateUserRequest;
+import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser() {
-        return "You are logged in";
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
+        User authenticatedUser = userService.authenticate(loginUserRequest);
+        return ResponseEntity.ok().build();
     }
 
 }
