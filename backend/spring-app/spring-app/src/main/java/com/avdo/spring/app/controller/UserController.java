@@ -3,6 +3,7 @@ package com.avdo.spring.app.controller;
 import com.avdo.spring.app.dto.CreateUserRequest;
 import com.avdo.spring.app.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtService jwtService) {
+
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/users")
@@ -45,6 +49,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         User authenticatedUser = userService.authenticate(loginUserRequest);
+        String jwtToken = jwtService.generateToken(authenticatedUser);
         return ResponseEntity.ok().build();
     }
 
