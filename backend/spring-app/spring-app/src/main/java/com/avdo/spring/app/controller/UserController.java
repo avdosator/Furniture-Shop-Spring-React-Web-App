@@ -1,5 +1,6 @@
 package com.avdo.spring.app.controller;
 
+import com.avdo.spring.app.LoginResponse;
 import com.avdo.spring.app.dto.CreateUserRequest;
 import com.avdo.spring.app.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
@@ -50,7 +51,10 @@ public class UserController {
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         User authenticatedUser = userService.authenticate(loginUserRequest);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        return ResponseEntity.ok().build();
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        return ResponseEntity.ok(loginResponse);
     }
 
 }
