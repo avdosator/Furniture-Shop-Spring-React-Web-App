@@ -5,6 +5,7 @@ import com.avdo.spring.app.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,17 @@ public class UserServiceImpl implements  UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            AuthenticationManager authenticationManager
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
@@ -32,7 +39,7 @@ public class UserServiceImpl implements  UserService {
     @Override
     public User authenticate(LoginUserRequest loginUserRequest) {
 
-        return userRepository.findByEmail(loginUserRequest.getEmail()).orElseThrow();
+        return userRepository.findByUsername(loginUserRequest.getUsername()).orElseThrow();
     }
 
     public  class UserMapper {
