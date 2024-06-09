@@ -6,6 +6,7 @@ import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,10 @@ public class UserServiceImpl implements  UserService {
 
     @Override
     public User authenticate(LoginUserRequest loginUserRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginUserRequest.getUsername(),
+                        loginUserRequest.getPassword()));
 
         return userRepository.findByUsername(loginUserRequest.getUsername()).orElseThrow();
     }
