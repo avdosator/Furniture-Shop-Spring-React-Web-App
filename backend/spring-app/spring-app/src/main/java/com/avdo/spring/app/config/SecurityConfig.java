@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final UserRepository userRepository;

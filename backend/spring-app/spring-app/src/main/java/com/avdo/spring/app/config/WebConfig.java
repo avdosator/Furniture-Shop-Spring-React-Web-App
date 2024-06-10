@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -56,7 +55,7 @@ public class WebConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("").permitAll()
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/login", "/users").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
@@ -67,7 +66,8 @@ public class WebConfig {
         return http.build();
     }
 
-    private String[] allowedHeaders = {"Authorization", "Content-Type"};
+    private final String[] allowedHeaders = {"Authorization", "Content-Type"};
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
