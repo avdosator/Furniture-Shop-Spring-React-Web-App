@@ -12,11 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -68,7 +67,7 @@ public class WebConfig {
         return http.build();
     }
 
-
+    private String[] allowedHeaders = {"Authorization", "Content-Type"};
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -78,7 +77,7 @@ public class WebConfig {
                         //.allowedOrigins(/*"http://localhost:5173"*/"https://hoppscotch.io/")
                         .allowedOriginPatterns("*")
                         .allowedMethods("GET", "POST")
-                        .allowedHeaders("*")
+                        .allowedHeaders(allowedHeaders)
                         .allowCredentials(true);
             }
         };
