@@ -8,6 +8,7 @@ import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,9 +58,22 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @GetMapping("/protected")
-    public ResponseEntity<String> protectedRoute() {
-        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in!");
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> testUserRole() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role USER");
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> testAdminRole() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role ADMIN");
+    }
+
+    @GetMapping("/adminoruser")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<String> testRoles() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role ADMIN or USER");
     }
 
 }

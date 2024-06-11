@@ -20,6 +20,7 @@ public class UserServiceImpl implements  UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+
     @Autowired
     public UserServiceImpl(
             UserRepository userRepository,
@@ -56,6 +57,7 @@ public class UserServiceImpl implements  UserService {
             user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
             user.setEmail(createUserRequest.getEmail());
             user.setDateCreated(Date.valueOf(LocalDate.now()));
+            user.setRole("ROLE_USER");
             return user;
         }
     }
