@@ -58,10 +58,22 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @GetMapping("/protected")
+    @GetMapping("/users")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<String> protectedRoute() {
-        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in! and USER");
+    public ResponseEntity<String> testUserRole() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role USER");
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> testAdminRole() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role ADMIN");
+    }
+
+    @GetMapping("/adminoruser")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<String> testRoles() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role ADMIN or USER");
     }
 
 }
