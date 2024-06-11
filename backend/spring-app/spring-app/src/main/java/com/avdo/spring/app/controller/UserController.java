@@ -8,6 +8,7 @@ import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,8 +59,9 @@ public class UserController {
     }
 
     @GetMapping("/protected")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> protectedRoute() {
-        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in!");
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in! and USER");
     }
 
 }

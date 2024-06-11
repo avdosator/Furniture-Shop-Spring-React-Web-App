@@ -57,7 +57,7 @@ public class UserServiceImpl implements  UserService {
             user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
             user.setEmail(createUserRequest.getEmail());
             user.setDateCreated(Date.valueOf(LocalDate.now()));
-            user.setRole();
+            user.setRole("ROLE_USER");
             return user;
         }
     }
