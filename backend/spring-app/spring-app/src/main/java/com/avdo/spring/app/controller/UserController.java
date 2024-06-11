@@ -1,11 +1,15 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.dto.CreateUserRequest;
+import com.avdo.spring.app.dto.LoginUserRequest;
+import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,10 +22,13 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtService jwtService) {
+
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/users")
@@ -38,6 +45,21 @@ public class UserController {
             userService.createUser(createUserRequest);
             return ResponseEntity.ok().build();
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
+        User authenticatedUser = userService.authenticate(loginUserRequest);
+        String jwtToken = jwtService.generateToken(authenticatedUser);
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        return ResponseEntity.ok(loginResponse);
+    }
+
+    @GetMapping("/protected")
+    public ResponseEntity<String> protectedRoute() {
+        return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in!");
     }
 
 }
