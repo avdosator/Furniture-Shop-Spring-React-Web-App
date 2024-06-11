@@ -1,4 +1,4 @@
-package com.avdo.spring.app.config;
+package com.avdo.spring.app.filter;
 
 import com.avdo.spring.app.service.JwtService;
 import jakarta.servlet.FilterChain;
@@ -22,9 +22,9 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Autowired
     public JwtAuthenticationFilter(

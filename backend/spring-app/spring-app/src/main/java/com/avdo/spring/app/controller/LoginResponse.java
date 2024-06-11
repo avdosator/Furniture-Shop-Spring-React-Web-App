@@ -1,4 +1,4 @@
-package com.avdo.spring.app;
+package com.avdo.spring.app.controller;
 
 import lombok.Getter;
 import lombok.Setter;
