@@ -37,6 +37,8 @@ public class User implements UserDetails {
     @Column(name = "date_created")
     private Date dateCreated;
 
+    @Column(name = "role")
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
