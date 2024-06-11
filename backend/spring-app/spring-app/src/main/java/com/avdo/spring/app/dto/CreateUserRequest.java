@@ -1,5 +1,6 @@
 package com.avdo.spring.app.dto;
 
+import com.avdo.spring.app.entity.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,6 +26,10 @@ public class CreateUserRequest {
     @NotBlank
     @Size(min = 8, max = 20)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @NotBlank
+    private Role role;
 
 
 }

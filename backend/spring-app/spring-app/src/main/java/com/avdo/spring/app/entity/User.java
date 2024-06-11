@@ -37,6 +37,7 @@ public class User implements UserDetails {
     @Column(name = "date_created")
     private Date dateCreated;
 
+    @Column(name = "role")
     private Role role;
 
     @Override
