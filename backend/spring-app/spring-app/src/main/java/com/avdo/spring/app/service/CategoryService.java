@@ -21,6 +21,7 @@ public class CategoryService {
 
     public void createCategory(CreateCategoryRequest createCategoryRequest) {
         Category category = new Category();
+        category.setName(createCategoryRequest.getName());
         categoryRepository.save(category);
     }
 

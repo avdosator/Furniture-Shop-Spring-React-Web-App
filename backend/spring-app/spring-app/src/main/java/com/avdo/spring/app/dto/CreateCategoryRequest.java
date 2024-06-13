@@ -2,12 +2,13 @@ package com.avdo.spring.app.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class CreateCategoryRequest {
 
     @NotBlank
-    @Max(30)
+    @Size(max = 30)
     private String name;
 }
