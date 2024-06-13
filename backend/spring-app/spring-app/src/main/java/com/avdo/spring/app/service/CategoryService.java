@@ -1,5 +1,6 @@
 package com.avdo.spring.app.service;
 
+import com.avdo.spring.app.dto.CreateCategoryRequest;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
