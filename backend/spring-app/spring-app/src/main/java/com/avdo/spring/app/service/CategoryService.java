@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @Service
 public class CategoryService {
@@ -32,5 +31,6 @@ public class CategoryService {
     public Category findCategoryByName(String name) {
         Category category = categoryRepository.findCategoryByName(name)
                 .orElseThrow();
+        return category;
     }
 }
