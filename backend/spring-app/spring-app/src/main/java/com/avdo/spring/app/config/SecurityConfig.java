@@ -63,7 +63,8 @@ public class SecurityConfig {
                                                    JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/login", "/users").permitAll()
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers(
+                        "/login", "/users", "/database/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
