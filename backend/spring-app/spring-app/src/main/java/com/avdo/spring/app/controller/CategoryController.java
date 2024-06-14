@@ -24,6 +24,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    // endpoint for creating category (created for testing)
     @PostMapping("/categories")
     public ResponseEntity<String> createCategory(
             @Valid @RequestBody CreateCategoryRequest createCategoryRequest,
@@ -42,12 +43,14 @@ public class CategoryController {
         }
     }
 
+    // endpoint for fetching all categories
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> findAllCategories() {
         List<Category> categories = categoryService.findAllCategories();
         return ResponseEntity.ok(categories);
     }
 
+    // endpoint for getting category by name
     @GetMapping("/categories/{name}")
     public ResponseEntity<Category> findCategoryByName(@PathVariable String name) {
         Category category = categoryService.findCategoryByName(name);
