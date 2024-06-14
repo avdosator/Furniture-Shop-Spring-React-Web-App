@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -39,6 +38,11 @@ public class ProductService {
 
     public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow();
+    }
+
+    public List<Product> findSameCategoryProducts(String category) {
+        List<Product> products = productRepository.findByCategory_Name(category);
+        return products;
     }
 
     private class ProductMapper {

@@ -44,7 +44,10 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.findAllProducts();
-        return ResponseEntity.ok(products);
+        if (!products.isEmpty()) {
+            return ResponseEntity.ok(products);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // endpoint for fetching product by id
@@ -57,4 +60,13 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
+    // endpoint for fetching products from given category
+    @GetMapping("/products/category/{category}")
+    public  ResponseEntity<List<Product>> getSameCategoryProducts(@PathVariable String category) {
+        List<Product> products = productService.findSameCategoryProducts(category);
+        if (!products.isEmpty()) {
+            return ResponseEntity.ok(products);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
