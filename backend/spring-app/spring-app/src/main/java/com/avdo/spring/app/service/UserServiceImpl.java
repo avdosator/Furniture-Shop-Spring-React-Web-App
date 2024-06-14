@@ -48,8 +48,8 @@ public class UserServiceImpl implements  UserService {
         return userRepository.findByUsername(loginUserRequest.getUsername()).orElseThrow();
     }
 
-    public  class UserMapper {
-        public User mapToUser(CreateUserRequest createUserRequest) {
+    private class UserMapper {
+        private User mapToUser(CreateUserRequest createUserRequest) {
             User user = new User();
             user.setUsername(createUserRequest.getUsername());
             user.setFirstname(createUserRequest.getFirstname());
