@@ -30,8 +30,7 @@ public class CategoryService {
     }
 
     public Category findCategoryByName(String name) {
-        Category category = categoryRepository.findCategoryByName(name)
+        return categoryRepository.findCategoryByName(name)
                 .orElseThrow();
-        return category;
     }
 }
