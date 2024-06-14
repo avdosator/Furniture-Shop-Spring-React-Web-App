@@ -21,5 +21,6 @@ public class CreateProductRequest {
     private String description;
 
     @NotBlank
+    @Size(max = 30)
     private String category;
 }
