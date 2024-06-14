@@ -1,16 +1,14 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.dto.CreateProductRequest;
+import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +35,14 @@ public class ProductController {
             productService.createProduct(createProductRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created product!");
         }
+    }
+
+    @GetMapping("/products/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Product product = productService.findById(id);
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
