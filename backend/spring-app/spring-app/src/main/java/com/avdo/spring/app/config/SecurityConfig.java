@@ -2,7 +2,6 @@ package com.avdo.spring.app.config;
 
 import com.avdo.spring.app.filter.JwtAuthenticationFilter;
 import com.avdo.spring.app.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
