@@ -3,6 +3,8 @@ package com.avdo.spring.app.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity()
 @Table(name = "category")
 @Data
@@ -15,4 +17,7 @@ public class Category {
 
     @Column(name = "category_name")
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }
