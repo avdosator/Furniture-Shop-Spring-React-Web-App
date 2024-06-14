@@ -1,28 +1,34 @@
 package com.avdo.spring.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
-@Table(name = "category")
+@Table(name = "product")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
-public class Category {
+public class Product {
 
     @Id
-    @Column(name = "category_id")
+    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category_name")
+    @Column(name = "product_name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @Column(name = "price")
+    private double price;
+
+    @Column(name = "stock")
+    private int stock;
+
+    @Column(name = "description")
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

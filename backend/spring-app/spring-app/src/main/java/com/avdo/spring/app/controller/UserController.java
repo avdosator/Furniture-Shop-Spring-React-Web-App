@@ -32,6 +32,7 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    // endpoint for creating user
     @PostMapping("/users")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
         if (result.hasErrors()) {
@@ -48,6 +49,7 @@ public class UserController {
         }
     }
 
+    // endpoint for logging in
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         User authenticatedUser = userService.authenticate(loginUserRequest);
@@ -58,6 +60,7 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    // endpoints for testing
     @GetMapping("/users")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> testUserRole() {
