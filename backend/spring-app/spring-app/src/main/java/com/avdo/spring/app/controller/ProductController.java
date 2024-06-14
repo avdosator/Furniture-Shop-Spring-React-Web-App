@@ -38,6 +38,12 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.findAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Product product = productService.findById(id);
@@ -46,4 +52,5 @@ public class ProductController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }
