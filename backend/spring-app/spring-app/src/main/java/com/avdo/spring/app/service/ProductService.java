@@ -21,11 +21,11 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
 
-    public void createProduct(CreateProductRequest createUserRequest) {
+    public void createProduct(CreateProductRequest createProductRequest) {
         Category category = categoryRepository
-                .findCategoryByName(createUserRequest.getName())
-                .orElseThrow(() -> new RuntimeException());
-        Product product = new ProductMapper().mapToProduct(createUserRequest, category);
+                .findCategoryByName(createProductRequest.getCategory())
+                .orElseThrow(() -> new RuntimeException("Choose valid category!"));
+        Product product = new ProductMapper().mapToProduct(createProductRequest, category);
         productRepository.save(product);
     }
 
