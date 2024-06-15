@@ -15,7 +15,8 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @OneToMany(mappedBy = "users")
+    @ManyToOne
+    @JoinColumn(name = "id")
     private User user;
 
     @Column(name = "total_amount")

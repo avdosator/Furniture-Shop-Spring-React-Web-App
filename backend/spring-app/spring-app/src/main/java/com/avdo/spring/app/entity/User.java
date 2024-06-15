@@ -9,11 +9,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
 public class User implements UserDetails {
+
+    // should I add List of orders field like this??
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     @Id
     @Column(name = "id")
