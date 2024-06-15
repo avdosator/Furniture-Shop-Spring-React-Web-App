@@ -14,8 +14,13 @@ public class OrderItem {
     @Column(name = "order_item_id")
     private Long id;
 
+
+    @OneToOne(mappedBy = "product_id")
     private Product product;
 
+    // is this ok?
+    @ManyToOne
+    @JoinColumn(name = "order_items")
     private Order order;
 
     @Column(name = "quantity")

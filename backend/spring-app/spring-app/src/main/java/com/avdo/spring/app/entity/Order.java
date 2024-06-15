@@ -4,11 +4,16 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "order")
 @Data
 public class Order {
+
+    // add field for order items like this ??ž
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
