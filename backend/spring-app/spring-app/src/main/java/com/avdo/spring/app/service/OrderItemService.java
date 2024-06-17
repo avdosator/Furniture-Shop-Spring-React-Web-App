@@ -16,6 +16,6 @@ public class OrderItemService {
     }
 
     public OrderItem findById(Long id) {
-        return orderItemRepository.findById(id).orElseThrow();
+        return orderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
     }
 }
