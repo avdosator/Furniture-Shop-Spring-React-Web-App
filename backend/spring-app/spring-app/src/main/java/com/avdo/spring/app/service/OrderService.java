@@ -5,6 +5,8 @@ import com.avdo.spring.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -17,5 +19,9 @@ public class OrderService {
 
     public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow();
+    }
+
+    public List<Order> findAllOrders() {
+        return orderRepository.findAll();
     }
 }
