@@ -20,7 +20,7 @@ public class Order {
     @JoinColumn(name = "id")
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
     @Column(name = "total_amount")
@@ -29,7 +29,7 @@ public class Order {
     @Column(name = "order_status")
     private String orderStatus;
 
-    @Column(name = "date_created")
+    @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
 
