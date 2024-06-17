@@ -1,5 +1,6 @@
 package com.avdo.spring.app.service;
 
+import com.avdo.spring.app.entity.OrderItem;
 import com.avdo.spring.app.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,5 +13,9 @@ public class OrderItemService {
     @Autowired
     public OrderItemService(OrderItemRepository orderItemRepository) {
         this.orderItemRepository = orderItemRepository;
+    }
+
+    public OrderItem findById(Long id) {
+        return orderItemRepository.findById(id).orElseThrow();
     }
 }
