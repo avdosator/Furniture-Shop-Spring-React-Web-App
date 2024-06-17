@@ -11,9 +11,6 @@ import java.util.List;
 @Data
 public class Order {
 
-    // add field for order items like this ??ž
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +20,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "id")
     private User user;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     @Column(name = "total_amount")
     private double totalAmount;

@@ -32,7 +32,11 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // is this ok ?
-    @OneToOne(mappedBy = "")
+    /* Do I need this field ??
+    
+    @ManyToOne
+    @JoinColumn(name = "order_item_id")
     private OrderItem orderItem;
+
+     */
 }

@@ -15,12 +15,8 @@ public class OrderItem {
     private Long id;
 
 
-    @OneToOne(mappedBy = "product_id")
-    private Product product;
-
-    // is this ok?
     @ManyToOne
-    @JoinColumn(name = "order_items")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Column(name = "quantity")
@@ -28,4 +24,8 @@ public class OrderItem {
 
     @Column(name = "price")
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
