@@ -34,9 +34,8 @@ public class Product {
 
     /* Do I need this field ??
 
-    @ManyToOne
-    @JoinColumn(name = "order_item_id")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
 
      */
 }
