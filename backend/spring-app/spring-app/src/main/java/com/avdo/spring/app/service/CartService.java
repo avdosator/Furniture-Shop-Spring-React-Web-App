@@ -29,4 +29,8 @@ public class CartService {
         cart.setDateCreated(Date.valueOf(LocalDate.now()));
         cartRepository.save(cart);
     }
+
+    public Cart findById(Long id) {
+        return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find that cart"));
+    }
 }
