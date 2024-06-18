@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements  UserService {
@@ -60,5 +61,11 @@ public class UserServiceImpl implements  UserService {
             user.setRole("ROLE_USER");
             return user;
         }
+    }
+
+
+    // maybe this will be deleted
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
     }
 }

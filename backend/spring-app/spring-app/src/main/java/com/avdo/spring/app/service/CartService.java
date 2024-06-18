@@ -13,17 +13,17 @@ import java.time.LocalDate;
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public CartService(CartRepository cartRepository, UserService userService) {
+    public CartService(CartRepository cartRepository, UserServiceImpl userService) {
         this.cartRepository = cartRepository;
         this.userService = userService;
     }
 
     // this will be hardcoded to find user "user"
     public void createCart() {
-        User user = userService.findById(10);
+        User user = userService.findById(10L); // cast to Long
         Cart cart = new Cart();
         cart.setUser(user);
         cart.setDateCreated(Date.valueOf(LocalDate.now()));
