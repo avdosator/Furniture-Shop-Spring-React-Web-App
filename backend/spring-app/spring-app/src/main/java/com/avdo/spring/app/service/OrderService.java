@@ -1,9 +1,7 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.dto.CreateOrderRequest;
-import com.avdo.spring.app.entity.Cart;
-import com.avdo.spring.app.entity.Order;
-import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,12 +16,14 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final CartService cartService;
+    private final OrderItemService orderItemService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, CartService cartService) {
+    public OrderService(OrderRepository orderRepository, CartService cartService, OrderItemService orderItemService) {
 
         this.orderRepository = orderRepository;
         this.cartService = cartService;
+        this.orderItemService = orderItemService;
     }
 
     public Order findById(Long id) {
@@ -45,6 +45,16 @@ public class OrderService {
         order.setDateCreated(Date.valueOf(LocalDate.now()));
 
         orderRepository.save(order);
+
+        for (CartItem cartItem : cart.getItems()) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            orderItem.setProduct(cartItem.getProduct());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setPrice(cartItem.getProduct().getPrice());
+
+            orderItemService.createOrderItem(orderItem);
+        }
     }
 
     private User extractUserFromToken() {
