@@ -38,14 +38,12 @@ public class OrderService {
         User user = extractUserFromToken();
         Cart cart = cartService.findByUserId(user.getId());
 
-        Order order = new Order();
-        order.setUser(user);
-        order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
-        order.setOrderStatus("Pending");
-        order.setDateCreated(Date.valueOf(LocalDate.now()));
+        Order order = createAndSaveOrder(user, cart);
 
-        orderRepository.save(order);
+        createOrderItems(cart, order);
+    }
 
+    private void createOrderItems(Cart cart, Order order) {
         for (CartItem cartItem : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
@@ -55,6 +53,17 @@ public class OrderService {
 
             orderItemService.createOrderItem(orderItem);
         }
+    }
+
+    private Order createAndSaveOrder(User user, Cart cart) {
+        Order order = new Order();
+        order.setUser(user);
+        order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
+        order.setOrderStatus("Pending");
+        order.setDateCreated(Date.valueOf(LocalDate.now()));
+
+        orderRepository.save(order);
+        return order;
     }
 
     private User extractUserFromToken() {
