@@ -19,9 +19,10 @@ public class CartController {
     }
 
     // create cart for user with password userpassword
+
     @PostMapping("/create-cart")
     public ResponseEntity<String> createCart() {
-        cartService.createCart();
+        cartService.createCart(10L);
         return ResponseEntity.ok("Successfully created cart for user \"user\"");
     }
 }
