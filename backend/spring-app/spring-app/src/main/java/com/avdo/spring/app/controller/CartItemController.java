@@ -45,7 +45,7 @@ public class CartItemController {
     }
 
     // create DTO for response
-    @GetMapping("/items")
+    @GetMapping("/cart-items")
     public ResponseEntity<List<CartItem>> findAllCartItems() {
         List<CartItem> cartItems = cartItemService.findAllCartItems();
         if (cartItems.isEmpty()) {
