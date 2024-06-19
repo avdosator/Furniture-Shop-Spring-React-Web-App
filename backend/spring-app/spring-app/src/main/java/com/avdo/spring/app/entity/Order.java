@@ -9,18 +9,18 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "\"order\"")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

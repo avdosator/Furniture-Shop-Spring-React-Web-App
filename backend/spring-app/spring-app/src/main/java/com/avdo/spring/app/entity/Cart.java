@@ -1,33 +1,31 @@
 package com.avdo.spring.app.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Date;
+import java.util.List;
+
 @Entity
-@Table(name = "order_item")
+@Table(name = "cart")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class OrderItem {
+public class Cart {
 
     @Id
-    @Column(name = "order_item_id")
+    @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "quantity")
-    private int quantity;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items;
 
-    @Column(name = "price")
-    private double price;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "date_created", updatable = false)
+    private Date dateCreated;
 }

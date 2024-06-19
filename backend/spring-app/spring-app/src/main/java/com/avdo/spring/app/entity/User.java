@@ -45,7 +45,7 @@ public class User implements UserDetails {
     @Column(name = "role")
     private String role;
 
-    // should I add List of orders field like this??
+    // should I add this -> cascade = CascadeType.ALL, orphanRemoval = true
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
