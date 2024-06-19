@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,7 +37,14 @@ public class OrderService {
     public Order createOrder(CreateOrderRequest createOrderRequest) {
         User user = extractUserFromToken();
         Cart cart = cartService.findByUserId(user.getId());
+
         Order order = new Order();
+        order.setUser(user);
+        order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
+        order.setOrderStatus("Pending");
+        order.setDateCreated(Date.valueOf(LocalDate.now()));
+
+        orderRepository.save(order);
     }
 
     private User extractUserFromToken() {
