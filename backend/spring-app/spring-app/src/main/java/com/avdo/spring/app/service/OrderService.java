@@ -39,11 +39,12 @@ public class OrderService {
         Cart cart = cartService.findByUserId(user.getId());
 
         Order order = createAndSaveOrder(user, cart);
+        createAndSaveOrderItems(cart, order);
 
-        createOrderItems(cart, order);
+        return order;
     }
 
-    private void createOrderItems(Cart cart, Order order) {
+    private void createAndSaveOrderItems(Cart cart, Order order) {
         for (CartItem cartItem : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
