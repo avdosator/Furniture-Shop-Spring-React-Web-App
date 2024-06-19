@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    
+
     @Transactional
     CartItem save(CartItem cartItem);
 }

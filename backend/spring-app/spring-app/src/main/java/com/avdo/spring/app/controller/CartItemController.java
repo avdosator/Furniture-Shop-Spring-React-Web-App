@@ -1,6 +1,7 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.dto.CreateCartItemRequest;
+import com.avdo.spring.app.entity.CartItem;
 import com.avdo.spring.app.service.CartItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,7 +25,6 @@ public class CartItemController {
         this.cartItemService = cartItemService;
     }
 
-    // create cart item with some product from database (testing)
     @PostMapping("/create-cart-item")
     public ResponseEntity<String> createCartItem(@Valid @RequestBody CreateCartItemRequest createCartItemRequest,
                                                 BindingResult result) {
@@ -45,5 +42,10 @@ public class CartItemController {
                 return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Failed to create cart item " + e.getMessage());
             }
         }
+    }
+
+    @GetMapping("/cart-items")
+    public ResponseEntity<List<CartItem>> findAllCartItems() {
+        List<CartItem> cartItems = cartItemService.findAllCartItems();
     }
 }
