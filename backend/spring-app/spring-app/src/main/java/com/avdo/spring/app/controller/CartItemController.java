@@ -47,5 +47,10 @@ public class CartItemController {
     @GetMapping("/cart-items")
     public ResponseEntity<List<CartItem>> findAllCartItems() {
         List<CartItem> cartItems = cartItemService.findAllCartItems();
+        if (cartItems.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(cartItems);
+        }
     }
 }

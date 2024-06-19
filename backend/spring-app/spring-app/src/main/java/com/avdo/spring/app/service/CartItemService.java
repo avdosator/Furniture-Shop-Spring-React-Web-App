@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -28,6 +29,10 @@ public class CartItemService {
         this.cartItemRepository = cartItemRepository;
         this.cartService = cartService;
         this.productService = productService;
+    }
+
+    public List<CartItem> findAllCartItems() {
+        return cartItemRepository.findAll();
     }
 
     public void createCartItem(CreateCartItemRequest createCartItemRequest) {
