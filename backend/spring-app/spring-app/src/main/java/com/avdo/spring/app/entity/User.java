@@ -46,7 +46,7 @@ public class User implements UserDetails {
     private String role;
 
     // should I add this -> cascade = CascadeType.ALL, orphanRemoval = true
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @Override

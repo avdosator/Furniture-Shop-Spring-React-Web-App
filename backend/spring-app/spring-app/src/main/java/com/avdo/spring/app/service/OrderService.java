@@ -6,6 +6,7 @@ import com.avdo.spring.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -34,12 +35,16 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
         User user = extractUserFromToken();
         Cart cart = cartService.findByUserId(user.getId());
 
         Order order = createAndSaveOrder(user, cart);
         createAndSaveOrderItems(cart, order);
+        // call this getter to resolve HttpMessageNotWritableException: Could not write JSON: Order.orderItems
+        // doesn't work
+        //order.getOrderItems();
 
         return order;
     }
