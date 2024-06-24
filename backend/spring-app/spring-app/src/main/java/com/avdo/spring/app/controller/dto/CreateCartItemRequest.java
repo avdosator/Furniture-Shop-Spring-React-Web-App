@@ -15,4 +15,6 @@ public class CreateCartItemRequest {
     @Min(1)
     private int quantity;
 
+    private Long cartId;
+
 }
