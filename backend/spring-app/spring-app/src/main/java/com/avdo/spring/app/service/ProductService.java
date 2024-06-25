@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.dto.CreateProductRequest;
+import com.avdo.spring.app.controller.dto.CreateProductRequest;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.repository.CategoryRepository;
@@ -23,17 +23,16 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
 
-    public void createProduct(CreateProductRequest createProductRequest) {
+    public Product createProduct(CreateProductRequest createProductRequest) {
         Category category = categoryRepository
                 .findCategoryByName(createProductRequest.getCategory())
                 .orElseThrow(() -> new RuntimeException("Choose valid category!"));
-        Product product = new ProductMapper().mapToProduct(createProductRequest, category);
-        productRepository.save(product);
+        Product product = ProductMapper.mapToProduct(createProductRequest, category);
+        return productRepository.save(product);
     }
 
     public List<Product> findAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products;
+        return productRepository.findAll();
     }
 
     public Product findById(Long id) {
@@ -41,13 +40,12 @@ public class ProductService {
     }
 
     public List<Product> findSameCategoryProducts(String category) {
-        List<Product> products = productRepository.findByCategory_Name(category);
-        return products;
+        return productRepository.findByCategory_Name(category);
     }
 
-    private class ProductMapper {
+    private static class ProductMapper {
 
-        private Product mapToProduct(CreateProductRequest createProductRequest, Category category) {
+        private static Product mapToProduct(CreateProductRequest createProductRequest, Category category) {
             Product product = new Product();
             product.setName(createProductRequest.getName());
             product.setPrice(createProductRequest.getPrice());

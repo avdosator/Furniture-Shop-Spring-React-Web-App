@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.dto.CreateCartItemRequest;
+import com.avdo.spring.app.controller.dto.CreateCartItemRequest;
 import com.avdo.spring.app.entity.Cart;
 import com.avdo.spring.app.entity.CartItem;
 import com.avdo.spring.app.entity.Product;
@@ -35,7 +35,7 @@ public class CartItemService {
         return cartItemRepository.findAll();
     }
 
-    public void createCartItem(CreateCartItemRequest createCartItemRequest) {
+    public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
         User user = extractUserFromToken();
         CartItem cartItem = new CartItem();
         Cart cart;
@@ -48,7 +48,7 @@ public class CartItemService {
         cartItem.setProduct(product);
         cartItem.setQuantity(1);
         cartItem.setDateCreated(Date.valueOf(LocalDate.now()));
-        cartItemRepository.save(cartItem);
+        return cartItemRepository.save(cartItem);
     }
 
     private Product getProduct(CreateCartItemRequest createCartItemRequest) {
@@ -69,8 +69,7 @@ public class CartItemService {
                 cart = cartService.createCart(user.getId());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            throw new RuntimeException(e);
         }
         return cart;
     }

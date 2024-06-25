@@ -22,7 +22,6 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    // we don't need bidirectional relationship with Product class? Don't need field of type CartItem there?
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -30,6 +29,6 @@ public class CartItem {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "date_created")
+    @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 }

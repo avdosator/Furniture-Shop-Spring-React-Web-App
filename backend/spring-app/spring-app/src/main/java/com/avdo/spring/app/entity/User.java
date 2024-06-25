@@ -39,14 +39,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "date_created")
+    @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
     @Column(name = "role")
     private String role;
 
     // should I add this -> cascade = CascadeType.ALL, orphanRemoval = true
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @Override

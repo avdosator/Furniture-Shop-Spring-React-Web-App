@@ -1,7 +1,7 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.dto.CreateUserRequest;
-import com.avdo.spring.app.dto.LoginUserRequest;
+import com.avdo.spring.app.controller.dto.CreateUserRequest;
+import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements  UserService {
@@ -34,9 +33,9 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public void createUser(CreateUserRequest createUserRequest) {
+    public User createUser(CreateUserRequest createUserRequest) {
         User user = new UserMapper().mapToUser(createUserRequest);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -63,8 +62,6 @@ public class UserServiceImpl implements  UserService {
         }
     }
 
-
-    // maybe this will be deleted
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
     }
