@@ -39,7 +39,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "date_created")
+    @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
     @Column(name = "role")

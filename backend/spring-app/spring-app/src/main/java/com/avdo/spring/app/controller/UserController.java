@@ -1,7 +1,7 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.dto.CreateUserRequest;
-import com.avdo.spring.app.dto.LoginUserRequest;
+import com.avdo.spring.app.controller.dto.CreateUserRequest;
+import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 
 
@@ -27,25 +26,24 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, JwtService jwtService) {
-
         this.userService = userService;
         this.jwtService = jwtService;
     }
 
     // endpoint for creating user
     @PostMapping("/users")
-    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
         if (result.hasErrors()) {
             // If there are validation errors, construct a custom error response
             List<String> errors = result.getAllErrors()
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
-            return ResponseEntity.badRequest().body(errors);
+                    .toList();
+            throw new RuntimeException(errors.toString());
         } else {
             // If data is valid, proceed with user creation
-            userService.createUser(createUserRequest);
-            return ResponseEntity.ok().build();
+            User user = userService.createUser(createUserRequest);
+            return ResponseEntity.ok(user);
         }
     }
 

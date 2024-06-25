@@ -52,5 +52,5 @@ public class CartItemController {
             return ResponseEntity.ok(cartItems);
         }
     }
-    
+
 }

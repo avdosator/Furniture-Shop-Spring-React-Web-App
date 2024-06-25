@@ -69,8 +69,7 @@ public class CartItemService {
                 cart = cartService.createCart(user.getId());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            throw new RuntimeException(e);
         }
         return cart;
     }

@@ -1,12 +1,11 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.dto.CreateProductRequest;
+import com.avdo.spring.app.controller.dto.CreateProductRequest;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/database")
+@RequestMapping("/api")
 public class ProductController {
 
     private final ProductService productService;
@@ -26,17 +25,17 @@ public class ProductController {
 
     // endpoint for creating a product
     @PostMapping("/products")
-    public ResponseEntity<String> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest,
-                                                BindingResult result) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest,
+                                                 BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
-            return ResponseEntity.badRequest().body(errors.toString());
+            throw new RuntimeException(errors.toString());
         } else {
-            productService.createProduct(createProductRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created product!");
+            Product product = productService.createProduct(createProductRequest);
+            return ResponseEntity.ok(product);
         }
     }
 
@@ -44,10 +43,10 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.findAllProducts();
-        if (!products.isEmpty()) {
-            return ResponseEntity.ok(products);
+        if (products.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(products);
     }
 
     // endpoint for fetching product by id
@@ -62,11 +61,11 @@ public class ProductController {
 
     // endpoint for fetching products from given category
     @GetMapping("/products/category/{category}")
-    public  ResponseEntity<List<Product>> getSameCategoryProducts(@PathVariable String category) {
+    public ResponseEntity<List<Product>> getSameCategoryProducts(@PathVariable String category) {
         List<Product> products = productService.findSameCategoryProducts(category);
-        if (!products.isEmpty()) {
-            return ResponseEntity.ok(products);
+        if (products.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(products);
     }
 }

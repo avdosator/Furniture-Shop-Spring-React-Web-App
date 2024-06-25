@@ -21,14 +21,12 @@ public class CartService {
         this.userService = userService;
     }
 
-    // this will be hardcoded to find user "user"
     public Cart createCart(Long id) {
-        User user = userService.findById(id); // cast to Long
+        User user = userService.findById(id);
         Cart cart = new Cart();
         cart.setUser(user);
         cart.setDateCreated(Date.valueOf(LocalDate.now()));
-        cartRepository.save(cart);
-        return cart;
+        return cartRepository.save(cart);
     }
 
     public Cart findByUserId(Long id) {

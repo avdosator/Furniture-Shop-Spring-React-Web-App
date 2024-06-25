@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.dto.CreateCategoryRequest;
+import com.avdo.spring.app.controller.dto.CreateCategoryRequest;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.service.CategoryService;
 import jakarta.validation.Valid;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/database")
+@RequestMapping("/api")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -26,7 +26,7 @@ public class CategoryController {
 
     // endpoint for creating category (created for testing)
     @PostMapping("/categories")
-    public ResponseEntity<String> createCategory(
+    public ResponseEntity<Category> createCategory(
             @Valid @RequestBody CreateCategoryRequest createCategoryRequest,
             BindingResult result) {
 
@@ -35,11 +35,10 @@ public class CategoryController {
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
-            return ResponseEntity.badRequest().body(errors.toString());
+            throw new RuntimeException(errors.toString());
         } else {
-            categoryService.createCategory(createCategoryRequest);
-            String successMessage = "Successfully created category " + createCategoryRequest.getName();
-            return ResponseEntity.status(HttpStatus.CREATED).body(successMessage);
+            Category category = categoryService.createCategory(createCategoryRequest);
+            return ResponseEntity.ok(category);
         }
     }
 
@@ -47,6 +46,9 @@ public class CategoryController {
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> findAllCategories() {
         List<Category> categories = categoryService.findAllCategories();
+        if (categories.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(categories);
     }
 
@@ -54,9 +56,10 @@ public class CategoryController {
     @GetMapping("/categories/{name}")
     public ResponseEntity<Category> findCategoryByName(@PathVariable String name) {
         Category category = categoryService.findCategoryByName(name);
-        if (category != null) {
-            return ResponseEntity.ok(category);
+        if (category == null) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(category);
     }
+
 }

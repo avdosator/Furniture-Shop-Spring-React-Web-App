@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.dto.CreateOrderRequest;
+import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.Order;
 import com.avdo.spring.app.service.OrderService;
 import jakarta.validation.Valid;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/database")
+@RequestMapping("/api")
 public class OrderController {
 
     private final OrderService orderService;
@@ -22,9 +22,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public ResponseEntity<Order> createOrder(@Valid @RequestBody CreateOrderRequest createOrderRequest) {
         Order order = orderService.createOrder(createOrderRequest);
         return ResponseEntity.ok(order);
     }
+
 }

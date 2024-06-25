@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.dto.CreateOrderRequest;
+import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +38,18 @@ public class OrderService {
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
         User user = extractUserFromToken();
-        Cart cart = cartService.findByUserId(user.getId());
-
-        Order order = createAndSaveOrder(user, cart);
-        createAndSaveOrderItems(cart, order);
-        // call this getter to resolve HttpMessageNotWritableException: Could not write JSON: Order.orderItems
-        // doesn't work
-        //order.getOrderItems();
-
-        return order;
+        Cart cart;
+        cart = cartService.findByUserId(user.getId());
+        if (cart != null) {
+            Order order = createAndSaveOrder(user, cart);
+            createAndSaveOrderItems(cart, order);
+            return order;
+        } else {
+            cart = cartService.createCart(user.getId());
+            Order order = createAndSaveOrder(user, cart);
+            createAndSaveOrderItems(cart, order);
+            return order;
+        }
     }
 
     private void createAndSaveOrderItems(Cart cart, Order order) {
