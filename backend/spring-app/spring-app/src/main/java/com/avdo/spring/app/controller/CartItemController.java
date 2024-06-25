@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.dto.CreateCartItemRequest;
+import com.avdo.spring.app.controller.dto.CreateCartItemRequest;
 import com.avdo.spring.app.entity.CartItem;
 import com.avdo.spring.app.service.CartItemService;
 import jakarta.validation.Valid;

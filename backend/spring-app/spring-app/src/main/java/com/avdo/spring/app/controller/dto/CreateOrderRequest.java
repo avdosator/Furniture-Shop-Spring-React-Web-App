@@ -1,4 +1,4 @@
-package com.avdo.spring.app.dto;
+package com.avdo.spring.app.controller.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
