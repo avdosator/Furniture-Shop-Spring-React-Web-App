@@ -1,14 +1,13 @@
 package com.avdo.spring.app.service.domain.request;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Getter
 public class CreateCartItemRequest {
 
-    @NotNull
-    @Min(1)
-    private Long productId;
+    protected Long productId;
 
-    @Min(1)
-    private int quantity;
+    protected int quantity;
 }
