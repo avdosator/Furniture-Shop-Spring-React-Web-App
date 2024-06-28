@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateCartItemRequest;
+import com.avdo.spring.app.controller.dto.CreateCartItemDto;
 import com.avdo.spring.app.entity.CartItem;
 import com.avdo.spring.app.service.CartItemService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class CartItemController {
     }
 
     @PostMapping("/cart-items")
-    public ResponseEntity<CartItem> createCartItem(@Valid @RequestBody CreateCartItemRequest createCartItemRequest,
+    public ResponseEntity<CartItem> createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
                                                 BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
@@ -35,7 +35,7 @@ public class CartItemController {
             throw new RuntimeException(errors.toString());
         } else {
             try {
-                CartItem cartItem = cartItemService.createCartItem(createCartItemRequest);
+                CartItem cartItem = cartItemService.createCartItem(createCartItemDto);
                 return ResponseEntity.ok(cartItem);
             } catch (NoSuchElementException e) {
                 throw new RuntimeException("Failed to create cart item " + e.getMessage());

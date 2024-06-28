@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.controller.dto.CreateCartItemRequest;
+import com.avdo.spring.app.controller.dto.CreateCartItemDto;
 import com.avdo.spring.app.entity.Cart;
 import com.avdo.spring.app.entity.CartItem;
 import com.avdo.spring.app.entity.Product;
@@ -35,14 +35,14 @@ public class CartItemService {
         return cartItemRepository.findAll();
     }
 
-    public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
+    public CartItem createCartItem(CreateCartItemDto createCartItemDto) {
         User user = extractUserFromToken();
         CartItem cartItem = new CartItem();
         Cart cart;
         Product product;
 
         cart = createOrFindCart(user);
-        product = getProduct(createCartItemRequest);
+        product = getProduct(createCartItemDto);
 
         cartItem.setCart(cart);
         cartItem.setProduct(product);
@@ -51,12 +51,12 @@ public class CartItemService {
         return cartItemRepository.save(cartItem);
     }
 
-    private Product getProduct(CreateCartItemRequest createCartItemRequest) {
+    private Product getProduct(CreateCartItemDto createCartItemDto) {
         Product product;
         try {
-            product = productService.findById(createCartItemRequest.getProductId());
+            product = productService.findById(createCartItemDto.getProductId());
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("Product not found: " + createCartItemRequest.getProductId(), e);
+            throw new NoSuchElementException("Product not found: " + createCartItemDto.getProductId(), e);
         }
         return product;
     }

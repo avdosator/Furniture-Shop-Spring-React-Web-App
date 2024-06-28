@@ -1,11 +1,8 @@
-package com.avdo.spring.app.controller.dto;
+package com.avdo.spring.app.service.domain.request;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
-@Data
 public class CreateCartItemRequest {
 
     @NotNull
@@ -14,5 +11,4 @@ public class CreateCartItemRequest {
 
     @Min(1)
     private int quantity;
-
 }
