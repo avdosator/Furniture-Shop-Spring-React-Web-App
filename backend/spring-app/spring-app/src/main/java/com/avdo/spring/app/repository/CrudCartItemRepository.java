@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItemEntity, Long> {
+public interface CrudCartItemRepository extends JpaRepository<CartItemEntity, Long> {
 
     @Transactional
     CartItemEntity save(CartItemEntity cartItemEntity);

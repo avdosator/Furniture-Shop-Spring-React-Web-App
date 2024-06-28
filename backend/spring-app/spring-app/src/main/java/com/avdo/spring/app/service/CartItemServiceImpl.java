@@ -1,11 +1,10 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.controller.dto.CreateCartItemDto;
 import com.avdo.spring.app.entity.Cart;
 import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.entity.Product;
-import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.repository.impl.CartItemRepository;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,7 +49,7 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemEntity.setProduct(product);
         cartItemEntity.setQuantity(1);
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        return cartItemRepository.save(cartItemEntity);
+        return cartItemRepository.saveCartItem(createCartItemRequest);
     }
 
     private Product getProduct(CreateCartItemRequest createCartItemRequest) {
