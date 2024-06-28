@@ -1,7 +1,7 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateCartItemDto;
-import com.avdo.spring.app.entity.CartItem;
+import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.service.CartItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class CartItemController {
     }
 
     @PostMapping("/cart-items")
-    public ResponseEntity<CartItem> createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
-                                                BindingResult result) {
+    public ResponseEntity<CartItemEntity> createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
+                                                         BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
@@ -35,8 +35,8 @@ public class CartItemController {
             throw new RuntimeException(errors.toString());
         } else {
             try {
-                CartItem cartItem = cartItemService.createCartItem(createCartItemDto);
-                return ResponseEntity.ok(cartItem);
+                CartItemEntity cartItemEntity = cartItemService.createCartItem(createCartItemDto);
+                return ResponseEntity.ok(cartItemEntity);
             } catch (NoSuchElementException e) {
                 throw new RuntimeException("Failed to create cart item " + e.getMessage());
             }
@@ -44,12 +44,12 @@ public class CartItemController {
     }
 
     @GetMapping("/cart-items")
-    public ResponseEntity<List<CartItem>> findAllCartItems() {
-        List<CartItem> cartItems = cartItemService.findAllCartItems();
-        if (cartItems.isEmpty()) {
+    public ResponseEntity<List<CartItemEntity>> findAllCartItems() {
+        List<CartItemEntity> cartItemEntities = cartItemService.findAllCartItems();
+        if (cartItemEntities.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(cartItems);
+            return ResponseEntity.ok(cartItemEntities);
         }
     }
 

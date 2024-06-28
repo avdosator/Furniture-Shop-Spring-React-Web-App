@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "cart_item")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CartItem {
+public class CartItemEntity {
 
     @Id
     @Column(name = "cart_item_id")

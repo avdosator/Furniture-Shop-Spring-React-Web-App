@@ -24,7 +24,7 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> items;
+    private List<CartItemEntity> items;
 
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;

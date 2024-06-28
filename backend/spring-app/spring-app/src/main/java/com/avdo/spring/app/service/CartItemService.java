@@ -2,7 +2,7 @@ package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.controller.dto.CreateCartItemDto;
 import com.avdo.spring.app.entity.Cart;
-import com.avdo.spring.app.entity.CartItem;
+import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.entity.User;
@@ -31,24 +31,24 @@ public class CartItemService {
         this.productService = productService;
     }
 
-    public List<CartItem> findAllCartItems() {
+    public List<CartItemEntity> findAllCartItems() {
         return cartItemRepository.findAll();
     }
 
-    public CartItem createCartItem(CreateCartItemDto createCartItemDto) {
+    public CartItemEntity createCartItem(CreateCartItemDto createCartItemDto) {
         User user = extractUserFromToken();
-        CartItem cartItem = new CartItem();
+        CartItemEntity cartItemEntity = new CartItemEntity();
         Cart cart;
         Product product;
 
         cart = createOrFindCart(user);
         product = getProduct(createCartItemDto);
 
-        cartItem.setCart(cart);
-        cartItem.setProduct(product);
-        cartItem.setQuantity(1);
-        cartItem.setDateCreated(Date.valueOf(LocalDate.now()));
-        return cartItemRepository.save(cartItem);
+        cartItemEntity.setCart(cart);
+        cartItemEntity.setProduct(product);
+        cartItemEntity.setQuantity(1);
+        cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
+        return cartItemRepository.save(cartItemEntity);
     }
 
     private Product getProduct(CreateCartItemDto createCartItemDto) {
