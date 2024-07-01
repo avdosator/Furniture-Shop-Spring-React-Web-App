@@ -32,8 +32,8 @@ public class CartItemServiceImpl implements CartItemService {
         this.productService = productService;
     }
 
-    public List<CartItemEntity> findAllCartItems() {
-        return cartItemRepository.findAll();
+    public List<CartItem> findAllCartItems() {
+        return cartItemRepository.findAllCartItems();
     }
 
     @Override

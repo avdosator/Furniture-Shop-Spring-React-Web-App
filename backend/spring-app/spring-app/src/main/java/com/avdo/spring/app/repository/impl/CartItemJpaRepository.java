@@ -3,7 +3,11 @@ package com.avdo.spring.app.repository.impl;
 import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.repository.CrudCartItemRepository;
 import com.avdo.spring.app.service.domain.model.CartItem;
+import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartItemJpaRepository implements CartItemRepository {
 
@@ -16,7 +20,17 @@ public class CartItemJpaRepository implements CartItemRepository {
 
     @Override
     public CartItem saveCartItem(CartItemEntity cartItemEntity) {
-        CartItemEntity savedEntity =  cartItemRepository.save(cartItemEntity);
+        CartItemEntity savedEntity = cartItemRepository.save(cartItemEntity);
         return savedEntity.toDomainModel();
+    }
+
+    @Override
+    public List<CartItem> findAllCartItems() {
+        List<CartItemEntity> cartItemEntities = cartItemRepository.findAll();
+        List<CartItem> cartItemModels = new ArrayList<>();
+        for (CartItemEntity entity : cartItemEntities) {
+            cartItemModels.add(entity.toDomainModel());
+        }
+        return cartItemModels;
     }
 }

@@ -46,12 +46,12 @@ public class CartItemController {
     }
 
     @GetMapping("/cart-items")
-    public ResponseEntity<List<CartItemEntity>> findAllCartItems() {
-        List<CartItemEntity> cartItemEntities = cartItemService.findAllCartItems();
-        if (cartItemEntities.isEmpty()) {
+    public ResponseEntity<List<CartItem>> findAllCartItems() {
+        List<CartItem> cartItems = cartItemService.findAllCartItems();
+        if (cartItems.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(cartItemEntities);
+            return ResponseEntity.ok(cartItems);
         }
     }
 
