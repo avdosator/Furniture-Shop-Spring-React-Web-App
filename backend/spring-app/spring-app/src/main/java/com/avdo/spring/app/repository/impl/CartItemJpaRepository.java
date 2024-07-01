@@ -2,9 +2,7 @@ package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.repository.CrudCartItemRepository;
-import com.avdo.spring.app.repository.impl.CartItemRepository;
 import com.avdo.spring.app.service.domain.model.CartItem;
-import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CartItemJpaRepository implements CartItemRepository {
@@ -17,7 +15,8 @@ public class CartItemJpaRepository implements CartItemRepository {
     }
 
     @Override
-    public CartItem saveCartItem(CreateCartItemRequest request) {
-        CartItemEntity cartItemEntity = new CartItemEntity();
+    public CartItem saveCartItem(CartItemEntity cartItemEntity) {
+        CartItemEntity savedEntity =  cartItemRepository.save(cartItemEntity);
+        return savedEntity.toDomainModel();
     }
 }

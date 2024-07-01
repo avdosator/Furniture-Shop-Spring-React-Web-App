@@ -5,6 +5,7 @@ import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.impl.CartItemRepository;
+import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +37,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItemEntity createCartItem(CreateCartItemRequest createCartItemRequest) {
+    public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
         User user = extractUserFromToken();
         CartItemEntity cartItemEntity = new CartItemEntity();
         Cart cart;
@@ -49,7 +50,7 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemEntity.setProduct(product);
         cartItemEntity.setQuantity(1);
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        return cartItemRepository.saveCartItem(createCartItemRequest);
+        return cartItemRepository.saveCartItem(cartItemEntity);
     }
 
     private Product getProduct(CreateCartItemRequest createCartItemRequest) {
