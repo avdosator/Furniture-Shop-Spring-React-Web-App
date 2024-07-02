@@ -38,29 +38,22 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
-        User user = extractUserFromToken();
-        CartItemEntity cartItemEntity = new CartItemEntity();
-        Cart cart;
-        Product product;
-
-        cart = createOrFindCart(user);
-        product = getProduct(createCartItemRequest);
-
-        cartItemEntity.setCart(cart);
-        cartItemEntity.setProduct(product);
-        cartItemEntity.setQuantity(1);
-        cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        return cartItemRepository.saveCartItem(cartItemEntity);
+        CartItem savedCartItem = cartItemRepository.saveCartItem(createCartItemRequest);
+        System.out.println("Saved cart item: " + savedCartItem);
+        return savedCartItem;
     }
 
     private Product getProduct(CreateCartItemRequest createCartItemRequest) {
         Product product;
         try {
             product = productService.findById(createCartItemRequest.getProductId());
+            System.out.println("Found product: " + product);
+        return product;
         } catch (NoSuchElementException e) {
+            System.out.println("Product not found: " + e.getMessage());
+
             throw new NoSuchElementException("Product not found: " + createCartItemRequest.getProductId(), e);
         }
-        return product;
     }
 
     private Cart createOrFindCart(User user) {
@@ -69,8 +62,12 @@ public class CartItemServiceImpl implements CartItemService {
             cart = cartService.findByUserId(user.getId());
             if (cart == null) {
                 cart = cartService.createCart(user.getId());
+                System.out.println("Created new cart: " + cart);
+            }else {
+                System.out.println("Found existing cart: " + cart);
             }
         } catch (Exception e) {
+            System.out.println("Error finding/creating cart: " + e.getMessage());
             throw new RuntimeException(e);
         }
         return cart;

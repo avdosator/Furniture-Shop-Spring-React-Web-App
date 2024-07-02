@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CartItemRepository {
 
-    CartItem saveCartItem(CartItemEntity cartItemEntity);
+    CartItem saveCartItem(CreateCartItemRequest createCartItemRequest);
     List<CartItem> findAllCartItems();
 }

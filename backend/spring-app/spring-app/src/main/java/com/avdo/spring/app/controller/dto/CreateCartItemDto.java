@@ -8,13 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class CreateCartItemDto extends CreateCartItemRequest {
 
-    //@NotNull
-    //@Min(1)
-    //private Long productId;
-
-    //@Min(1)
-    //private int quantity;
-
     @JsonCreator
     public CreateCartItemDto(
             @JsonProperty("productId") Long productId,
