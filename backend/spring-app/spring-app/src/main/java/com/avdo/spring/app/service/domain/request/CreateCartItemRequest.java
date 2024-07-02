@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CreateCartItemRequest {
 
-    protected Long productId;
+    protected final Long productId;
 
-    protected int quantity;
+    protected final int quantity;
 }

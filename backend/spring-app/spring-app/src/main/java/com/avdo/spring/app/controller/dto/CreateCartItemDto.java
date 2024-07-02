@@ -14,15 +14,16 @@ public class CreateCartItemDto extends CreateCartItemRequest {
             @JsonProperty("quantity") int quantity) {
         super(productId, quantity);
     }
-
+    @NotNull
+    @Min(1)
     @Override
-    public void setProductId(@NotNull @Min(1) Long productId) {
-        super.setProductId(productId);
+    public Long getProductId() {
+        return productId;
     }
-
+    @Min(1)
     @Override
-    public void setQuantity(@Min(1) int quantity) {
-        super.setQuantity(quantity);
+    public int getQuantity() {
+        return quantity;
     }
 
 }

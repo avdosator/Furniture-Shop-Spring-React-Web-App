@@ -1,14 +1,11 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateCartItemDto;
-import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.service.CartItemService;
-import com.avdo.spring.app.service.CartItemServiceImpl;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

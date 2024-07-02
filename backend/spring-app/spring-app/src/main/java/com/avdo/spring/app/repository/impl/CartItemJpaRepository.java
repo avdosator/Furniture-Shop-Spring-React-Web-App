@@ -1,8 +1,6 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.entity.Cart;
 import com.avdo.spring.app.entity.CartItemEntity;
-import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.CrudCartItemRepository;
@@ -45,7 +43,6 @@ public class CartItemJpaRepository implements CartItemRepository {
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
         CartItemEntity savedCartItemEntity = crudCartItemRepository.save(cartItemEntity);
-        System.out.println("Saved cart item: " + savedCartItemEntity);
 
         return savedCartItemEntity.toDomainModel();
     }

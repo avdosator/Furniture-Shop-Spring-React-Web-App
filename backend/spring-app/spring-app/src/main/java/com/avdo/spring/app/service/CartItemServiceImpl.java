@@ -1,20 +1,12 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.entity.Cart;
-import com.avdo.spring.app.entity.CartItemEntity;
-import com.avdo.spring.app.entity.Product;
-import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.repository.impl.CartItemRepository;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
@@ -38,42 +30,6 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
-        CartItem savedCartItem = cartItemRepository.saveCartItem(createCartItemRequest);
-        System.out.println("Saved cart item: " + savedCartItem);
-        return savedCartItem;
-    }
-
-    private Product getProduct(CreateCartItemRequest createCartItemRequest) {
-        Product product;
-        try {
-            product = productService.findById(createCartItemRequest.getProductId());
-            System.out.println("Found product: " + product);
-        return product;
-        } catch (NoSuchElementException e) {
-            System.out.println("Product not found: " + e.getMessage());
-
-            throw new NoSuchElementException("Product not found: " + createCartItemRequest.getProductId(), e);
-        }
-    }
-
-    private Cart createOrFindCart(User user) {
-        Cart cart;
-        try {
-            cart = cartService.findByUserId(user.getId());
-            if (cart == null) {
-                cart = cartService.createCart(user.getId());
-                System.out.println("Created new cart: " + cart);
-            }else {
-                System.out.println("Found existing cart: " + cart);
-            }
-        } catch (Exception e) {
-            System.out.println("Error finding/creating cart: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-        return cart;
-    }
-
-    private User extractUserFromToken() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return cartItemRepository.saveCartItem(createCartItemRequest);
     }
 }
