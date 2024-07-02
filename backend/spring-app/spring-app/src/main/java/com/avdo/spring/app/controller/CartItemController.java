@@ -27,7 +27,7 @@ public class CartItemController {
     }
 
     @PostMapping("/cart-items")
-    public ResponseEntity<CartItem> createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
+    public CartItem createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
                                                          BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
@@ -37,8 +37,7 @@ public class CartItemController {
             throw new RuntimeException(errors.toString());
         } else {
             try {
-                CartItem cartItem = cartItemService.createCartItem(createCartItemDto);
-                return ResponseEntity.ok(cartItem);
+                return cartItemService.createCartItem(createCartItemDto);
             } catch (NoSuchElementException e) {
                 throw new RuntimeException("Failed to create cart item " + e.getMessage());
             }
@@ -46,13 +45,8 @@ public class CartItemController {
     }
 
     @GetMapping("/cart-items")
-    public ResponseEntity<List<CartItem>> findAllCartItems() {
-        List<CartItem> cartItems = cartItemService.findAllCartItems();
-        if (cartItems.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(cartItems);
-        }
+    public List<CartItem> findAllCartItems() {
+        return cartItemService.findAllCartItems();
     }
 
 }
