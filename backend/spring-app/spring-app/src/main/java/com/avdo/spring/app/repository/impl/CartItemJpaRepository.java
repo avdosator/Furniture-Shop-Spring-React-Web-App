@@ -20,11 +20,11 @@ import java.util.List;
 @Repository
 public class CartItemJpaRepository implements CartItemRepository {
 
-    @Autowired
     private final CrudCartItemRepository crudCartItemRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
 
+    @Autowired
     public CartItemJpaRepository(CrudCartItemRepository crudCartItemRepository,
                                  ProductRepository productRepository,
                                  CartRepository cartRepository) {
