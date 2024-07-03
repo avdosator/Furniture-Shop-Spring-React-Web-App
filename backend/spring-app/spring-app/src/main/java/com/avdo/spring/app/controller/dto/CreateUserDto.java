@@ -1,28 +1,55 @@
 package com.avdo.spring.app.controller.dto;
 
+import com.avdo.spring.app.service.domain.request.CreateUserRequest;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
-public class CreateUserDto {
+public class CreateUserDto extends CreateUserRequest {
+
+    @JsonCreator
+    public CreateUserDto(
+            @JsonProperty("firstname") String firstname,
+            @JsonProperty("lastname") String lastname,
+            @JsonProperty("username") String username,
+            @JsonProperty("email") String email,
+            @JsonProperty("password") String password
+    ) {
+        super(firstname, lastname, username, email, password);
+    }
 
     @NotBlank
-    private String firstname;
+    @Override
+    public String getFirstname() {
+        return firstname;
+    }
 
     @NotBlank
-    private String lastname;
+    @Override
+    public String getLastname() {
+        return lastname;
+    }
 
     @NotBlank
-    private String username;
+    @Override
+    public String getUsername() {
+        return username;
+    }
 
     @Email
     @NotBlank
-    private String email;
+    @Override
+    public String getEmail() {
+        return email;
+    }
 
     @NotBlank
     @Size(min = 8, max = 20)
-    private String password;
-
+    @Override
+    public  String getPassword() {
+        return password;
+    }
 }
