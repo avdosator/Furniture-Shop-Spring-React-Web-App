@@ -3,8 +3,11 @@ package com.avdo.spring.app.service.impl;
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.UserEntity;
+import com.avdo.spring.app.repository.UserRepository;
 import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import com.avdo.spring.app.service.UserService;
+import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,26 +20,26 @@ import java.time.LocalDate;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final CrudUserRepository crudUserRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
 
     @Autowired
     public UserServiceImpl(
-            CrudUserRepository crudUserRepository,
+            UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager
     ) {
-        this.crudUserRepository = crudUserRepository;
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public UserEntity createUser(CreateUserDto createUserDto) {
+    public User createUser(CreateUserRequest createUserRequest) {
         UserEntity userEntity = new UserMapper().mapToUser(createUserDto);
-        return crudUserRepository.save(userEntity);
+        return userRepository.saveUser(createUserRequest);
     }
 
     @Override
