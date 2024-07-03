@@ -26,20 +26,16 @@ public class CartItemController {
     @PostMapping("/cart-items")
     public CartItem createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
                                                          BindingResult result) {
-        System.out.println("Received request to create cart item: " + createCartItemDto);
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
-            System.out.println("Validation errors: " + errors);
             throw new RuntimeException(errors.toString());
         } else {
             try {
-                System.out.println("Successfully created cart item: ");
                 return cartItemService.createCartItem(createCartItemDto);
             } catch (NoSuchElementException e) {
-                System.out.println("Failed to create cart item: " + e.getMessage());
                 throw new RuntimeException("Failed to create cart item " + e.getMessage());
             }
         }

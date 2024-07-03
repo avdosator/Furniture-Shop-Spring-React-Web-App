@@ -12,16 +12,10 @@ import java.util.List;
 public class CartItemServiceImpl implements CartItemService {
 
     private final CartItemRepository cartItemRepository;
-    private final CartService cartService;
-    private final ProductService productService;
 
     @Autowired
-    public CartItemServiceImpl(CartItemRepository cartItemRepository,
-                               CartService cartService,
-                               ProductService productService) {
+    public CartItemServiceImpl(CartItemRepository cartItemRepository) {
         this.cartItemRepository = cartItemRepository;
-        this.cartService = cartService;
-        this.productService = productService;
     }
 
     public List<CartItem> findAllCartItems() {

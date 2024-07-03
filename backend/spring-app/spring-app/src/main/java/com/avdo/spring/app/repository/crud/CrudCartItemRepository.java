@@ -1,8 +1,7 @@
-package com.avdo.spring.app.repository;
+package com.avdo.spring.app.repository.crud;
 
 import com.avdo.spring.app.entity.CartItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
