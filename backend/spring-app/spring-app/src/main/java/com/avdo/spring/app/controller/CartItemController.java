@@ -1,12 +1,11 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateCartItemRequest;
-import com.avdo.spring.app.entity.CartItem;
+import com.avdo.spring.app.controller.dto.CreateCartItemDto;
 import com.avdo.spring.app.service.CartItemService;
+import com.avdo.spring.app.service.domain.model.CartItem;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +24,8 @@ public class CartItemController {
     }
 
     @PostMapping("/cart-items")
-    public ResponseEntity<CartItem> createCartItem(@Valid @RequestBody CreateCartItemRequest createCartItemRequest,
-                                                BindingResult result) {
+    public CartItem createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
+                                                         BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
@@ -35,8 +34,7 @@ public class CartItemController {
             throw new RuntimeException(errors.toString());
         } else {
             try {
-                CartItem cartItem = cartItemService.createCartItem(createCartItemRequest);
-                return ResponseEntity.ok(cartItem);
+                return cartItemService.createCartItem(createCartItemDto);
             } catch (NoSuchElementException e) {
                 throw new RuntimeException("Failed to create cart item " + e.getMessage());
             }
@@ -44,13 +42,8 @@ public class CartItemController {
     }
 
     @GetMapping("/cart-items")
-    public ResponseEntity<List<CartItem>> findAllCartItems() {
-        List<CartItem> cartItems = cartItemService.findAllCartItems();
-        if (cartItems.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(cartItems);
-        }
+    public List<CartItem> findAllCartItems() {
+        return cartItemService.findAllCartItems();
     }
 
 }

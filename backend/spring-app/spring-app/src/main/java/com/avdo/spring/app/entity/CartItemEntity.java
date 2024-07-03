@@ -1,5 +1,6 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.CartItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Table(name = "cart_item")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CartItem {
+public class CartItemEntity {
 
     @Id
     @Column(name = "cart_item_id")
@@ -31,4 +32,13 @@ public class CartItem {
 
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;
+
+    public CartItem toDomainModel() {
+        return CartItem.builder()
+                .id(this.id)
+                .cart(this.cart)
+                .product(this.product)
+                .quantity(this.quantity)
+                .build();
+    }
 }

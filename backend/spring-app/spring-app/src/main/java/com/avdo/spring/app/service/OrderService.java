@@ -53,12 +53,12 @@ public class OrderService {
     }
 
     private void createAndSaveOrderItems(Cart cart, Order order) {
-        for (CartItem cartItem : cart.getItems()) {
+        for (CartItemEntity cartItemEntity : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
-            orderItem.setProduct(cartItem.getProduct());
-            orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getProduct().getPrice());
+            orderItem.setProduct(cartItemEntity.getProduct());
+            orderItem.setQuantity(cartItemEntity.getQuantity());
+            orderItem.setPrice(cartItemEntity.getProduct().getPrice());
 
             orderItemService.createOrderItem(orderItem);
         }

@@ -1,12 +1,12 @@
-package com.avdo.spring.app.service;
+package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 
 import java.util.List;
 
-public interface CartItemService {
+public interface CartItemRepository {
 
-    CartItem createCartItem(CreateCartItemRequest createCartItemRequest);
+    CartItem saveCartItem(CreateCartItemRequest createCartItemRequest);
     List<CartItem> findAllCartItems();
 }
