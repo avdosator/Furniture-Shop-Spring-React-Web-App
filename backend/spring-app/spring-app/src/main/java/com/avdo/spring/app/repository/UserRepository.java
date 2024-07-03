@@ -6,4 +6,5 @@ import com.avdo.spring.app.service.domain.request.CreateUserRequest;
 public interface UserRepository {
 
     User saveUser(CreateUserRequest createUserRequest);
+    User findByUsername(String username);
 }

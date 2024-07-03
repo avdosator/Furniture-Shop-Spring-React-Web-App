@@ -43,15 +43,14 @@ public class UserController {
             throw new RuntimeException(errors.toString());
         } else {
             // If data is valid, proceed with user creation
-            User user = userService.createUser(createUserDto);
-            return user;
+            return userService.createUser(createUserDto);
         }
     }
 
     // endpoint for logging in
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
-        UserEntity authenticatedUserEntity = userService.authenticate(loginUserRequest);
+        User authenticatedUser = userService.authenticate(loginUserRequest);
         String jwtToken = jwtService.generateToken(authenticatedUserEntity);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
