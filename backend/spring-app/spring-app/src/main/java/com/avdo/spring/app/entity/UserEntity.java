@@ -1,5 +1,6 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -48,6 +49,20 @@ public class UserEntity implements UserDetails {
     // should I add this -> cascade = CascadeType.ALL, orphanRemoval = true
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
+
+    public User toDomainModel() {
+        return User.builder()
+                .id(this.id)
+                .firstname(this.firstname)
+                .lastname(this.lastname)
+                .username(this.username)
+                .email(this.email)
+                .password(this.password)
+                .dateCreated(this.dateCreated)
+                .role(this.role)
+                .orders(this.orders)
+                .build();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
