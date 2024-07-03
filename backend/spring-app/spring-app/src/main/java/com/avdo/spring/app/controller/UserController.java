@@ -5,6 +5,7 @@ import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
+import com.avdo.spring.app.service.domain.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class UserController {
 
     // endpoint for creating user
     @PostMapping("/users")
-    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody CreateUserDto createUserDto, BindingResult result) {
+    public User createUser(@Valid @RequestBody CreateUserDto createUserDto, BindingResult result) {
         if (result.hasErrors()) {
             // If there are validation errors, construct a custom error response
             List<String> errors = result.getAllErrors()
@@ -42,8 +43,8 @@ public class UserController {
             throw new RuntimeException(errors.toString());
         } else {
             // If data is valid, proceed with user creation
-            UserEntity userEntity = userService.createUser(createUserDto);
-            return ResponseEntity.ok(userEntity);
+            User user = userService.createUser(createUserDto);
+            return user;
         }
     }
 
