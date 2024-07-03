@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class User implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @Column(name = "id")

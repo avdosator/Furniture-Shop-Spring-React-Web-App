@@ -1,8 +1,8 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.controller.dto.CreateUserRequest;
+import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
-import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,13 +33,13 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public User createUser(CreateUserRequest createUserRequest) {
-        User user = new UserMapper().mapToUser(createUserRequest);
-        return userRepository.save(user);
+    public UserEntity createUser(CreateUserDto createUserDto) {
+        UserEntity userEntity = new UserMapper().mapToUser(createUserDto);
+        return userRepository.save(userEntity);
     }
 
     @Override
-    public User authenticate(LoginUserRequest loginUserRequest) {
+    public UserEntity authenticate(LoginUserRequest loginUserRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUserRequest.getUsername(),
@@ -49,20 +49,20 @@ public class UserServiceImpl implements  UserService {
     }
 
     private class UserMapper {
-        private User mapToUser(CreateUserRequest createUserRequest) {
-            User user = new User();
-            user.setUsername(createUserRequest.getUsername());
-            user.setFirstname(createUserRequest.getFirstname());
-            user.setLastname(createUserRequest.getLastname());
-            user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
-            user.setEmail(createUserRequest.getEmail());
-            user.setDateCreated(Date.valueOf(LocalDate.now()));
-            user.setRole("ROLE_USER");
-            return user;
+        private UserEntity mapToUser(CreateUserDto createUserDto) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUsername(createUserDto.getUsername());
+            userEntity.setFirstname(createUserDto.getFirstname());
+            userEntity.setLastname(createUserDto.getLastname());
+            userEntity.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+            userEntity.setEmail(createUserDto.getEmail());
+            userEntity.setDateCreated(Date.valueOf(LocalDate.now()));
+            userEntity.setRole("ROLE_USER");
+            return userEntity;
         }
     }
 
-    public User findById(Long id) {
+    public UserEntity findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
     }
 }

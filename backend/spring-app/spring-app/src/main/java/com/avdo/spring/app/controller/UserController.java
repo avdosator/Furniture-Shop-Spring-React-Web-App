@@ -1,8 +1,8 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateUserRequest;
+import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
-import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class UserController {
 
     // endpoint for creating user
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
+    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody CreateUserDto createUserDto, BindingResult result) {
         if (result.hasErrors()) {
             // If there are validation errors, construct a custom error response
             List<String> errors = result.getAllErrors()
@@ -42,16 +42,16 @@ public class UserController {
             throw new RuntimeException(errors.toString());
         } else {
             // If data is valid, proceed with user creation
-            User user = userService.createUser(createUserRequest);
-            return ResponseEntity.ok(user);
+            UserEntity userEntity = userService.createUser(createUserDto);
+            return ResponseEntity.ok(userEntity);
         }
     }
 
     // endpoint for logging in
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
-        User authenticatedUser = userService.authenticate(loginUserRequest);
-        String jwtToken = jwtService.generateToken(authenticatedUser);
+        UserEntity authenticatedUserEntity = userService.authenticate(loginUserRequest);
+        String jwtToken = jwtService.generateToken(authenticatedUserEntity);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
