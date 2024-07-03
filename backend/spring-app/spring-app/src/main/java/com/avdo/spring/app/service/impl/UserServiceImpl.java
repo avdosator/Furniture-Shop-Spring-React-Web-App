@@ -1,9 +1,10 @@
-package com.avdo.spring.app.service;
+package com.avdo.spring.app.service.impl;
 
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.crud.CrudUserRepository;
+import com.avdo.spring.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,7 +15,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 @Service
-public class UserServiceImpl implements  UserService {
+public class UserServiceImpl implements UserService {
 
     private final CrudUserRepository crudUserRepository;
     private final PasswordEncoder passwordEncoder;

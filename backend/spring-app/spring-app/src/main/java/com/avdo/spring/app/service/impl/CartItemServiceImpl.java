@@ -1,6 +1,7 @@
-package com.avdo.spring.app.service;
+package com.avdo.spring.app.service.impl;
 
 import com.avdo.spring.app.repository.CartItemRepository;
+import com.avdo.spring.app.service.CartItemService;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;

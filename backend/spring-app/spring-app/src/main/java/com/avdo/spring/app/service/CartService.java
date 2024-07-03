@@ -3,6 +3,7 @@ package com.avdo.spring.app.service;
 import com.avdo.spring.app.entity.Cart;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
+import com.avdo.spring.app.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
