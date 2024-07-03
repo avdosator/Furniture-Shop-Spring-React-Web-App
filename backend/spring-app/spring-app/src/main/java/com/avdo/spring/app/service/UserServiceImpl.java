@@ -3,7 +3,7 @@ package com.avdo.spring.app.service;
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
 import com.avdo.spring.app.entity.UserEntity;
-import com.avdo.spring.app.repository.UserRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,18 +16,18 @@ import java.time.LocalDate;
 @Service
 public class UserServiceImpl implements  UserService {
 
-    private final UserRepository userRepository;
+    private final CrudUserRepository crudUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
 
     @Autowired
     public UserServiceImpl(
-            UserRepository userRepository,
+            CrudUserRepository crudUserRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager
     ) {
-        this.userRepository = userRepository;
+        this.crudUserRepository = crudUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
@@ -35,7 +35,7 @@ public class UserServiceImpl implements  UserService {
     @Override
     public UserEntity createUser(CreateUserDto createUserDto) {
         UserEntity userEntity = new UserMapper().mapToUser(createUserDto);
-        return userRepository.save(userEntity);
+        return crudUserRepository.save(userEntity);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements  UserService {
                         loginUserRequest.getUsername(),
                         loginUserRequest.getPassword()));
 
-        return userRepository.findByUsername(loginUserRequest.getUsername()).orElseThrow();
+        return crudUserRepository.findByUsername(loginUserRequest.getUsername()).orElseThrow();
     }
 
     private class UserMapper {
@@ -63,6 +63,6 @@ public class UserServiceImpl implements  UserService {
     }
 
     public UserEntity findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
+        return crudUserRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
     }
 }

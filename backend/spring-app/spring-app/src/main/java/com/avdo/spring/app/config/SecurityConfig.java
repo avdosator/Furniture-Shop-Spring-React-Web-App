@@ -1,7 +1,7 @@
 package com.avdo.spring.app.config;
 
 import com.avdo.spring.app.filter.JwtAuthenticationFilter;
-import com.avdo.spring.app.repository.UserRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -29,8 +29,8 @@ public class SecurityConfig {
 
 
     @Bean
-    UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> userRepository.findByUsername(username)
+    UserDetailsService userDetailsService(CrudUserRepository crudUserRepository) {
+        return username -> crudUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
 
