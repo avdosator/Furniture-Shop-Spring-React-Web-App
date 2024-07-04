@@ -39,7 +39,7 @@ public class CartItemJpaRepository implements CartItemRepository {
         UserEntity userEntity = extractUserFromToken();
         CartItemEntity cartItemEntity = new CartItemEntity();
 
-        cartItemEntity.setCart(cartRepository.findByUserId(userEntity.getId()).orElseThrow());
+        cartItemEntity.setCart(cartRepository.findByUserEntityId(userEntity.getId()).orElseThrow());
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));

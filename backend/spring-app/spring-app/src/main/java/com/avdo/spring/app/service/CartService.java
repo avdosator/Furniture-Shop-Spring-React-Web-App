@@ -32,6 +32,6 @@ public class CartService {
     }
 
     public Cart findByUserId(Long id) {
-        return cartRepository.findByUserId(id).orElse(null);
+        return cartRepository.findByUserEntityId(id).orElse(null);
     }
 }

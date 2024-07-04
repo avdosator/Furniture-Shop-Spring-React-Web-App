@@ -2,7 +2,6 @@ package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
-import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
 import com.avdo.spring.app.service.domain.model.User;
