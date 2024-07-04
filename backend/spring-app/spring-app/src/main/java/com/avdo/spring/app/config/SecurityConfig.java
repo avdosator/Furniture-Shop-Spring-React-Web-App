@@ -1,7 +1,9 @@
 package com.avdo.spring.app.config;
 
 import com.avdo.spring.app.filter.JwtAuthenticationFilter;
+import com.avdo.spring.app.repository.UserRepository;
 import com.avdo.spring.app.repository.crud.CrudUserRepository;
+import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -14,12 +16,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Collections;
 
 
 @Configuration
@@ -28,10 +33,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 
-    @Bean
+    /*@Bean
     UserDetailsService userDetailsService(CrudUserRepository crudUserRepository) {
         return username -> crudUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+    }*/
+
+    @Bean
+    UserDetailsService userDetailsService(UserRepository userRepository) {
+        return username -> {
+            final User user = userRepository.findByUsername(username);
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUsername(),
+                    user.getPassword(),
+                    Collections.singleton(new SimpleGrantedAuthority(user.getRole()))
+            );
+        };
     }
 
     @Bean

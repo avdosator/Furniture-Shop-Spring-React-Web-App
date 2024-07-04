@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +25,13 @@ public class UserController {
 
     private final UserService userService;
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public UserController(UserService userService, JwtService jwtService) {
+    public UserController(UserService userService, JwtService jwtService, UserDetailsService userDetailsService) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
 
     // endpoint for creating user
@@ -51,7 +54,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         User authenticatedUser = userService.authenticate(loginUserRequest);
-        String jwtToken = jwtService.generateToken(authenticatedUserEntity);
+        // should next line look like this?????
+        String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
