@@ -23,9 +23,9 @@ public class CartService {
     }
 
     public Cart createCart(Long id) {
-        UserEntity userEntity = userService.findById(id);
+        //UserEntity userEntity = userService.findById(id);
         Cart cart = new Cart();
-        cart.setUserEntity(userEntity);
+        cart.setUserEntity(new UserEntity());
         cart.setDateCreated(Date.valueOf(LocalDate.now()));
         return cartRepository.save(cart);
     }

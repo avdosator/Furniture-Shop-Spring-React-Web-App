@@ -10,4 +10,5 @@ public interface UserService {
 
     User createUser(CreateUserRequest createUserRequest);
     User authenticate(LoginUserRequest loginUserRequest);
+    User findById(Long id);
 }

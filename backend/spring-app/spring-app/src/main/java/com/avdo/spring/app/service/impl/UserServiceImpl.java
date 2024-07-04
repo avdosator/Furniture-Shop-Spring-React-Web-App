@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(loginUserRequest.getUsername());
     }
 
-
-    public UserEntity findById(Long id) {
-        return crudUserRepository.findById(id).orElseThrow(() -> new RuntimeException("User don't exist!"));
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id);
     }
 }

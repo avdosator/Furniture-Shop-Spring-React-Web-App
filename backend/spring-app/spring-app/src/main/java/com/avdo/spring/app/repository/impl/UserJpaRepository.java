@@ -33,6 +33,12 @@ public class UserJpaRepository implements UserRepository {
     }
 
     @Override
+    public User findById(Long id) {
+        UserEntity userEntity = crudUserRepository.findById(id).orElseThrow();
+        return userEntity.toDomainModel();
+    }
+
+    @Override
     public User findByUsername(String username) {
         UserEntity userEntity = crudUserRepository.findByUsername(username).orElseThrow();
         return userEntity.toDomainModel();

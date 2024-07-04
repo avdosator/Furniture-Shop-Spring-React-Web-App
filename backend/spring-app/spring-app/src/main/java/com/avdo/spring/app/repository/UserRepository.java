@@ -7,4 +7,5 @@ public interface UserRepository {
 
     User saveUser(CreateUserRequest createUserRequest);
     User findByUsername(String username);
+    User findById(Long id);
 }
