@@ -7,10 +7,12 @@ import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
+@Repository
 public class UserJpaRepository implements UserRepository {
 
     private final CrudUserRepository crudUserRepository;
