@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.Cart;
+import com.avdo.spring.app.entity.CartEntity;
 import com.avdo.spring.app.entity.Product;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class CartItem {
 
     private Long id;
 
-    private Cart cart;
+    private CartEntity cartEntity;
 
     private Product product;
 

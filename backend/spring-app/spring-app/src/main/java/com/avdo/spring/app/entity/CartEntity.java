@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "cart")
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Cart {
+public class CartEntity {
 
     @Id
     @Column(name = "cart_id")

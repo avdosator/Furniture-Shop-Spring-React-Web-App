@@ -21,7 +21,7 @@ public class CartItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private CartEntity cartEntity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -36,7 +36,7 @@ public class CartItemEntity {
     public CartItem toDomainModel() {
         return CartItem.builder()
                 .id(this.id)
-                .cart(this.cart)
+                .cartEntity(this.cartEntity)
                 .product(this.product)
                 .quantity(this.quantity)
                 .build();

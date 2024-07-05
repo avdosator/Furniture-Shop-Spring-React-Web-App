@@ -38,22 +38,22 @@ public class OrderService {
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
         UserEntity userEntity = extractUserFromToken();
-        Cart cart;
-        cart = cartService.findByUserId(userEntity.getId());
-        if (cart != null) {
-            Order order = createAndSaveOrder(userEntity, cart);
-            createAndSaveOrderItems(cart, order);
+        CartEntity cartEntity;
+        cartEntity = cartService.findByUserId(userEntity.getId());
+        if (cartEntity != null) {
+            Order order = createAndSaveOrder(userEntity, cartEntity);
+            createAndSaveOrderItems(cartEntity, order);
             return order;
         } else {
-            cart = cartService.createCart(userEntity.getId());
-            Order order = createAndSaveOrder(userEntity, cart);
-            createAndSaveOrderItems(cart, order);
+            cartEntity = cartService.createCart(userEntity.getId());
+            Order order = createAndSaveOrder(userEntity, cartEntity);
+            createAndSaveOrderItems(cartEntity, order);
             return order;
         }
     }
 
-    private void createAndSaveOrderItems(Cart cart, Order order) {
-        for (CartItemEntity cartItemEntity : cart.getItems()) {
+    private void createAndSaveOrderItems(CartEntity cartEntity, Order order) {
+        for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(cartItemEntity.getProduct());
@@ -64,10 +64,10 @@ public class OrderService {
         }
     }
 
-    private Order createAndSaveOrder(UserEntity userEntity, Cart cart) {
+    private Order createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
         Order order = new Order();
         order.setUserEntity(userEntity);
-        order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
+        order.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
         order.setOrderStatus("Pending");
         order.setDateCreated(Date.valueOf(LocalDate.now()));
 
