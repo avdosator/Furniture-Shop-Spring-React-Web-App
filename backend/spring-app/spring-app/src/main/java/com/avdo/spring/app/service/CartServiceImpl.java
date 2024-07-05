@@ -26,19 +26,11 @@ public class CartServiceImpl implements CartService {
     }
 
     public Cart createCart() {
-        UserEntity userEntity = extractUserFromToken();
-        User user = userService.findById(id);
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setUserEntity(UserEntity.fromUser(user));
-        cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        return cartRepository.save(cartEntity);
+        return cartRepository.createCart();
     }
 
     public Cart findByUserId(Long id) {
         return cartRepository.findByUserEntityId(id).orElse(null);
     }
 
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 }
