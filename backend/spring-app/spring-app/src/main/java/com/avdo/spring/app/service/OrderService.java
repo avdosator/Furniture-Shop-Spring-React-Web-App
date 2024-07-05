@@ -3,6 +3,7 @@ package com.avdo.spring.app.service;
 import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
+import com.avdo.spring.app.service.domain.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,9 @@ public class OrderService {
     public Order createOrder(CreateOrderRequest createOrderRequest) {
         UserEntity userEntity = extractUserFromToken();
         CartEntity cartEntity;
-        cartEntity = cartService.findByUserId(userEntity.getId());
-        if (cartEntity != null) {
+        Cart cart = cartService.findByUserId(userEntity.getId());
+        if (cart != null) {
+            cartEntity = CartEntity.fromCart(cart, userEntity);
             Order order = createAndSaveOrder(userEntity, cartEntity);
             createAndSaveOrderItems(cartEntity, order);
             return order;

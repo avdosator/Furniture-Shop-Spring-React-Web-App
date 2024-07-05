@@ -2,6 +2,7 @@ package com.avdo.spring.app.entity;
 
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -44,5 +45,26 @@ public class CartEntity {
                 .cartItems(cartItems)
                 .dateCreated(this.dateCreated)
                 .build();
+    }
+
+    // temporary method, delete it at the end!!
+    public static CartEntity fromCart(Cart cart, UserEntity userEntity) {
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setId(cartEntity.getId());
+        cartEntity.setUserEntity(userEntity);
+
+        List<CartItemEntity> cartItemEntities = cart.getCartItems().stream()
+                .map(cartItem -> {
+                    CartItemEntity cartItemEntity = new CartItemEntity();
+                    cartItemEntity.setId(cartItem.getId());
+                    cartItemEntity.setCartEntity(cartEntity); // Important to set the back reference
+                    cartItemEntity.setProduct(cartItem.getProduct());
+                    cartItemEntity.setQuantity(cartItem.getQuantity());
+                    cartItemEntity.setDateCreated(cartItem.getCart().getDateCreated()); // CartItem needs to have dateCreated field ??
+                    return cartItemEntity;
+                })
+                .toList();
+        cartEntity.setItems(cartItemEntities);
+        return cartEntity;
     }
 }

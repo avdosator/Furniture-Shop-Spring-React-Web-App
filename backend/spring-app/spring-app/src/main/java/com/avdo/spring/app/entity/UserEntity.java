@@ -65,6 +65,7 @@ public class UserEntity implements UserDetails {
                 .build();
     }
 
+    // this method will be deleted!!
     public static UserEntity fromUser(User user) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(user.getId());
