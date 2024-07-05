@@ -1,14 +1,15 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateUserRequest;
+import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserRequest;
-import com.avdo.spring.app.entity.User;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
+import com.avdo.spring.app.service.domain.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,16 +24,18 @@ public class UserController {
 
     private final UserService userService;
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public UserController(UserService userService, JwtService jwtService) {
+    public UserController(UserService userService, JwtService jwtService, UserDetailsService userDetailsService) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
 
     // endpoint for creating user
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequest createUserRequest, BindingResult result) {
+    public User createUser(@Valid @RequestBody CreateUserDto createUserDto, BindingResult result) {
         if (result.hasErrors()) {
             // If there are validation errors, construct a custom error response
             List<String> errors = result.getAllErrors()
@@ -42,8 +45,7 @@ public class UserController {
             throw new RuntimeException(errors.toString());
         } else {
             // If data is valid, proceed with user creation
-            User user = userService.createUser(createUserRequest);
-            return ResponseEntity.ok(user);
+            return userService.createUser(createUserDto);
         }
     }
 
@@ -51,7 +53,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         User authenticatedUser = userService.authenticate(loginUserRequest);
-        String jwtToken = jwtService.generateToken(authenticatedUser);
+        // should next line look like this?????
+        String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());

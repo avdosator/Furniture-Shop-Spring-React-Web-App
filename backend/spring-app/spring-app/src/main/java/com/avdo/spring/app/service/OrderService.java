@@ -37,16 +37,16 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
-        User user = extractUserFromToken();
+        UserEntity userEntity = extractUserFromToken();
         Cart cart;
-        cart = cartService.findByUserId(user.getId());
+        cart = cartService.findByUserId(userEntity.getId());
         if (cart != null) {
-            Order order = createAndSaveOrder(user, cart);
+            Order order = createAndSaveOrder(userEntity, cart);
             createAndSaveOrderItems(cart, order);
             return order;
         } else {
-            cart = cartService.createCart(user.getId());
-            Order order = createAndSaveOrder(user, cart);
+            cart = cartService.createCart(userEntity.getId());
+            Order order = createAndSaveOrder(userEntity, cart);
             createAndSaveOrderItems(cart, order);
             return order;
         }
@@ -64,9 +64,9 @@ public class OrderService {
         }
     }
 
-    private Order createAndSaveOrder(User user, Cart cart) {
+    private Order createAndSaveOrder(UserEntity userEntity, Cart cart) {
         Order order = new Order();
-        order.setUser(user);
+        order.setUserEntity(userEntity);
         order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
         order.setOrderStatus("Pending");
         order.setDateCreated(Date.valueOf(LocalDate.now()));
@@ -75,7 +75,7 @@ public class OrderService {
         return order;
     }
 
-    private User extractUserFromToken() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private UserEntity extractUserFromToken() {
+        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

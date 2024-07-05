@@ -1,4 +1,4 @@
-package com.avdo.spring.app.repository.impl;
+package com.avdo.spring.app.repository;
 
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;

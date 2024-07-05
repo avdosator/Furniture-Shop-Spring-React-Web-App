@@ -1,13 +1,11 @@
 package com.avdo.spring.app.repository;
 
-import com.avdo.spring.app.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.service.domain.request.CreateUserRequest;
 
-import java.util.Optional;
+public interface UserRepository {
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByUsername(String username);
+    User saveUser(CreateUserRequest createUserRequest);
+    User findByUsername(String username);
+    User findById(Long id);
 }

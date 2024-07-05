@@ -1,7 +1,8 @@
 package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.entity.CartItemEntity;
-import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.entity.UserEntity;
+import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
 import com.avdo.spring.app.repository.ProductRepository;
@@ -19,11 +20,11 @@ import java.util.List;
 @Repository
 public class CartItemJpaRepository implements CartItemRepository {
 
-    @Autowired
     private final CrudCartItemRepository crudCartItemRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
 
+    @Autowired
     public CartItemJpaRepository(CrudCartItemRepository crudCartItemRepository,
                                  ProductRepository productRepository,
                                  CartRepository cartRepository) {
@@ -35,10 +36,10 @@ public class CartItemJpaRepository implements CartItemRepository {
     @Override
     public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest) {
 
-        User user = extractUserFromToken();
+        UserEntity userEntity = extractUserFromToken();
         CartItemEntity cartItemEntity = new CartItemEntity();
 
-        cartItemEntity.setCart(cartRepository.findByUserId(user.getId()).orElseThrow());
+        cartItemEntity.setCart(cartRepository.findByUserEntityId(userEntity.getId()).orElseThrow());
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
@@ -47,8 +48,8 @@ public class CartItemJpaRepository implements CartItemRepository {
         return savedCartItemEntity.toDomainModel();
     }
 
-    private User extractUserFromToken() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private UserEntity extractUserFromToken() {
+        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override

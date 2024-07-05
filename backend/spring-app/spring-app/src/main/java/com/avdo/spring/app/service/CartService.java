@@ -1,8 +1,10 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.entity.Cart;
-import com.avdo.spring.app.entity.User;
+import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
+import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +26,12 @@ public class CartService {
     public Cart createCart(Long id) {
         User user = userService.findById(id);
         Cart cart = new Cart();
-        cart.setUser(user);
+        cart.setUserEntity(UserEntity.fromUser(user));
         cart.setDateCreated(Date.valueOf(LocalDate.now()));
         return cartRepository.save(cart);
     }
 
     public Cart findByUserId(Long id) {
-        return cartRepository.findByUserId(id).orElse(null);
+        return cartRepository.findByUserEntityId(id).orElse(null);
     }
 }
