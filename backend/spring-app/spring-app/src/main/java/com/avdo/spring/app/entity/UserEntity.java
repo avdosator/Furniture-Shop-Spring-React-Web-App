@@ -67,15 +67,15 @@ public class UserEntity implements UserDetails {
 
     public static UserEntity fromUser(User user) {
         UserEntity userEntity = new UserEntity();
-        user.setId(user.getId());
-        user.setFirstname(user.getFirstname());
-        user.setLastname(user.getLastname());
-        user.setUsername(user.getUsername());
-        user.setEmail(user.getEmail());
-        user.setPassword(user.getPassword());
-        user.setDateCreated(user.getDateCreated());
-        user.setRole(user.getRole());
-        user.setOrders(user.getOrders());
+        userEntity.setId(user.getId());
+        userEntity.setFirstname(user.getFirstname());
+        userEntity.setLastname(user.getLastname());
+        userEntity.setUsername(user.getUsername());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setPassword(user.getPassword());
+        userEntity.setDateCreated(user.getDateCreated());
+        userEntity.setRole(user.getRole());
+        userEntity.setOrders(user.getOrders());
         return userEntity;
     }
 
