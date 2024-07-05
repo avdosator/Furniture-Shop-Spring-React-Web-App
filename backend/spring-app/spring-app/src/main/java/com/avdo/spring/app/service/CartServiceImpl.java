@@ -3,6 +3,7 @@ package com.avdo.spring.app.service;
 import com.avdo.spring.app.entity.CartEntity;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
+import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CartServiceImpl implements CartService {
         this.userService = userService;
     }
 
-    public CartEntity createCart() {
+    public Cart createCart() {
         UserEntity userEntity = extractUserFromToken();
         User user = userService.findById(id);
         CartEntity cartEntity = new CartEntity();
@@ -33,7 +34,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cartEntity);
     }
 
-    public CartEntity findByUserId(Long id) {
+    public Cart findByUserId(Long id) {
         return cartRepository.findByUserEntityId(id).orElse(null);
     }
 

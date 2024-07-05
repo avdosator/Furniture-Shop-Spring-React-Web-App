@@ -1,9 +1,10 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.entity.CartEntity;
+import com.avdo.spring.app.service.domain.model.Cart;
 
 public interface CartService {
 
-    CartEntity createCart();
-    CartEntity findByUserId(Long id);
+    Cart createCart();
+    Cart findByUserId(Long id);
 }
