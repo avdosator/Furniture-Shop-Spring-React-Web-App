@@ -22,7 +22,7 @@ public class CartController {
 
     @PostMapping("/carts")
     public Cart createCart() {
-        Cart cart = cartService.createCart(10L);
+        Cart cart = cartService.createCart();
         return cart;
     }
 
