@@ -1,7 +1,5 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.CartItemEntity;
-import com.avdo.spring.app.entity.UserEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,9 +12,9 @@ public class Cart {
 
     private Long id;
 
-    private UserEntity userEntity;
+    private User user;
 
-    private List<CartItemEntity> items;
+    private List<CartItem> cartItems;
 
     private Date dateCreated;
 }

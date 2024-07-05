@@ -1,6 +1,7 @@
 package com.avdo.spring.app.entity;
 
 import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.CartItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "cart")
@@ -31,10 +33,15 @@ public class CartEntity {
     private Date dateCreated;
 
     public Cart toDomainModel() {
+
+        List<CartItem> cartItems = this.items.stream()
+                .map(CartItemEntity::toDomainModel)
+                .collect(Collectors.toList());
+
         return Cart.builder()
                 .id(this.id)
-                .userEntity(this.userEntity)
-                .items(this.items)
+                .user(this.userEntity.toDomainModel())
+                .cartItems(cartItems)
                 .dateCreated(this.dateCreated)
                 .build();
     }
