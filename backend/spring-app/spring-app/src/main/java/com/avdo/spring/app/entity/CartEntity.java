@@ -1,5 +1,6 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.Cart;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -28,4 +29,13 @@ public class CartEntity {
 
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;
+
+    public Cart toDomainModel() {
+        return Cart.builder()
+                .id(this.id)
+                .userEntity(this.userEntity)
+                .items(this.items)
+                .dateCreated(this.dateCreated)
+                .build();
+    }
 }
