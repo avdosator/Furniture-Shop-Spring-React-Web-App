@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
     }
 
     public Cart findByUserId(Long id) {
-        return cartRepository.findByUserEntityId(id).orElse(null);
+        return cartRepository.findByUserEntityId(id);
     }
 
 }

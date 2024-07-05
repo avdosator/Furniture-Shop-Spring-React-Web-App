@@ -25,7 +25,8 @@ public class CartJpaRepository implements CartRepository {
 
     @Override
     public Cart findByUserEntityId(Long id) {
-
+        CartEntity cartEntity = crudCartRepository.findByUserEntityId(id).orElseThrow();
+        return cartEntity.toDomainModel();
     }
 
     @Override
