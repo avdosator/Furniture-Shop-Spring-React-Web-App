@@ -11,7 +11,7 @@ public class CartItem {
 
     private Long id;
 
-    private CartEntity cartEntity;
+    private Cart cart;
 
     private Product product;
 

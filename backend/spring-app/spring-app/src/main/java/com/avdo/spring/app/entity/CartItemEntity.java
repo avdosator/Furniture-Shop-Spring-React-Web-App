@@ -36,7 +36,7 @@ public class CartItemEntity {
     public CartItem toDomainModel() {
         return CartItem.builder()
                 .id(this.id)
-                .cartEntity(this.cartEntity)
+                .cart(this.cartEntity.toDomainModel())
                 .product(this.product)
                 .quantity(this.quantity)
                 .build();
