@@ -30,9 +30,17 @@ public class CartJpaRepository implements CartRepository {
 
     @Override
     public Cart createCart() {
-        UserEntity userEntity = extractUserFromToken();
+        System.out.println("in repository");
+        UserEntity userEntity = new UserEntity();
+        try {
+            userEntity = extractUserFromToken();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("user extracted");
+        System.out.println(userEntity);
         CartEntity cartEntity = new CartEntity();
-        cartEntity.setUserEntity(userEntity);
+        //cartEntity.setUserEntity(userEntity);
         cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
         return crudCartRepository.save(cartEntity).toDomainModel();
     }

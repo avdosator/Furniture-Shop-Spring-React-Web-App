@@ -20,7 +20,9 @@ public class CartController {
 
     @PostMapping("/carts")
     public Cart createCart() {
+        System.out.println("Request accepted");
         Cart cart = cartService.createCart();
+        System.out.println(cart);
         return cart;
     }
 

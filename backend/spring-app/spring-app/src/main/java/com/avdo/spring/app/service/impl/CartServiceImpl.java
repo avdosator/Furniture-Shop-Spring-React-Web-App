@@ -16,10 +16,15 @@ public class CartServiceImpl implements CartService {
         this.cartRepository = cartRepository;
     }
 
+    @Override
     public Cart createCart() {
-        return cartRepository.createCart();
+        System.out.println("In service impl");
+        Cart cart = cartRepository.createCart();
+        System.out.println("cart is " + cart);
+        return cart;
     }
 
+    @Override
     public Cart findByUserId(Long id) {
         return cartRepository.findByUserEntityId(id);
     }
