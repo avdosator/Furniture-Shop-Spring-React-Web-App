@@ -1,6 +1,7 @@
 package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.entity.CartEntity;
+import com.avdo.spring.app.entity.CustomUserDetails;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
@@ -31,21 +32,15 @@ public class CartJpaRepository implements CartRepository {
     @Override
     public Cart createCart() {
         System.out.println("in repository");
-        UserEntity userEntity = new UserEntity();
-        try {
-            userEntity = extractUserFromToken();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        CustomUserDetails customUserDetails = extractUserFromToken();
         System.out.println("user extracted");
-        System.out.println(userEntity);
         CartEntity cartEntity = new CartEntity();
-        //cartEntity.setUserEntity(userEntity);
+        cartEntity.setUserEntity(UserEntity.fromUser(customUserDetails.getUser()));
         cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
         return crudCartRepository.save(cartEntity).toDomainModel();
     }
 
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private CustomUserDetails extractUserFromToken() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

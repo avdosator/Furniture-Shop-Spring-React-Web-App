@@ -1,5 +1,6 @@
 package com.avdo.spring.app.config;
 
+import com.avdo.spring.app.entity.CustomUserDetails;
 import com.avdo.spring.app.filter.JwtAuthenticationFilter;
 import com.avdo.spring.app.repository.UserRepository;
 import com.avdo.spring.app.service.domain.model.User;
@@ -34,11 +35,7 @@ public class SecurityConfig {
     UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> {
             final User user = userRepository.findByUsername(username);
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    Collections.singleton(new SimpleGrantedAuthority(user.getRole()))
-            );
+            return new CustomUserDetails(user);
         };
     }
 
