@@ -2,12 +2,14 @@ package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.entity.CartEntity;
 import com.avdo.spring.app.entity.CartItemEntity;
+import com.avdo.spring.app.entity.CustomUserDetails;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.ProductRepository;
 import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
 import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,11 +39,14 @@ public class CartItemJpaRepository implements CartItemRepository {
     @Override
     public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest) {
 
-        UserEntity userEntity = extractUserFromToken();
+        CustomUserDetails customUserDetails = extractUserFromToken();
         CartItemEntity cartItemEntity = new CartItemEntity();
 
+        User user = customUserDetails.getUser();
+
         // what if cart for this user doesn't exist??
-        cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(userEntity.getId()), userEntity));
+        cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(
+                user.getId()), UserEntity.fromUser(user)));
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
@@ -50,8 +55,8 @@ public class CartItemJpaRepository implements CartItemRepository {
         return savedCartItemEntity.toDomainModel();
     }
 
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private CustomUserDetails extractUserFromToken() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override
