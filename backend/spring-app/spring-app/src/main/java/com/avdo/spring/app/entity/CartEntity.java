@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,16 +29,16 @@ public class CartEntity {
     private UserEntity userEntity;
 
     @OneToMany(mappedBy = "cartEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItemEntity> items;
+    private List<CartItemEntity> items = new ArrayList<>();
 
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
     public Cart toDomainModel() {
 
-        List<CartItem> cartItems = this.items.stream()
+        List<CartItem> cartItems =( this.items == null ? Collections.emptyList() : this.items.stream()
                 .map(CartItemEntity::toDomainModel)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
 
         return Cart.builder()
                 .id(this.id)
