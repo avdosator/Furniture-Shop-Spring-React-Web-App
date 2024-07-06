@@ -18,10 +18,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart createCart() {
-        System.out.println("In service impl");
-        Cart cart = cartRepository.createOrFindCart();
-        System.out.println("cart is " + cart);
-        return cart;
+        return cartRepository.createOrFindCart();
     }
 
     @Override
