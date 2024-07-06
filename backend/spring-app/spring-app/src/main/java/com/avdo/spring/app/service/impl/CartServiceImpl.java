@@ -1,28 +1,19 @@
-package com.avdo.spring.app.service;
+package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.entity.CartEntity;
-import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
+import com.avdo.spring.app.service.CartService;
 import com.avdo.spring.app.service.domain.model.Cart;
-import com.avdo.spring.app.service.domain.model.User;
-import com.avdo.spring.app.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Service
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-    private final UserService userService;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, UserServiceImpl userService) {
+    public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
-        this.userService = userService;
     }
 
     public Cart createCart() {

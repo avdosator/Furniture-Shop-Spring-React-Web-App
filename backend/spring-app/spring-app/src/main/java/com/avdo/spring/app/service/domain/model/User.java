@@ -1,7 +1,6 @@
 package com.avdo.spring.app.service.domain.model;
 
 import com.avdo.spring.app.entity.Order;
-import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 

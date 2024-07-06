@@ -5,8 +5,8 @@ import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.repository.CartRepository;
-import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
 import com.avdo.spring.app.repository.ProductRepository;
+import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,7 @@ public class CartItemJpaRepository implements CartItemRepository {
         UserEntity userEntity = extractUserFromToken();
         CartItemEntity cartItemEntity = new CartItemEntity();
 
+        // what if cart for this user doesn't exist??
         cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(userEntity.getId()), userEntity));
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
