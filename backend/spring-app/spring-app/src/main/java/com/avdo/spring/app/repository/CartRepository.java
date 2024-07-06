@@ -5,5 +5,5 @@ import com.avdo.spring.app.service.domain.model.Cart;
 public interface CartRepository {
 
     Cart findByUserEntityId(Long userId);
-    Cart createCart();
+    Cart createOrFindCart();
 }

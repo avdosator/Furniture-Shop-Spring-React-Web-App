@@ -6,12 +6,14 @@ import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
 import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 @Repository
 public class CartJpaRepository implements CartRepository {
@@ -30,26 +32,17 @@ public class CartJpaRepository implements CartRepository {
     }
 
     @Override
-    public Cart createCart() {
-        System.out.println("in repository");
+    public Cart createOrFindCart() {
         CustomUserDetails customUserDetails = extractUserFromToken();
-        System.out.println("user extracted");
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setUserEntity(UserEntity.fromUser(customUserDetails.getUser()));
-        cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        System.out.println(cartEntity + " - cart entity before save");
-        CartEntity cartEntity1 =  crudCartRepository.save(cartEntity);
-        System.out.println(cartEntity1 + " - cart entity after save");
-        Cart cart = null;
+        User user = customUserDetails.getUser();
         try {
-             cart = cartEntity1.toDomainModel();
-            return cart;
-        } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            return this.findByUserEntityId(user.getId());
+        } catch (NoSuchElementException e) {
+            CartEntity cartEntity = new CartEntity();
+            cartEntity.setUserEntity(UserEntity.fromUser(user));
+            cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
+            return crudCartRepository.save(cartEntity).toDomainModel();
         }
-        return cart;
     }
 
     private CustomUserDetails extractUserFromToken() {
