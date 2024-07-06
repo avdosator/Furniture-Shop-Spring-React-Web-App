@@ -4,6 +4,7 @@ import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,11 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
-        UserEntity userEntity = extractUserFromToken();
+        CustomUserDetails customUserDetails = extractUserFromToken();
+        User user = customUserDetails.getUser();
+        UserEntity userEntity = UserEntity.fromUser(user);
         CartEntity cartEntity;
-        Cart cart = cartService.findByUserId(userEntity.getId());
+        Cart cart = cartService.findByUserId(user.getId());
         if (cart != null) {
             cartEntity = CartEntity.fromCart(cart, userEntity);
             Order order = createAndSaveOrder(userEntity, cartEntity);
@@ -78,7 +81,7 @@ public class OrderService {
         return order;
     }
 
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private CustomUserDetails extractUserFromToken() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

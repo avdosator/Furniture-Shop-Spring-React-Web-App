@@ -37,7 +37,19 @@ public class CartJpaRepository implements CartRepository {
         CartEntity cartEntity = new CartEntity();
         cartEntity.setUserEntity(UserEntity.fromUser(customUserDetails.getUser()));
         cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        return crudCartRepository.save(cartEntity).toDomainModel();
+        System.out.println(cartEntity + " - cart entity before save");
+        CartEntity cartEntity1 =  crudCartRepository.save(cartEntity);
+        System.out.println(cartEntity1 + " - cart entity after save");
+        Cart cart = null;
+        try {
+             cart = cartEntity1.toDomainModel();
+            return cart;
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return cart;
     }
 
     private CustomUserDetails extractUserFromToken() {
