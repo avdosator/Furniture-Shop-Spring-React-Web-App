@@ -36,11 +36,9 @@ public class CartEntity {
     }
 
     public Cart toDomainModel() {
-
         List<CartItem> cartItems = (this.items == null ? Collections.emptyList() : this.items.stream()
                 .map(CartItemEntity::toDomainModel)
                 .collect(Collectors.toList()));
-
         return Cart.builder()
                 .id(this.id)
                 .user(this.userEntity.toDomainModel())
@@ -54,7 +52,6 @@ public class CartEntity {
         CartEntity cartEntity = new CartEntity();
         cartEntity.setId(cart.getId());
         cartEntity.setUserEntity(userEntity);
-
         List<CartItemEntity> cartItemEntities = cart.getCartItems().stream()
                 .map(cartItem -> {
                     CartItemEntity cartItemEntity = new CartItemEntity();
@@ -100,46 +97,6 @@ public class CartEntity {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof CartEntity)) return false;
-        final CartEntity other = (CartEntity) o;
-        if (!other.canEqual((Object) this)) return false;
-        final Object this$id = this.getId();
-        final Object other$id = other.getId();
-        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
-        final Object this$userEntity = this.getUserEntity();
-        final Object other$userEntity = other.getUserEntity();
-        if (this$userEntity == null ? other$userEntity != null : !this$userEntity.equals(other$userEntity))
-            return false;
-        final Object this$items = this.getItems();
-        final Object other$items = other.getItems();
-        if (this$items == null ? other$items != null : !this$items.equals(other$items)) return false;
-        final Object this$dateCreated = this.getDateCreated();
-        final Object other$dateCreated = other.getDateCreated();
-        if (this$dateCreated == null ? other$dateCreated != null : !this$dateCreated.equals(other$dateCreated))
-            return false;
-        return true;
-    }
-
-    protected boolean canEqual(final Object other) {
-        return other instanceof CartEntity;
-    }
-
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $id = this.getId();
-        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
-        final Object $userEntity = this.getUserEntity();
-        result = result * PRIME + ($userEntity == null ? 43 : $userEntity.hashCode());
-        final Object $items = this.getItems();
-        result = result * PRIME + ($items == null ? 43 : $items.hashCode());
-        final Object $dateCreated = this.getDateCreated();
-        result = result * PRIME + ($dateCreated == null ? 43 : $dateCreated.hashCode());
-        return result;
     }
 
     public String toString() {
