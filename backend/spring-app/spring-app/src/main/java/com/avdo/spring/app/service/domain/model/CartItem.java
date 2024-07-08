@@ -10,7 +10,7 @@ public class CartItem {
 
     private Long id;
 
-    private Cart cart;
+    private Long cartId;
 
     private Product product;
 
@@ -22,8 +22,8 @@ public class CartItem {
         return this.id;
     }
 
-    public Cart getCart() {
-        return this.cart;
+    public Long getCartId() {
+        return this.cartId;
     }
 
     public Product getProduct() {
@@ -42,8 +42,8 @@ public class CartItem {
         this.id = id;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 
     public void setProduct(Product product) {
@@ -58,50 +58,9 @@ public class CartItem {
         this.dateCreated = dateCreated;
     }
 
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof CartItem)) return false;
-        final CartItem other = (CartItem) o;
-        if (!other.canEqual((Object) this)) return false;
-        final Object this$id = this.getId();
-        final Object other$id = other.getId();
-        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
-        final Object this$cart = this.getCart();
-        final Object other$cart = other.getCart();
-        if (this$cart == null ? other$cart != null : !this$cart.equals(other$cart)) return false;
-        final Object this$product = this.getProduct();
-        final Object other$product = other.getProduct();
-        if (this$product == null ? other$product != null : !this$product.equals(other$product)) return false;
-        if (this.getQuantity() != other.getQuantity()) return false;
-        final Object this$dateCreated = this.getDateCreated();
-        final Object other$dateCreated = other.getDateCreated();
-        if (this$dateCreated == null ? other$dateCreated != null : !this$dateCreated.equals(other$dateCreated))
-            return false;
-        return true;
-    }
-
-    protected boolean canEqual(final Object other) {
-        return other instanceof CartItem;
-    }
-
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $id = this.getId();
-        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
-        final Object $cart = this.getCart();
-        result = result * PRIME + ($cart == null ? 43 : $cart.hashCode());
-        final Object $product = this.getProduct();
-        result = result * PRIME + ($product == null ? 43 : $product.hashCode());
-        result = result * PRIME + this.getQuantity();
-        final Object $dateCreated = this.getDateCreated();
-        result = result * PRIME + ($dateCreated == null ? 43 : $dateCreated.hashCode());
-        return result;
-    }
-
     public String toString() {
         return "CartItem(id=" + this.getId() +
-                ", cartId=" + this.getCart().getId() +
+                ", cartId=" + this.getCartId() +
                 ", productId=" + this.getProduct().getId() +
                 ", quantity=" + this.getQuantity() +
                 ", dateCreated=" + this.getDateCreated() + ")";
