@@ -240,8 +240,15 @@ public class UserEntity implements UserDetails {
         result = result * PRIME + ($orders == null ? 43 : $orders.hashCode());
         return result;
     }
-
+     // try to resolve stackOverFlow exception
     public String toString() {
-        return "UserEntity(id=" + this.getId() + ", firstname=" + this.getFirstname() + ", lastname=" + this.getLastname() + ", username=" + this.getUsername() + ", email=" + this.getEmail() + ", password=" + this.getPassword() + ", dateCreated=" + this.getDateCreated() + ", role=" + this.getRole() + ", orders=" + this.getOrders() + ")";
+        return "UserEntity(id=" + this.getId() +
+                ", firstname=" + this.getFirstname() +
+                ", lastname=" + this.getLastname() +
+                ", username=" + this.getUsername() +
+                ", email=" + this.getEmail() +
+                ", password=" + this.getPassword() +
+                ", dateCreated=" + this.getDateCreated() +
+                ", role=" + this.getRole()  + ")";
     }
 }
