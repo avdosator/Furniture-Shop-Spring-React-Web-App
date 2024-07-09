@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateCategoryRequest {
+public class CreateCategoryRequestDto {
 
     @NotBlank
     @Size(max = 30)

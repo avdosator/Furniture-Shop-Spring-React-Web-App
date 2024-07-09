@@ -1,12 +1,11 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateCategoryRequest;
+import com.avdo.spring.app.controller.dto.CreateCategoryRequestDto;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class CategoryController {
     // endpoint for creating category (created for testing)
     @PostMapping("/categories")
     public ResponseEntity<Category> createCategory(
-            @Valid @RequestBody CreateCategoryRequest createCategoryRequest,
+            @Valid @RequestBody CreateCategoryRequestDto createCategoryRequestDto,
             BindingResult result) {
 
         if (result.hasErrors()) {
@@ -37,7 +36,7 @@ public class CategoryController {
                     .toList();
             throw new RuntimeException(errors.toString());
         } else {
-            Category category = categoryService.createCategory(createCategoryRequest);
+            Category category = categoryService.createCategory(createCategoryRequestDto);
             return ResponseEntity.ok(category);
         }
     }
