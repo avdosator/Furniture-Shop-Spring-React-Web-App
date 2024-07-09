@@ -1,7 +1,7 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.controller.dto.CreateProductRequest;
-import com.avdo.spring.app.entity.Category;
+import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.repository.ProductRepository;
@@ -24,7 +24,7 @@ public class ProductService {
     }
 
     public Product createProduct(CreateProductRequest createProductRequest) {
-        Category category = categoryRepository
+        CategoryEntity category = categoryRepository
                 .findCategoryByName(createProductRequest.getCategory())
                 .orElseThrow(() -> new RuntimeException("Choose valid category!"));
         Product product = ProductMapper.mapToProduct(createProductRequest, category);
@@ -45,13 +45,13 @@ public class ProductService {
 
     private static class ProductMapper {
 
-        private static Product mapToProduct(CreateProductRequest createProductRequest, Category category) {
+        private static Product mapToProduct(CreateProductRequest createProductRequest, CategoryEntity categoryEntity) {
             Product product = new Product();
             product.setName(createProductRequest.getName());
             product.setPrice(createProductRequest.getPrice());
             product.setStock(createProductRequest.getStock());
             product.setDescription(createProductRequest.getDescription());
-            product.setCategory(category);
+            product.setCategoryEntity(categoryEntity);
             return product;
         }
     }

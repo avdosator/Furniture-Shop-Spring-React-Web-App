@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Category {
+public class CategoryEntity {
 
     @Id
     @Column(name = "category_id")
@@ -22,7 +22,7 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products;
 
-    public Category() {
+    public CategoryEntity() {
     }
 
     public Long getId() {
