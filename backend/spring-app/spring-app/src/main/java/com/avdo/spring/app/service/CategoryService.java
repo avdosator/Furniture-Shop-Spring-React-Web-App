@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.controller.dto.CreateCategoryRequestDto;
+import com.avdo.spring.app.controller.dto.CreateCategoryDto;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category createCategory(CreateCategoryRequestDto createCategoryRequestDto) {
+    public Category createCategory(CreateCategoryDto createCategoryDto) {
         Category category = new Category();
-        category.setName(createCategoryRequestDto.getName());
+        category.setName(createCategoryDto.getName());
         return categoryRepository.save(category);
     }
 

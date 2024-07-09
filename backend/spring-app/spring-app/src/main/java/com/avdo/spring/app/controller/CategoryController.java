@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateCategoryRequestDto;
+import com.avdo.spring.app.controller.dto.CreateCategoryDto;
 import com.avdo.spring.app.entity.Category;
 import com.avdo.spring.app.service.CategoryService;
 import jakarta.validation.Valid;
@@ -26,7 +26,7 @@ public class CategoryController {
     // endpoint for creating category (created for testing)
     @PostMapping("/categories")
     public ResponseEntity<Category> createCategory(
-            @Valid @RequestBody CreateCategoryRequestDto createCategoryRequestDto,
+            @Valid @RequestBody CreateCategoryDto createCategoryDto,
             BindingResult result) {
 
         if (result.hasErrors()) {
@@ -36,7 +36,7 @@ public class CategoryController {
                     .toList();
             throw new RuntimeException(errors.toString());
         } else {
-            Category category = categoryService.createCategory(createCategoryRequestDto);
+            Category category = categoryService.createCategory(createCategoryDto);
             return ResponseEntity.ok(category);
         }
     }
