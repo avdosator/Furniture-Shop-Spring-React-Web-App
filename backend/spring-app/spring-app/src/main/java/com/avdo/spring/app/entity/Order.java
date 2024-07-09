@@ -84,56 +84,6 @@ public class Order {
         this.dateCreated = dateCreated;
     }
 
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof Order)) return false;
-        final Order other = (Order) o;
-        if (!other.canEqual((Object) this)) return false;
-        final Object this$id = this.getId();
-        final Object other$id = other.getId();
-        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
-        final Object this$userEntity = this.getUserEntity();
-        final Object other$userEntity = other.getUserEntity();
-        if (this$userEntity == null ? other$userEntity != null : !this$userEntity.equals(other$userEntity))
-            return false;
-        final Object this$orderItems = this.getOrderItems();
-        final Object other$orderItems = other.getOrderItems();
-        if (this$orderItems == null ? other$orderItems != null : !this$orderItems.equals(other$orderItems))
-            return false;
-        if (Double.compare(this.getTotalAmount(), other.getTotalAmount()) != 0) return false;
-        final Object this$orderStatus = this.getOrderStatus();
-        final Object other$orderStatus = other.getOrderStatus();
-        if (this$orderStatus == null ? other$orderStatus != null : !this$orderStatus.equals(other$orderStatus))
-            return false;
-        final Object this$dateCreated = this.getDateCreated();
-        final Object other$dateCreated = other.getDateCreated();
-        if (this$dateCreated == null ? other$dateCreated != null : !this$dateCreated.equals(other$dateCreated))
-            return false;
-        return true;
-    }
-
-    protected boolean canEqual(final Object other) {
-        return other instanceof Order;
-    }
-
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $id = this.getId();
-        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
-        final Object $userEntity = this.getUserEntity();
-        result = result * PRIME + ($userEntity == null ? 43 : $userEntity.hashCode());
-        final Object $orderItems = this.getOrderItems();
-        result = result * PRIME + ($orderItems == null ? 43 : $orderItems.hashCode());
-        final long $totalAmount = Double.doubleToLongBits(this.getTotalAmount());
-        result = result * PRIME + (int) ($totalAmount >>> 32 ^ $totalAmount);
-        final Object $orderStatus = this.getOrderStatus();
-        result = result * PRIME + ($orderStatus == null ? 43 : $orderStatus.hashCode());
-        final Object $dateCreated = this.getDateCreated();
-        result = result * PRIME + ($dateCreated == null ? 43 : $dateCreated.hashCode());
-        return result;
-    }
-
     public String toString() {
         return "Order(id=" + this.getId() +
                 ", userEntityId=" + this.getUserEntity().getId() +

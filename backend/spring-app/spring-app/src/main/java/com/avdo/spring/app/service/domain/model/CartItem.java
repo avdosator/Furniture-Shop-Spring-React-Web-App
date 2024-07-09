@@ -2,61 +2,23 @@ package com.avdo.spring.app.service.domain.model;
 
 import com.avdo.spring.app.entity.Product;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.Date;
 
+@Getter
 @Builder
 public class CartItem {
 
-    private Long id;
+    private final Long id;
 
-    private Long cartId;
+    private final Long cartId;
 
-    private Product product;
+    private final Product product;
 
-    private int quantity;
+    private final int quantity;
 
-    private Date dateCreated;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public Long getCartId() {
-        return this.cartId;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    private final Date dateCreated;
 
     public String toString() {
         return "CartItem(id=" + this.getId() +
