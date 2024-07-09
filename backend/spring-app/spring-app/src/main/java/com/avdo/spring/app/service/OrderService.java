@@ -3,6 +3,8 @@ package com.avdo.spring.app.service;
 import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
+import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -37,23 +39,27 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
-        UserEntity userEntity = extractUserFromToken();
-        Cart cart;
-        cart = cartService.findByUserId(userEntity.getId());
+        CustomUserDetails customUserDetails = extractUserFromToken();
+        User user = customUserDetails.getUser();
+        UserEntity userEntity = UserEntity.fromUser(user);
+        CartEntity cartEntity;
+        Cart cart = cartService.findByUserId(user.getId());
         if (cart != null) {
-            Order order = createAndSaveOrder(userEntity, cart);
-            createAndSaveOrderItems(cart, order);
+            cartEntity = CartEntity.fromCart(cart, userEntity);
+            Order order = createAndSaveOrder(userEntity, cartEntity);
+            createAndSaveOrderItems(cartEntity, order);
             return order;
         } else {
-            cart = cartService.createCart(userEntity.getId());
-            Order order = createAndSaveOrder(userEntity, cart);
-            createAndSaveOrderItems(cart, order);
+            Cart newCart = cartService.createCart(user);
+            cartEntity = CartEntity.fromCart(newCart, userEntity);
+            Order order = createAndSaveOrder(userEntity, cartEntity);
+            createAndSaveOrderItems(cartEntity, order);
             return order;
         }
     }
 
-    private void createAndSaveOrderItems(Cart cart, Order order) {
-        for (CartItemEntity cartItemEntity : cart.getItems()) {
+    private void createAndSaveOrderItems(CartEntity cartEntity, Order order) {
+        for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(cartItemEntity.getProduct());
@@ -64,10 +70,10 @@ public class OrderService {
         }
     }
 
-    private Order createAndSaveOrder(UserEntity userEntity, Cart cart) {
+    private Order createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
         Order order = new Order();
         order.setUserEntity(userEntity);
-        order.setTotalAmount(cart.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
+        order.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
         order.setOrderStatus("Pending");
         order.setDateCreated(Date.valueOf(LocalDate.now()));
 
@@ -75,7 +81,7 @@ public class OrderService {
         return order;
     }
 
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private CustomUserDetails extractUserFromToken() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

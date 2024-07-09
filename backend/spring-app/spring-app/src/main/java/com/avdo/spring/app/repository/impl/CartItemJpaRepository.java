@@ -1,15 +1,17 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.entity.CartEntity;
 import com.avdo.spring.app.entity.CartItemEntity;
 import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.repository.CartRepository;
-import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
 import com.avdo.spring.app.repository.ProductRepository;
+import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
+import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -34,22 +36,16 @@ public class CartItemJpaRepository implements CartItemRepository {
     }
 
     @Override
-    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest) {
-
-        UserEntity userEntity = extractUserFromToken();
+    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart, User user) {
+        UserEntity userEntity = UserEntity.fromUser(user);
         CartItemEntity cartItemEntity = new CartItemEntity();
 
-        cartItemEntity.setCart(cartRepository.findByUserEntityId(userEntity.getId()).orElseThrow());
+        cartItemEntity.setCartEntity(CartEntity.fromCart(cart, userEntity));
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        CartItemEntity savedCartItemEntity = crudCartItemRepository.save(cartItemEntity);
 
-        return savedCartItemEntity.toDomainModel();
-    }
-
-    private UserEntity extractUserFromToken() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return crudCartItemRepository.save(cartItemEntity).toDomainModel();
     }
 
     @Override

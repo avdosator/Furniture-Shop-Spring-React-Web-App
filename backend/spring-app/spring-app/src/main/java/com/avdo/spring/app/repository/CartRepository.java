@@ -1,13 +1,10 @@
 package com.avdo.spring.app.repository;
 
-import com.avdo.spring.app.entity.Cart;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.User;
 
-import java.util.Optional;
+public interface CartRepository {
 
-@Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
-
-    Optional<Cart> findByUserEntityId(Long userId);
+    Cart findByUserEntityId(Long userId);
+    Cart createCart(User user);
 }
