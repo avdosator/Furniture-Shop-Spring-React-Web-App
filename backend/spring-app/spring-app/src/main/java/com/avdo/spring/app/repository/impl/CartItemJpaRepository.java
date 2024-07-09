@@ -38,21 +38,18 @@ public class CartItemJpaRepository implements CartItemRepository {
 
     @Override
     public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest) {
-
         CustomUserDetails customUserDetails = extractUserFromToken();
+        User user = customUserDetails.getUser();
+        UserEntity userEntity = UserEntity.fromUser(user);
         CartItemEntity cartItemEntity = new CartItemEntity();
 
-        User user = customUserDetails.getUser();
-
         // what if cart for this user doesn't exist??
-        cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(
-                user.getId()), UserEntity.fromUser(user)));
+        cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(userEntity.getId()), userEntity));
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-        CartItemEntity savedCartItemEntity = crudCartItemRepository.save(cartItemEntity);
 
-        return savedCartItemEntity.toDomainModel();
+        return crudCartItemRepository.save(cartItemEntity).toDomainModel();
     }
 
     private CustomUserDetails extractUserFromToken() {

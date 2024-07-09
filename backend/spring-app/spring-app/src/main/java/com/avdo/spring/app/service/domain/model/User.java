@@ -4,6 +4,7 @@ import com.avdo.spring.app.entity.Order;
 import lombok.Builder;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -25,7 +26,7 @@ public class User {
 
     private String role;
 
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
 
     public Long getId() {
