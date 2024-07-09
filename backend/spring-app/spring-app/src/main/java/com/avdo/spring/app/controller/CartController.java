@@ -18,9 +18,4 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/carts")
-    public Cart createCart() {
-        return cartService.createCart();
-    }
-
 }

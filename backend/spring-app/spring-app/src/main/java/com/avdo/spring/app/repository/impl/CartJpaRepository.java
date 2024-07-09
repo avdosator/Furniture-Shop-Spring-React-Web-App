@@ -32,20 +32,12 @@ public class CartJpaRepository implements CartRepository {
     }
 
     @Override
-    public Cart createOrFindCart() {
-        CustomUserDetails customUserDetails = extractUserFromToken();
-        User user = customUserDetails.getUser();
-        try {
-            return this.findByUserEntityId(user.getId());
-        } catch (NoSuchElementException e) {
-            CartEntity cartEntity = new CartEntity();
-            cartEntity.setUserEntity(UserEntity.fromUser(user));
-            cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
-            return crudCartRepository.save(cartEntity).toDomainModel();
-        }
+    public Cart createCart(User user) {
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setUserEntity(UserEntity.fromUser(user));
+        cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
+        return crudCartRepository.save(cartEntity).toDomainModel();
+
     }
 
-    private CustomUserDetails extractUserFromToken() {
-        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
 }

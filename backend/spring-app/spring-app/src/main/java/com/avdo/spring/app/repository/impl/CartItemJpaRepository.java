@@ -8,6 +8,7 @@ import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.ProductRepository;
 import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
+import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
@@ -37,23 +38,16 @@ public class CartItemJpaRepository implements CartItemRepository {
     }
 
     @Override
-    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest) {
-        CustomUserDetails customUserDetails = extractUserFromToken();
-        User user = customUserDetails.getUser();
+    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart, User user) {
         UserEntity userEntity = UserEntity.fromUser(user);
         CartItemEntity cartItemEntity = new CartItemEntity();
 
-        // what if cart for this user doesn't exist??
-        cartItemEntity.setCartEntity(CartEntity.fromCart(cartRepository.findByUserEntityId(userEntity.getId()), userEntity));
+        cartItemEntity.setCartEntity(CartEntity.fromCart(cart, userEntity));
         cartItemEntity.setProduct(productRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
 
         return crudCartItemRepository.save(cartItemEntity).toDomainModel();
-    }
-
-    private CustomUserDetails extractUserFromToken() {
-        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override

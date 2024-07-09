@@ -50,7 +50,7 @@ public class OrderService {
             createAndSaveOrderItems(cartEntity, order);
             return order;
         } else {
-            Cart newCart = cartService.createCart();
+            Cart newCart = cartService.createCart(user);
             cartEntity = CartEntity.fromCart(newCart, userEntity);
             Order order = createAndSaveOrder(userEntity, cartEntity);
             createAndSaveOrderItems(cartEntity, order);
