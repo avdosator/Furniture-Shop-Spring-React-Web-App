@@ -3,24 +3,22 @@ package com.avdo.spring.app.service.domain.model;
 import com.avdo.spring.app.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
 @Getter
 @Builder
 public class CartItem {
 
-    private Long id;
+    private final Long id;
 
-    private Long cartId;
+    private final Long cartId;
 
-    private Product product;
+    private final Product product;
 
-    private int quantity;
+    private final int quantity;
 
-    private Date dateCreated;
+    private final Date dateCreated;
 
     public String toString() {
         return "CartItem(id=" + this.getId() +
