@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api")
@@ -25,20 +24,15 @@ public class CartItemController {
 
     @PostMapping("/cart-items")
     public CartItem createCartItem(@Valid @RequestBody CreateCartItemDto createCartItemDto,
-                                                         BindingResult result) {
+                                   BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
             throw new RuntimeException(errors.toString());
-        } else {
-            try {
-                return cartItemService.createCartItem(createCartItemDto);
-            } catch (NoSuchElementException e) {
-                throw new RuntimeException("Failed to create cart item " + e.getMessage());
-            }
         }
+        return cartItemService.createCartItem(createCartItemDto);
     }
 
     @GetMapping("/cart-items")
