@@ -38,6 +38,14 @@ public class CategoryEntity {
                 .build();
     }
 
+    public static CategoryEntity fromCategory(Category category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setId(category.getId());
+        categoryEntity.setName(category.getName());
+        categoryEntity.setProducts(category.getProducts());
+        return categoryEntity;
+    }
+
     public CategoryEntity() {
     }
 

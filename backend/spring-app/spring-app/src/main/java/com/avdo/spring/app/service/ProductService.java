@@ -5,6 +5,7 @@ import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.repository.ProductRepository;
+import com.avdo.spring.app.service.domain.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,7 @@ public class ProductService {
     }
 
     public Product createProduct(CreateProductRequest createProductRequest) {
-        CategoryEntity category = categoryRepository
-                .findCategoryEntityByName(createProductRequest.getCategory())
-                .orElseThrow(() -> new RuntimeException("Choose valid category!"));
+        Category category = categoryRepository.findCategoryByName(createProductRequest.getCategory());
         Product product = ProductMapper.mapToProduct(createProductRequest, category);
         return productRepository.save(product);
     }
