@@ -25,7 +25,7 @@ public class ProductService {
 
     public Product createProduct(CreateProductRequest createProductRequest) {
         CategoryEntity category = categoryRepository
-                .findCategoryByName(createProductRequest.getCategory())
+                .findCategoryEntityByName(createProductRequest.getCategory())
                 .orElseThrow(() -> new RuntimeException("Choose valid category!"));
         Product product = ProductMapper.mapToProduct(createProductRequest, category);
         return productRepository.save(product);

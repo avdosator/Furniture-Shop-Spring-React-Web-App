@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findCategoryByName(String name) {
-        return categoryRepository.findCategoryByName(name)
+        return categoryRepository.findCategoryEntityByName(name)
                 .orElseThrow();
     }
 }
