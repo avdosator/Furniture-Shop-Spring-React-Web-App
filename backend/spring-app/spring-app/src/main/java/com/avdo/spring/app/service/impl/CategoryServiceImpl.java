@@ -23,19 +23,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(CreateCategoryRequest createCategoryRequest) {
-        CategoryEntity category = new CategoryEntity();
-        category.setName(createCategoryRequest.getName());
-        return categoryRepository.save(category);
+        return categoryRepository.createCategory(createCategoryRequest);
     }
 
     @Override
     public List<Category> findAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAllCategories();
     }
 
     @Override
     public Category findCategoryByName(String name) {
-        return categoryRepository.findCategoryEntityByName(name)
-                .orElseThrow();
+        return categoryRepository.findCategoryByName(name);
     }
 }
