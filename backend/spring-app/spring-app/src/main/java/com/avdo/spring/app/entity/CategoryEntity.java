@@ -28,13 +28,13 @@ public class CategoryEntity {
     private List<Product> products = new ArrayList<>();
 
     public Category toDomainModel() {
-        List<Product> categories = (this.products == null ? Collections.emptyList() : this.products.stream()
+        /*List<Product> categories = (this.products == null ? Collections.emptyList() : this.products.stream()
                 .map(Product::toDomainModel)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
         return Category.builder()
                 .id(this.id)
                 .name(this.name)
-                .products(categories)
+                .products(this.products)
                 .build();
     }
 

@@ -1,15 +1,15 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateCategoryDto;
-import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.service.CategoryService;
+import com.avdo.spring.app.service.domain.model.Category;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController()
@@ -25,7 +25,7 @@ public class CategoryController {
 
     // endpoint for creating category (created for testing)
     @PostMapping("/categories")
-    public ResponseEntity<CategoryEntity> createCategory(
+    public Category createCategory(
             @Valid @RequestBody CreateCategoryDto createCategoryDto,
             BindingResult result) {
 
@@ -35,30 +35,24 @@ public class CategoryController {
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
             throw new RuntimeException(errors.toString());
-        } else {
-            CategoryEntity categoryEntity = categoryService.createCategory(createCategoryDto);
-            return ResponseEntity.ok(categoryEntity);
         }
+        return categoryService.createCategory(createCategoryDto);
     }
 
     // endpoint for fetching all categories
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryEntity>> findAllCategories() {
-        List<CategoryEntity> categories = categoryService.findAllCategories();
+    public List<Category> findAllCategories() {
+        List<Category> categories = categoryService.findAllCategories();
         if (categories.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            return Collections.emptyList();
         }
-        return ResponseEntity.ok(categories);
+        return categories;
     }
 
     // endpoint for getting category by name
     @GetMapping("/categories/{name}")
-    public ResponseEntity<CategoryEntity> findCategoryByName(@PathVariable String name) {
-        CategoryEntity categoryEntity = categoryService.findCategoryByName(name);
-        if (categoryEntity == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(categoryEntity);
+    public Category findCategoryByName(@PathVariable String name) {
+        return categoryService.findCategoryByName(name);
     }
 
 }
