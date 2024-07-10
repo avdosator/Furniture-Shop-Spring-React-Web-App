@@ -26,7 +26,7 @@ public class ProductService {
 
     public Product createProduct(CreateProductRequest createProductRequest) {
         Category category = categoryRepository.findCategoryByName(createProductRequest.getCategory());
-        Product product = ProductMapper.mapToProduct(createProductRequest, category);
+        Product product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return productRepository.save(product);
     }
 
@@ -39,7 +39,7 @@ public class ProductService {
     }
 
     public List<Product> findSameCategoryProducts(String category) {
-        return productRepository.findByCategory_Name(category);
+        return productRepository.findByCategoryEntity_Name(category);
     }
 
     private static class ProductMapper {
