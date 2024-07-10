@@ -8,6 +8,7 @@ import com.avdo.spring.app.service.domain.request.CreateCategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,17 +25,22 @@ public class CategoryJpaRepository implements CategoryRepository {
     public Category createCategory(CreateCategoryRequest createCategoryRequest) {
         CategoryEntity category = new CategoryEntity();
         category.setName(createCategoryRequest.getName());
-        return crudCategoryRepository.save(category);
+        return crudCategoryRepository.save(category).toDomainModel();
     }
 
     @Override
     public List<Category> findAllCategories() {
-        return crudCategoryRepository.findAll();
+        List<CategoryEntity> categoryEntities = crudCategoryRepository.findAll();
+        List<Category> categories = new ArrayList<>();
+        for (CategoryEntity categoryEntity : categoryEntities) {
+            categories.add(categoryEntity.toDomainModel());
+        }
+        return categories;
     }
 
     @Override
     public Category findCategoryByName(String name) {
-        return crudCategoryRepository.findCategoryEntityByName(name)
-                .orElseThrow();
+        CategoryEntity categoryEntity = crudCategoryRepository.findCategoryEntityByName(name).orElseThrow();
+        return categoryEntity.toDomainModel();
     }
 }
