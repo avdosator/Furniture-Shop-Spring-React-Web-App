@@ -1,9 +1,9 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.controller.dto.CreateCategoryDto;
 import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.service.CategoryService;
+import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.request.CreateCategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +22,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryEntity createCategory(CreateCategoryRequest createCategoryRequest) {
+    public Category createCategory(CreateCategoryRequest createCategoryRequest) {
         CategoryEntity category = new CategoryEntity();
         category.setName(createCategoryRequest.getName());
         return categoryRepository.save(category);
     }
 
     @Override
-    public List<CategoryEntity> findAllCategories() {
+    public List<Category> findAllCategories() {
         return categoryRepository.findAll();
     }
 
     @Override
-    public CategoryEntity findCategoryByName(String name) {
+    public Category findCategoryByName(String name) {
         return categoryRepository.findCategoryByName(name)
                 .orElseThrow();
     }
