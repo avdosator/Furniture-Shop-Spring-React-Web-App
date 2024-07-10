@@ -19,7 +19,7 @@ public class CategoryEntity {
     @Column(name = "category_name")
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
     private List<Product> products;
 
     public CategoryEntity() {

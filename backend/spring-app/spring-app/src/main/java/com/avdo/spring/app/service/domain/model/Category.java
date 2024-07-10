@@ -10,11 +10,11 @@ import java.util.List;
 @Builder
 public class Category {
 
-    private Long id;
+    private final Long id;
 
-    private String name;
+    private final String name;
 
-    private List<Product> products;
+    private final List<Product> products;
 
     public String toString() {
         return "Category(id=" + this.getId() +
