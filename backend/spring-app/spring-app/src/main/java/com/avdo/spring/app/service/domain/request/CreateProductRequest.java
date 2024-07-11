@@ -1,27 +1,19 @@
 package com.avdo.spring.app.service.domain.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
 public class CreateProductRequest {
-    @NotBlank
-    @Size(max = 50)
-    private final String name;
 
-    @NotNull
-    private final double price;
+    protected final String name;
 
-    @NotNull
-    private final int stock;
+    protected final double price;
 
-    private final String description;
+    protected final int stock;
 
-    @NotBlank
-    @Size(max = 30)
-    private final String category;
+    protected final String description;
+
+    protected final String category;
 }

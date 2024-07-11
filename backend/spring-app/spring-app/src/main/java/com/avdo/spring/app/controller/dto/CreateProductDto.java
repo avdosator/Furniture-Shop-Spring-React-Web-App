@@ -1,27 +1,51 @@
 package com.avdo.spring.app.controller.dto;
 
 import com.avdo.spring.app.service.domain.request.CreateProductRequest;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
-@Data
+
 public class CreateProductDto extends CreateProductRequest {
 
+    @JsonCreator
+    public CreateProductDto(@JsonProperty("name") String name,
+                            @JsonProperty("price") double price,
+                            @JsonProperty("stock") int stock,
+                            @JsonProperty("description") String description,
+                            @JsonProperty("category") String category) {
+        super(name, price, stock, description, category);
+    }
     @NotBlank
     @Size(max = 50)
-    private String name;
+    @Override
+    public String getName() {
+        return name;
+    }
 
     @NotNull
-    private double price;
+    @Override
+    public double getPrice() {
+        return price;
+    };
 
     @NotNull
-    private int stock;
+    @Override
+    public int getStock() {
+        return stock;
+    };
 
-    private String description;
+    @Override
+    public String getDescription() {
+        return description;
+    };
 
     @NotBlank
     @Size(max = 30)
-    private String category;
+    @Override
+    public String getCategory() {
+        return category;
+    };
 }
