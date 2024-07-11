@@ -1,6 +1,5 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.ProductEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ public class CartItem {
 
     private final Long cartId;
 
-    private final ProductEntity productEntity;
+    private final Product product;
 
     private final int quantity;
 
@@ -23,7 +22,7 @@ public class CartItem {
     public String toString() {
         return "CartItem(id=" + this.getId() +
                 ", cartId=" + this.getCartId() +
-                ", productId=" + this.getProductEntity().getId() +
+                ", productId=" + this.getProduct().getId() +
                 ", quantity=" + this.getQuantity() +
                 ", dateCreated=" + this.getDateCreated() + ")";
     }
