@@ -30,7 +30,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryEntity categoryEntity;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
@@ -58,8 +58,8 @@ public class Product {
         return this.description;
     }
 
-    public Category getCategory() {
-        return this.category;
+    public CategoryEntity getCategoryEntity() {
+        return this.categoryEntity;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -86,8 +86,8 @@ public class Product {
         this.description = description;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
@@ -100,7 +100,7 @@ public class Product {
                 ", price=" + this.getPrice() +
                 ", stock=" + this.getStock() +
                 ", description=" + this.getDescription() +
-                ", categoryName=" + this.getCategory().getName() +
+                ", categoryName=" + this.getCategoryEntity().getName() +
                 /*", orderItems=" + this.getOrderItems() +*/ ")";
     }
 }

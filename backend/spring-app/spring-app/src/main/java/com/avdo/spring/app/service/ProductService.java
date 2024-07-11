@@ -1,10 +1,11 @@
 package com.avdo.spring.app.service;
 
 import com.avdo.spring.app.controller.dto.CreateProductRequest;
-import com.avdo.spring.app.entity.Category;
+import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.repository.ProductRepository;
+import com.avdo.spring.app.service.domain.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,8 @@ public class ProductService {
     }
 
     public Product createProduct(CreateProductRequest createProductRequest) {
-        Category category = categoryRepository
-                .findCategoryByName(createProductRequest.getCategory())
-                .orElseThrow(() -> new RuntimeException("Choose valid category!"));
-        Product product = ProductMapper.mapToProduct(createProductRequest, category);
+        Category category = categoryRepository.findCategoryByName(createProductRequest.getCategory());
+        Product product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return productRepository.save(product);
     }
 
@@ -40,18 +39,18 @@ public class ProductService {
     }
 
     public List<Product> findSameCategoryProducts(String category) {
-        return productRepository.findByCategory_Name(category);
+        return productRepository.findByCategoryEntity_Name(category);
     }
 
     private static class ProductMapper {
 
-        private static Product mapToProduct(CreateProductRequest createProductRequest, Category category) {
+        private static Product mapToProduct(CreateProductRequest createProductRequest, CategoryEntity categoryEntity) {
             Product product = new Product();
             product.setName(createProductRequest.getName());
             product.setPrice(createProductRequest.getPrice());
             product.setStock(createProductRequest.getStock());
             product.setDescription(createProductRequest.getDescription());
-            product.setCategory(category);
+            product.setCategoryEntity(categoryEntity);
             return product;
         }
     }

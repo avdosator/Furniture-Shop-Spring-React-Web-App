@@ -1,15 +1,20 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.Category;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "category")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Category {
+public class CategoryEntity {
 
     @Id
     @Column(name = "category_id")
@@ -19,10 +24,29 @@ public class Category {
     @Column(name = "category_name")
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    private List<Product> products;
+    @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
+    private List<Product> products = new ArrayList<>();
 
-    public Category() {
+    public Category toDomainModel() {
+        /*List<Product> categories = (this.products == null ? Collections.emptyList() : this.products.stream()
+                .map(Product::toDomainModel)
+                .collect(Collectors.toList()));*/
+        return Category.builder()
+                .id(this.id)
+                .name(this.name)
+                .products(this.products)
+                .build();
+    }
+
+    public static CategoryEntity fromCategory(Category category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setId(category.getId());
+        categoryEntity.setName(category.getName());
+        categoryEntity.setProducts(category.getProducts());
+        return categoryEntity;
+    }
+
+    public CategoryEntity() {
     }
 
     public Long getId() {
