@@ -1,12 +1,15 @@
 package com.avdo.spring.app.entity;
 
 import com.avdo.spring.app.service.domain.model.Category;
+import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "category")
@@ -22,16 +25,16 @@ public class CategoryEntity {
     private String name;
 
     @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
-    private List<ProductEntity> products = new ArrayList<>();
+    private List<ProductEntity> productEntities = new ArrayList<>();
 
     public Category toDomainModel() {
-        /*List<Product> categories = (this.products == null ? Collections.emptyList() : this.products.stream()
+        List<Product> products = (this.productEntities == null ? Collections.emptyList() : this.productEntities.stream()
                 .map(Product::toDomainModel)
-                .collect(Collectors.toList()));*/
+                .collect(Collectors.toList()));
         return Category.builder()
                 .id(this.id)
                 .name(this.name)
-                .products(this.products)
+                .products(products)
                 .build();
     }
 
@@ -39,7 +42,7 @@ public class CategoryEntity {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setId(category.getId());
         categoryEntity.setName(category.getName());
-        categoryEntity.setProducts(category.getProducts());
+        categoryEntity.setProductEntities(category.getProducts());
         return categoryEntity;
     }
 
@@ -54,8 +57,8 @@ public class CategoryEntity {
         return this.name;
     }
 
-    public List<ProductEntity> getProducts() {
-        return this.products;
+    public List<ProductEntity> getProductEntities() {
+        return this.productEntities;
     }
 
     public void setId(Long id) {
@@ -66,8 +69,8 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
+    public void setProductEntities(List<ProductEntity> productEntities) {
+        this.productEntities = productEntities;
     }
 
     public String toString() {
