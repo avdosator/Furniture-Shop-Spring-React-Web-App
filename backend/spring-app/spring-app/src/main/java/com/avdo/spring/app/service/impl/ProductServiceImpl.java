@@ -41,16 +41,4 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryEntity_Name(category);
     }
 
-    private static class ProductMapper {
-
-        private static ProductEntity mapToProduct(CreateProductRequest createProductRequest, CategoryEntity categoryEntity) {
-            ProductEntity product = new ProductEntity();
-            product.setName(createProductRequest.getName());
-            product.setPrice(createProductRequest.getPrice());
-            product.setStock(createProductRequest.getStock());
-            product.setDescription(createProductRequest.getDescription());
-            product.setCategoryEntity(categoryEntity);
-            return product;
-        }
-    }
 }
