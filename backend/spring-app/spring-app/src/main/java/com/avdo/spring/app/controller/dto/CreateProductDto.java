@@ -1,12 +1,13 @@
 package com.avdo.spring.app.controller.dto;
 
+import com.avdo.spring.app.service.domain.request.CreateProductRequest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateProductRequest {
+public class CreateProductDto extends CreateProductRequest {
 
     @NotBlank
     @Size(max = 50)

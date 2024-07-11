@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateProductRequest;
+import com.avdo.spring.app.controller.dto.CreateProductDto;
 import com.avdo.spring.app.entity.Product;
 import com.avdo.spring.app.service.ProductService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class ProductController {
 
     // endpoint for creating a product
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest,
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody CreateProductDto createProductRequest,
                                                  BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
