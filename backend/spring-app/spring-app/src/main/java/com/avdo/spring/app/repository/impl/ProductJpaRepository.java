@@ -13,6 +13,9 @@ import com.avdo.spring.app.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class ProductJpaRepository implements ProductRepository {
 
@@ -34,6 +37,16 @@ public class ProductJpaRepository implements ProductRepository {
         Category category = categoryService.findCategoryByName(createProductRequest.getCategory());
         ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return crudProductRepository.save(product).toDomainModel();
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        List<ProductEntity> productEntities = crudProductRepository.findAll();
+        List<Product> products = new ArrayList<>();
+        for (ProductEntity product : productEntities) {
+            products.add(product.toDomainModel());
+        }
+        return products;
     }
 
     private static class ProductMapper {

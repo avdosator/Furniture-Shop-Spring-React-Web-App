@@ -9,34 +9,35 @@ import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.model.Product;
 import com.avdo.spring.app.service.domain.request.CreateProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public ProductServiceImpl(
-            ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
     }
 
+    @Override
     public Product createProduct(CreateProductRequest createProductRequest) {
-        Category category = categoryRepository.findCategoryByName(createProductRequest.getCategory());
-        ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
-        return productRepository.save(product);
+        return productRepository.createProduct(createProductRequest);
     }
 
+    @Override
     public List<Product> findAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findAllProducts();
     }
 
+    @Override
     public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow();
     }
 
+    @Override
     public List<Product> findSameCategoryProducts(String category) {
         return productRepository.findByCategoryEntity_Name(category);
     }
