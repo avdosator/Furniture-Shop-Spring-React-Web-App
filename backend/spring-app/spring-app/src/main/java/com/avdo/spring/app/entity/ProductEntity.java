@@ -1,5 +1,6 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -36,6 +37,18 @@ public class ProductEntity {
     private List<OrderItem> orderItems;
 
     public ProductEntity() {
+    }
+
+    public Product toDomainModel() {
+        return Product.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .stock(this.stock)
+                .description(this.description)
+                .category(this.categoryEntity.toDomainModel())
+                .orderItems(this.orderItems)
+                .build();
     }
 
     public Long getId() {

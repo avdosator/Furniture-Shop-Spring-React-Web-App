@@ -24,19 +24,6 @@ public class Product {
 
     private final List<OrderItem> orderItems;
 
-    public Product toDomainModel() {
-        return Product.builder()
-                .id(this.id)
-                .name(this.name)
-                .price(this.price)
-                .stock(this.stock)
-                .description(this.description)
-                .category(this.category)
-                .category(this.category)
-                .orderItems(this.orderItems)
-                .build();
-    }
-
     public String toString() {
         return "Product(id=" + this.getId() +
                 ", name=" + this.getName() +
