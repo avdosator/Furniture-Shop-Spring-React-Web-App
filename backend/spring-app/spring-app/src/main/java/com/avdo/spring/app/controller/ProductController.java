@@ -3,13 +3,17 @@ package com.avdo.spring.app.controller;
 import com.avdo.spring.app.controller.dto.CreateProductDto;
 import com.avdo.spring.app.entity.ProductEntity;
 import com.avdo.spring.app.service.ProductService;
+import com.avdo.spring.app.service.domain.model.Product;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -25,8 +29,8 @@ public class ProductController {
 
     // endpoint for creating a product
     @PostMapping("/products")
-    public ResponseEntity<ProductEntity> createProduct(@Valid @RequestBody CreateProductDto createProductDto,
-                                                       BindingResult result) {
+    public Product createProduct(@Valid @RequestBody CreateProductDto createProductDto,
+                                 BindingResult result) {
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()
@@ -34,38 +38,38 @@ public class ProductController {
                     .toList();
             throw new RuntimeException(errors.toString());
         } else {
-            ProductEntity product = productService.createProduct(createProductDto);
-            return ResponseEntity.ok(product);
+            return productService.createProduct(createProductDto);
         }
     }
 
     // endpoint for fetching all products
     @GetMapping("/products")
-    public ResponseEntity<List<ProductEntity>> getAllProducts() {
-        List<ProductEntity> products = productService.findAllProducts();
+    public List<Product> getAllProducts() {
+        List<Product> products = productService.findAllProducts();
         if (products.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return Collections.emptyList();
         }
-        return ResponseEntity.ok(products);
+        return products;
     }
 
     // endpoint for fetching product by id
     @GetMapping("/products/{id}")
-    public ResponseEntity<ProductEntity> getProductById(@PathVariable Long id) {
-        ProductEntity product = productService.findById(id);
+    public Product getProductById(@PathVariable Long id) {
+        Product product = productService.findById(id);
         if (product != null) {
-            return ResponseEntity.ok(product);
+            return product;
         }
-        return ResponseEntity.notFound().build();
+        // is this ok for now?
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
     }
 
     // endpoint for fetching products from given category
     @GetMapping("/products/category/{category}")
-    public ResponseEntity<List<ProductEntity>> getSameCategoryProducts(@PathVariable String category) {
-        List<ProductEntity> products = productService.findSameCategoryProducts(category);
+    public List<Product> getSameCategoryProducts(@PathVariable String category) {
+        List<Product> products = productService.findSameCategoryProducts(category);
         if (products.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return Collections.emptyList();
         }
-        return ResponseEntity.ok(products);
+        return products;
     }
 }
