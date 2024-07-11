@@ -6,6 +6,7 @@ import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.repository.ProductRepository;
 import com.avdo.spring.app.service.ProductService;
 import com.avdo.spring.app.service.domain.model.Category;
+import com.avdo.spring.app.service.domain.model.Product;
 import com.avdo.spring.app.service.domain.request.CreateProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,21 +23,21 @@ public class ProductServiceImpl implements ProductService {
         this.categoryRepository = categoryRepository;
     }
 
-    public ProductEntity createProduct(CreateProductRequest createProductRequest) {
+    public Product createProduct(CreateProductRequest createProductRequest) {
         Category category = categoryRepository.findCategoryByName(createProductRequest.getCategory());
         ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return productRepository.save(product);
     }
 
-    public List<ProductEntity> findAllProducts() {
+    public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
-    public ProductEntity findById(Long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow();
     }
 
-    public List<ProductEntity> findSameCategoryProducts(String category) {
+    public List<Product> findSameCategoryProducts(String category) {
         return productRepository.findByCategoryEntity_Name(category);
     }
 
