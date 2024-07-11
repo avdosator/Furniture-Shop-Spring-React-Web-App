@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.Product;
+import com.avdo.spring.app.entity.ProductEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,7 +14,7 @@ public class Category {
 
     private final String name;
 
-    private final List<Product> products;
+    private final List<ProductEntity> products;
 
     public String toString() {
         return "Category(id=" + this.getId() +

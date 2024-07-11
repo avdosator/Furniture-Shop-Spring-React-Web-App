@@ -23,7 +23,7 @@ public class CartItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductEntity product;
 
     @Column(name = "quantity")
     private int quantity;
@@ -38,7 +38,7 @@ public class CartItemEntity {
         return CartItem.builder()
                 .id(this.id)
                 .cartId(this.cartEntity.getId())
-                .product(this.product)
+                .productEntity(this.product)
                 .quantity(this.quantity)
                 .dateCreated(this.dateCreated)
                 .build();
@@ -52,7 +52,7 @@ public class CartItemEntity {
         return this.cartEntity;
     }
 
-    public Product getProduct() {
+    public ProductEntity getProduct() {
         return this.product;
     }
 
@@ -72,7 +72,7 @@ public class CartItemEntity {
         this.cartEntity = cartEntity;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductEntity product) {
         this.product = product;
     }
 
