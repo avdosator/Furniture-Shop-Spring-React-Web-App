@@ -20,21 +20,20 @@ import java.util.List;
 public class ProductJpaRepository implements ProductRepository {
 
     private final CrudProductRepository crudProductRepository;
-    private final ProductService productService;
     private final CategoryService categoryService;
 
     @Autowired
     public ProductJpaRepository(CrudProductRepository crudProductRepository,
-                                ProductService productService,
                                 CategoryService categoryService) {
         this.crudProductRepository = crudProductRepository;
-        this.productService = productService;
         this.categoryService = categoryService;
     }
 
     @Override
     public Product createProduct(CreateProductRequest createProductRequest) {
+        System.out.println("In ProductJpaRepository");
         Category category = categoryService.findCategoryByName(createProductRequest.getCategory());
+        System.out.println("Category is" + category);
         ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return crudProductRepository.save(product).toDomainModel();
     }

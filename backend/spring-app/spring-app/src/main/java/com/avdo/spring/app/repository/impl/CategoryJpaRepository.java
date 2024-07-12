@@ -40,7 +40,11 @@ public class CategoryJpaRepository implements CategoryRepository {
 
     @Override
     public Category findCategoryByName(String name) {
+        System.out.println("In CategoryJpaRepository");
         CategoryEntity categoryEntity = crudCategoryRepository.findCategoryEntityByName(name).orElseThrow();
-        return categoryEntity.toDomainModel();
+        System.out.println("categoryEntity is " + categoryEntity);
+        Category category = categoryEntity.toDomainModel();
+        System.out.println(category);
+        return category;
     }
 }

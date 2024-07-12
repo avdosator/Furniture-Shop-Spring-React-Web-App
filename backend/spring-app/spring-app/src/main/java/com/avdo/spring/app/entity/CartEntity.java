@@ -57,7 +57,7 @@ public class CartEntity {
                     CartItemEntity cartItemEntity = new CartItemEntity();
                     cartItemEntity.setId(cartItem.getId());
                     cartItemEntity.setCartEntity(cartEntity); // Important to set the back reference
-                    cartItemEntity.setProduct(cartItem.getProductEntity());
+                    cartItemEntity.setProductEntity(ProductEntity.fromProduct(cartItem.getProduct()));
                     cartItemEntity.setQuantity(cartItem.getQuantity());
                     cartItemEntity.setDateCreated(cartItem.getDateCreated()); // CartItem needs to have dateCreated field ??
                     return cartItemEntity;

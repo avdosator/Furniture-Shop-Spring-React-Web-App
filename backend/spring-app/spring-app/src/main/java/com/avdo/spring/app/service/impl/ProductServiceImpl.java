@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(CreateProductRequest createProductRequest) {
+        System.out.println("In ProductServiceImpl");
         return productRepository.createProduct(createProductRequest);
     }
 
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findSameCategoryProducts(String category) {
-        return productRepository.findByCategoryEntity_Name(category);
+        return productRepository.findSameCategoryProducts(category);
     }
 
 }

@@ -31,6 +31,7 @@ public class ProductController {
     @PostMapping("/products")
     public Product createProduct(@Valid @RequestBody CreateProductDto createProductDto,
                                  BindingResult result) {
+        System.out.println("In ProductController");
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors()
                     .stream()

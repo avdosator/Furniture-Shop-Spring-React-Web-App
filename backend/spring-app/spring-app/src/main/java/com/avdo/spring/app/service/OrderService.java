@@ -62,9 +62,9 @@ public class OrderService {
         for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
-            orderItem.setProduct(cartItemEntity.getProduct());
+            orderItem.setProductEntity(cartItemEntity.getProductEntity());
             orderItem.setQuantity(cartItemEntity.getQuantity());
-            orderItem.setPrice(cartItemEntity.getProduct().getPrice());
+            orderItem.setPrice(cartItemEntity.getProductEntity().getPrice());
 
             orderItemService.createOrderItem(orderItem);
         }
@@ -73,7 +73,7 @@ public class OrderService {
     private Order createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
         Order order = new Order();
         order.setUserEntity(userEntity);
-        order.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum());
+        order.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProductEntity().getPrice() * item.getQuantity()).sum());
         order.setOrderStatus("Pending");
         order.setDateCreated(Date.valueOf(LocalDate.now()));
 

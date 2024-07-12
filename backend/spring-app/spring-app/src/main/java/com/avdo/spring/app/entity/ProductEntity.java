@@ -33,7 +33,7 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
     public ProductEntity() {
@@ -46,7 +46,7 @@ public class ProductEntity {
                 .price(this.price)
                 .stock(this.stock)
                 .description(this.description)
-                .category(this.categoryEntity.toDomainModel())
+                .categoryId(this.categoryEntity.getId())
                 .orderItems(this.orderItems)
                 .build();
     }

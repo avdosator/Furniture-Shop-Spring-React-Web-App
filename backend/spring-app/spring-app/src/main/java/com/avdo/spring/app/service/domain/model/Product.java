@@ -20,7 +20,7 @@ public class Product {
 
     private final String description;
 
-    private final Category category;
+    private final Long categoryId;
 
     private final List<OrderItem> orderItems;
 
@@ -30,6 +30,6 @@ public class Product {
                 ", price=" + this.getPrice() +
                 ", stock=" + this.getStock() +
                 ", description=" + this.getDescription() +
-                ", category=" + this.category.getName() + ")";
+                ", categoryId=" + this.categoryId + ")";
     }
 }
