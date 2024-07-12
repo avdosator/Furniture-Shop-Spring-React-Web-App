@@ -9,4 +9,5 @@ public interface ProductRepository {
 
     Product createProduct(CreateProductRequest createProductRequest);
     List<Product> findAllProducts();
+    public Product findById(Long id);
 }

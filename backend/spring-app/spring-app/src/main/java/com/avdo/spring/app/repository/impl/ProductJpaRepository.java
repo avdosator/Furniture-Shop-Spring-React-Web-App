@@ -49,6 +49,12 @@ public class ProductJpaRepository implements ProductRepository {
         return products;
     }
 
+    @Override
+    public Product findById(Long id) {
+        ProductEntity productEntity = crudProductRepository.findById(id).orElseThrow();
+        return productEntity.toDomainModel();
+    }
+
     private static class ProductMapper {
 
         private static ProductEntity mapToProduct(CreateProductRequest createProductRequest, CategoryEntity categoryEntity) {
