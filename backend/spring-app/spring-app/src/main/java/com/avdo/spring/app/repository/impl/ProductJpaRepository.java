@@ -55,6 +55,16 @@ public class ProductJpaRepository implements ProductRepository {
         return productEntity.toDomainModel();
     }
 
+    @Override
+    public List<Product> findSameCategoryProducts(String category) {
+        List<ProductEntity> productEntities = crudProductRepository.findByCategoryEntity_Name(category);
+        List<Product> products = new ArrayList<>();
+        for (ProductEntity entity : productEntities) {
+            products.add(entity.toDomainModel());
+        }
+        return products;
+    }
+
     private static class ProductMapper {
 
         private static ProductEntity mapToProduct(CreateProductRequest createProductRequest, CategoryEntity categoryEntity) {
