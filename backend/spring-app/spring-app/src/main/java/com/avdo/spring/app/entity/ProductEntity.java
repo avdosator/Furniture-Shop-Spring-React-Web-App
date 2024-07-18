@@ -1,5 +1,6 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -58,7 +59,7 @@ public class ProductEntity {
         productEntity.setPrice(product.getPrice());
         productEntity.setStock(product.getStock());
         productEntity.setDescription(product.getDescription());
-        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
+        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategoryId()));
         productEntity.setOrderItems(product.getOrderItems());
         return productEntity;
     }
