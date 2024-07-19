@@ -1,7 +1,7 @@
 package com.avdo.spring.app.entity;
 
-import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.Category;
+import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -25,16 +25,12 @@ public class CategoryEntity {
     private String name;
 
     @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
-    private List<Product> products = new ArrayList<>();
+    private List<ProductEntity> productEntities = new ArrayList<>();
 
     public Category toDomainModel() {
-        /*List<Product> categories = (this.products == null ? Collections.emptyList() : this.products.stream()
-                .map(Product::toDomainModel)
-                .collect(Collectors.toList()));*/
         return Category.builder()
                 .id(this.id)
                 .name(this.name)
-                .products(this.products)
                 .build();
     }
 
@@ -42,7 +38,6 @@ public class CategoryEntity {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setId(category.getId());
         categoryEntity.setName(category.getName());
-        categoryEntity.setProducts(category.getProducts());
         return categoryEntity;
     }
 
@@ -57,8 +52,8 @@ public class CategoryEntity {
         return this.name;
     }
 
-    public List<Product> getProducts() {
-        return this.products;
+    public List<ProductEntity> getProductEntities() {
+        return this.productEntities;
     }
 
     public void setId(Long id) {
@@ -69,13 +64,12 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductEntities(List<ProductEntity> productEntities) {
+        this.productEntities = productEntities;
     }
 
     public String toString() {
         return "Category(id=" + this.getId() +
-                ", name=" + this.getName() +
-                /*", products=" + this.getProducts() +*/ ")";
+                ", name=" + this.getName() + ")";
     }
 }

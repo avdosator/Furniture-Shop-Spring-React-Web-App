@@ -1,5 +1,7 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.Category;
+import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -9,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Product {
+public class ProductEntity {
 
     @Id
     @Column(name = "product_id")
@@ -32,10 +34,34 @@ public class Product {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
-    public Product() {
+    public ProductEntity() {
+    }
+
+    public Product toDomainModel() {
+        return Product.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .stock(this.stock)
+                .description(this.description)
+                .category(this.categoryEntity.toDomainModel())
+                .orderItems(this.orderItems)
+                .build();
+    }
+
+    public static ProductEntity fromProduct(Product product) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setId(product.getId());
+        productEntity.setName(product.getName());
+        productEntity.setPrice(product.getPrice());
+        productEntity.setStock(product.getStock());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
+        productEntity.setOrderItems(product.getOrderItems());
+        return productEntity;
     }
 
     public Long getId() {

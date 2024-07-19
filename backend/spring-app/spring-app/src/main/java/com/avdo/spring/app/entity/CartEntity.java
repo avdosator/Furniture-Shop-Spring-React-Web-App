@@ -56,10 +56,10 @@ public class CartEntity {
                 .map(cartItem -> {
                     CartItemEntity cartItemEntity = new CartItemEntity();
                     cartItemEntity.setId(cartItem.getId());
-                    cartItemEntity.setCartEntity(cartEntity); // Important to set the back reference
-                    cartItemEntity.setProduct(cartItem.getProduct());
+                    cartItemEntity.setCartEntity(cartEntity);
+                    cartItemEntity.setProductEntity(ProductEntity.fromProduct(cartItem.getProduct()));
                     cartItemEntity.setQuantity(cartItem.getQuantity());
-                    cartItemEntity.setDateCreated(cartItem.getDateCreated()); // CartItem needs to have dateCreated field ??
+                    cartItemEntity.setDateCreated(cartItem.getDateCreated());
                     return cartItemEntity;
                 })
                 .toList();
@@ -101,8 +101,7 @@ public class CartEntity {
 
     public String toString() {
         return "CartEntity(id=" + this.getId() +
-                ", userEntity=" + this.getUserEntity().getId() +
-                //", items=" + this.getItems() +
+                ", userEntityId=" + this.getUserEntity().getId() +
                 ", dateCreated=" + this.getDateCreated() + ")";
     }
 }
