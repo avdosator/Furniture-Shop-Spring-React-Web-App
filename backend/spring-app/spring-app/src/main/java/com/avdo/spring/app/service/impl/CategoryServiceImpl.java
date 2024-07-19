@@ -33,7 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findCategoryByName(String name) {
-        System.out.println("In categoryServiceImpl, searching for " + name);
         return categoryRepository.findCategoryByName(name);
     }
 }

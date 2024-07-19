@@ -28,25 +28,16 @@ public class CategoryEntity {
     private List<ProductEntity> productEntities = new ArrayList<>();
 
     public Category toDomainModel() {
-        List<Product> products = (this.productEntities == null ? Collections.emptyList() : this.productEntities.stream()
-                .map(ProductEntity::toDomainModel)
-                .toList());
         return Category.builder()
                 .id(this.id)
                 .name(this.name)
-                //.products(products)
                 .build();
     }
 
     public static CategoryEntity fromCategory(Category category) {
-        /*List<ProductEntity> productEntities = (category.getProducts() == null ? Collections.emptyList() : category.getProducts().stream()
-                .map(ProductEntity::fromProduct) // You need to implement this method in ProductEntity
-                .collect(Collectors.toList()));*/
-
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setId(category.getId());
         categoryEntity.setName(category.getName());
-        //categoryEntity.setProductEntities(productEntities);
         return categoryEntity;
     }
 
