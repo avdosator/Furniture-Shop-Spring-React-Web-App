@@ -23,7 +23,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public void createOrderItem(OrderItemEntity orderItemEntity) {
-        orderItemRepository.save(orderItemEntity);
+        orderItemRepository.createOrderItem(orderItemEntity);
     }
 
 }

@@ -16,6 +16,12 @@ public class OrderItemJpaRepository implements OrderItemRepository {
         this.crudOrderItemRepository = crudOrderItemRepository;
     }
 
+    @Override
+    public void createOrderItem(OrderItemEntity orderItemEntity) {
+        crudOrderItemRepository.save(orderItemEntity);
+    }
+
+    @Override
     public OrderItemEntity findById(Long id) {
         return crudOrderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
     }
