@@ -11,17 +11,11 @@ import java.util.List;
 public class Product {
 
     private final Long id;
-
     private final String name;
-
     private final double price;
-
     private final int stock;
-
     private final String description;
-
-    private final Long categoryId;
-
+    private final Category category;
     private final List<OrderItem> orderItems;
 
     public String toString() {
@@ -30,6 +24,6 @@ public class Product {
                 ", price=" + this.getPrice() +
                 ", stock=" + this.getStock() +
                 ", description=" + this.getDescription() +
-                ", categoryId=" + this.categoryId + ")";
+                ", categoryName=" + this.category.getName() + ")";
     }
 }

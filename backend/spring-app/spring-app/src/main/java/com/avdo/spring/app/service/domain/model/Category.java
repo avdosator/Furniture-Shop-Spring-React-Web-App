@@ -10,10 +10,7 @@ import java.util.List;
 public class Category {
 
     private final Long id;
-
     private final String name;
-
-    private final List<Product> products;
 
     public String toString() {
         return "Category(id=" + this.getId() +
