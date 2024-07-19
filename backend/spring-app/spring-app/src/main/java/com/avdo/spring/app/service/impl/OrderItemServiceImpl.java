@@ -3,6 +3,7 @@ package com.avdo.spring.app.service.impl;
 import com.avdo.spring.app.entity.OrderItemEntity;
 import com.avdo.spring.app.repository.OrderItemRepository;
 import com.avdo.spring.app.service.OrderItemService;
+import com.avdo.spring.app.service.domain.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public OrderItemEntity findById(Long id) {
+    public OrderItem findById(Long id) {
         return orderItemRepository.findById(id);
     }
 

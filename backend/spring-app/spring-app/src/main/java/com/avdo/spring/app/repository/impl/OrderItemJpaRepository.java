@@ -3,6 +3,7 @@ package com.avdo.spring.app.repository.impl;
 import com.avdo.spring.app.entity.OrderItemEntity;
 import com.avdo.spring.app.repository.OrderItemRepository;
 import com.avdo.spring.app.repository.crud.CrudOrderItemRepository;
+import com.avdo.spring.app.service.domain.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,8 @@ public class OrderItemJpaRepository implements OrderItemRepository {
     }
 
     @Override
-    public OrderItemEntity findById(Long id) {
-        return crudOrderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
+    public OrderItem findById(Long id) {
+        OrderItemEntity orderItemEntity = crudOrderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
+        return orderItemEntity.toDomainModel();
     }
 }
