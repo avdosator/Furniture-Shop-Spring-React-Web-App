@@ -12,7 +12,7 @@ import lombok.Setter;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
 @Setter
-public class OrderItem {
+public class OrderItemEntity {
 
     @Id
     @Column(name = "order_item_id")
@@ -33,7 +33,7 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private ProductEntity productEntity;
 
-    public OrderItem() {
+    public OrderItemEntity() {
     }
 
     public String toString() {

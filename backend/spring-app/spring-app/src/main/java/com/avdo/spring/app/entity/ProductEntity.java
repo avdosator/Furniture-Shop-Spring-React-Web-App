@@ -1,6 +1,5 @@
 package com.avdo.spring.app.entity;
 
-import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -35,7 +34,7 @@ public class ProductEntity {
     private CategoryEntity categoryEntity;
 
     @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
-    private List<OrderItem> orderItems;
+    private List<OrderItemEntity> orderItemEntities;
 
     public ProductEntity() {
     }
@@ -48,7 +47,7 @@ public class ProductEntity {
                 .stock(this.stock)
                 .description(this.description)
                 .category(this.categoryEntity.toDomainModel())
-                .orderItems(this.orderItems)
+                .orderItemEntities(this.orderItemEntities)
                 .build();
     }
 
@@ -60,7 +59,7 @@ public class ProductEntity {
         productEntity.setStock(product.getStock());
         productEntity.setDescription(product.getDescription());
         productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
-        productEntity.setOrderItems(product.getOrderItems());
+        productEntity.setOrderItems(product.getOrderItemEntities());
         return productEntity;
     }
 
@@ -88,8 +87,8 @@ public class ProductEntity {
         return this.categoryEntity;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return this.orderItems;
+    public List<OrderItemEntity> getOrderItems() {
+        return this.orderItemEntities;
     }
 
     public void setId(Long id) {
@@ -116,8 +115,8 @@ public class ProductEntity {
         this.categoryEntity = categoryEntity;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setOrderItems(List<OrderItemEntity> orderItemEntities) {
+        this.orderItemEntities = orderItemEntities;
     }
 
     public String toString() {
