@@ -5,21 +5,9 @@ import com.avdo.spring.app.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class OrderItemService {
+public interface OrderItemService {
 
-    private final OrderItemRepository orderItemRepository;
+    OrderItemEntity findById(Long id);
 
-    @Autowired
-    public OrderItemService(OrderItemRepository orderItemRepository) {
-        this.orderItemRepository = orderItemRepository;
-    }
-
-    public OrderItemEntity findById(Long id) {
-        return orderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
-    }
-
-    public void createOrderItem(OrderItemEntity orderItemEntity) {
-        orderItemRepository.save(orderItemEntity);
-    }
+    void createOrderItem(OrderItemEntity orderItemEntity);
 }
