@@ -102,7 +102,6 @@ public class CartEntity {
     public String toString() {
         return "CartEntity(id=" + this.getId() +
                 ", userEntityId=" + this.getUserEntity().getId() +
-                //", items=" + this.getItems() +
                 ", dateCreated=" + this.getDateCreated() + ")";
     }
 }

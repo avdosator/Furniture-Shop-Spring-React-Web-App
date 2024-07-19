@@ -47,7 +47,7 @@ public class ProductEntity {
                 .price(this.price)
                 .stock(this.stock)
                 .description(this.description)
-                .categoryId(this.categoryEntity.getId())
+                .category(this.categoryEntity.toDomainModel())
                 .orderItems(this.orderItems)
                 .build();
     }
@@ -59,7 +59,7 @@ public class ProductEntity {
         productEntity.setPrice(product.getPrice());
         productEntity.setStock(product.getStock());
         productEntity.setDescription(product.getDescription());
-        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategoryId()));
+        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
         productEntity.setOrderItems(product.getOrderItems());
         return productEntity;
     }
