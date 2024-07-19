@@ -31,9 +31,7 @@ public class ProductJpaRepository implements ProductRepository {
 
     @Override
     public Product createProduct(CreateProductRequest createProductRequest) {
-        System.out.println("In ProductJpaRepository");
         Category category = categoryService.findCategoryByName(createProductRequest.getCategory());
-        System.out.println("Category is" + category);
         ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
         return crudProductRepository.save(product).toDomainModel();
     }
