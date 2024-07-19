@@ -18,7 +18,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItemEntity findById(Long id) {
-        return orderItemRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order item with that id"));
+        return orderItemRepository.findById(id);
     }
 
     @Override
