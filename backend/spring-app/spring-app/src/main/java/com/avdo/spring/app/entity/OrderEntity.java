@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "\"order\"")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Order {
+public class OrderEntity {
 
     @Id
     @Column(name = "order_id")
@@ -33,7 +33,7 @@ public class Order {
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
-    public Order() {
+    public OrderEntity() {
     }
 
     public Long getId() {

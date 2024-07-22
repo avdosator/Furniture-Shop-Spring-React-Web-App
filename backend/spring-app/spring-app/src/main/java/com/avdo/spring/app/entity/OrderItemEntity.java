@@ -2,7 +2,6 @@ package com.avdo.spring.app.entity;
 
 
 import com.avdo.spring.app.service.domain.model.OrderItem;
-import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -23,7 +22,7 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderEntity order;
 
     @Column(name = "quantity")
     private int quantity;

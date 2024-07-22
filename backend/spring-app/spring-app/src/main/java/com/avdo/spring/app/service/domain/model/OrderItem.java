@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.Order;
+import com.avdo.spring.app.entity.OrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ import lombok.Getter;
 public class OrderItem {
 
     private final Long id;
-    private final Order order;
+    private final OrderEntity order;
     private final int quantity;
     private final double price;
     private final Product product;

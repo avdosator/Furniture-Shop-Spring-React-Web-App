@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.entity.Order;
+import com.avdo.spring.app.entity.OrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -27,7 +27,7 @@ public class User {
 
     private final String role;
 
-    private final List<Order> orders;
+    private final List<OrderEntity> orders;
 
 
     public String toString() {

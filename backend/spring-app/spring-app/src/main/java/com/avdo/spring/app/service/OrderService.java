@@ -31,16 +31,16 @@ public class OrderService {
         this.orderItemService = orderItemService;
     }
 
-    public Order findById(Long id) {
+    public OrderEntity findById(Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order with that ID"));
     }
 
-    public List<Order> findAllOrders() {
+    public List<OrderEntity> findAllOrders() {
         return orderRepository.findAll();
     }
 
     @Transactional
-    public Order createOrder(CreateOrderRequest createOrderRequest) {
+    public OrderEntity createOrder(CreateOrderRequest createOrderRequest) {
         CustomUserDetails customUserDetails = extractUserFromToken();
         User user = customUserDetails.getUser();
         UserEntity userEntity = UserEntity.fromUser(user);
@@ -48,19 +48,19 @@ public class OrderService {
         Cart cart = cartService.findByUserId(user.getId());
         if (cart != null) {
             cartEntity = CartEntity.fromCart(cart, userEntity);
-            Order order = createAndSaveOrder(userEntity, cartEntity);
+            OrderEntity order = createAndSaveOrder(userEntity, cartEntity);
             createAndSaveOrderItems(cartEntity, order);
             return order;
         } else {
             Cart newCart = cartService.createCart(user);
             cartEntity = CartEntity.fromCart(newCart, userEntity);
-            Order order = createAndSaveOrder(userEntity, cartEntity);
+            OrderEntity order = createAndSaveOrder(userEntity, cartEntity);
             createAndSaveOrderItems(cartEntity, order);
             return order;
         }
     }
 
-    private void createAndSaveOrderItems(CartEntity cartEntity, Order order) {
+    private void createAndSaveOrderItems(CartEntity cartEntity, OrderEntity order) {
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
@@ -76,7 +76,7 @@ public class OrderService {
 
     }
 
-    private void setOrderItems(List<OrderItem> orderItems, Order order) {
+    private void setOrderItems(List<OrderItem> orderItems, OrderEntity order) {
         List<OrderItemEntity> orderItemEntities = new ArrayList<>();
         for (OrderItem orderItem: orderItems) {
             orderItemEntities.add(OrderItemEntity.fromOrderItem(orderItem));
@@ -84,8 +84,8 @@ public class OrderService {
         order.setOrderItems(orderItemEntities);
     }
 
-    private Order createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
-        Order order = new Order();
+    private OrderEntity createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
+        OrderEntity order = new OrderEntity();
         order.setUserEntity(userEntity);
         order.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProductEntity().getPrice() * item.getQuantity()).sum());
         order.setOrderStatus("Pending");

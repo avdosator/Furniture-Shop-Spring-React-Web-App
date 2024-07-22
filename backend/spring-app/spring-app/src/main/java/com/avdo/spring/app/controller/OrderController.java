@@ -1,7 +1,7 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateOrderRequest;
-import com.avdo.spring.app.entity.Order;
+import com.avdo.spring.app.entity.OrderEntity;
 import com.avdo.spring.app.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Order> createOrder(@Valid @RequestBody CreateOrderRequest createOrderRequest) {
-        Order order = orderService.createOrder(createOrderRequest);
+    public ResponseEntity<OrderEntity> createOrder(@Valid @RequestBody CreateOrderRequest createOrderRequest) {
+        OrderEntity order = orderService.createOrder(createOrderRequest);
         return ResponseEntity.ok(order);
     }
 
