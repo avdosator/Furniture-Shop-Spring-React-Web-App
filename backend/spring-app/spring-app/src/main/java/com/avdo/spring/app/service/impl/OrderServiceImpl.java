@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findById(Long id) {
-        return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order with that ID"));
+        return orderRepository.findById(id);
     }
 
     @Override
