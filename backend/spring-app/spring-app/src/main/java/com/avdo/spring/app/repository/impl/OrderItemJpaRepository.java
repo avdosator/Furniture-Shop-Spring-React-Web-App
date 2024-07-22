@@ -18,8 +18,8 @@ public class OrderItemJpaRepository implements OrderItemRepository {
     }
 
     @Override
-    public void createOrderItem(OrderItemEntity orderItemEntity) {
-        crudOrderItemRepository.save(orderItemEntity);
+    public OrderItem createOrderItem(OrderItemEntity orderItemEntity) {
+        return crudOrderItemRepository.save(orderItemEntity).toDomainModel();
     }
 
     @Override

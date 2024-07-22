@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 public interface OrderItemRepository {
 
-    void createOrderItem(OrderItemEntity orderItemEntity);
+    OrderItem createOrderItem(OrderItemEntity orderItemEntity);
     OrderItem findById(Long id);
 }

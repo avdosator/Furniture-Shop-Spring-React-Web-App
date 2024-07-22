@@ -23,8 +23,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public void createOrderItem(OrderItemEntity orderItemEntity) {
-        orderItemRepository.createOrderItem(orderItemEntity);
+    public OrderItem createOrderItem(OrderItemEntity orderItemEntity) {
+        return orderItemRepository.createOrderItem(orderItemEntity);
     }
 
 }

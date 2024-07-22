@@ -10,5 +10,5 @@ public interface OrderItemService {
 
     OrderItem findById(Long id);
 
-    void createOrderItem(OrderItemEntity orderItemEntity);
+    OrderItem createOrderItem(OrderItemEntity orderItemEntity);
 }
