@@ -1,6 +1,5 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.controller.dto.CreateOrderDto;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import com.avdo.spring.app.service.CartService;
@@ -42,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderEntity> findAllOrders() {
+    public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
 
