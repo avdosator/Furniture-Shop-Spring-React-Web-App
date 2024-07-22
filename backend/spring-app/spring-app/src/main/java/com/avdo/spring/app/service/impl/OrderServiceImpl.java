@@ -7,8 +7,10 @@ import com.avdo.spring.app.service.CartService;
 import com.avdo.spring.app.service.OrderItemService;
 import com.avdo.spring.app.service.OrderService;
 import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.Order;
 import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,16 +36,19 @@ public class OrderServiceImpl implements OrderService {
         this.orderItemService = orderItemService;
     }
 
-    public OrderEntity findById(Long id) {
+    @Override
+    public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no order with that ID"));
     }
 
+    @Override
     public List<OrderEntity> findAllOrders() {
         return orderRepository.findAll();
     }
 
     @Transactional
-    public OrderEntity createOrder(CreateOrderDto createOrderRequest) {
+    @Override
+    public Order createOrder(CreateOrderRequest createOrderRequest) {
         CustomUserDetails customUserDetails = extractUserFromToken();
         User user = customUserDetails.getUser();
         UserEntity userEntity = UserEntity.fromUser(user);
