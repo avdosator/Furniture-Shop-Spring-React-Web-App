@@ -1,13 +1,22 @@
 package com.avdo.spring.app.controller.dto;
 
+import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
-@Data
-public class CreateOrderDto {
+public class CreateOrderDto extends CreateOrderRequest {
 
+    @JsonCreator
+    public CreateOrderDto(@JsonProperty("cartId") Long cartId) {
+        super(cartId);
+    }
+
+    @Override
     @NotNull
     @Min(1)
-    private Long cartId;
+    public Long getCartId() {
+        return cartId;
+    }
 }
