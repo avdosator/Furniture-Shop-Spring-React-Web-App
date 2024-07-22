@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreateOrderRequest {
+public class CreateOrderDto {
 
     @NotNull
     @Min(1)

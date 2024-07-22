@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.controller.dto.CreateOrderRequest;
+import com.avdo.spring.app.controller.dto.CreateOrderDto;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import com.avdo.spring.app.service.domain.model.Cart;
@@ -40,7 +40,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderEntity createOrder(CreateOrderRequest createOrderRequest) {
+    public OrderEntity createOrder(CreateOrderDto createOrderRequest) {
         CustomUserDetails customUserDetails = extractUserFromToken();
         User user = customUserDetails.getUser();
         UserEntity userEntity = UserEntity.fromUser(user);

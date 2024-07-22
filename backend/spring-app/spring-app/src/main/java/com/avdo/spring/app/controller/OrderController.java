@@ -1,6 +1,6 @@
 package com.avdo.spring.app.controller;
 
-import com.avdo.spring.app.controller.dto.CreateOrderRequest;
+import com.avdo.spring.app.controller.dto.CreateOrderDto;
 import com.avdo.spring.app.entity.OrderEntity;
 import com.avdo.spring.app.service.OrderService;
 import jakarta.validation.Valid;
@@ -23,8 +23,8 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderEntity> createOrder(@Valid @RequestBody CreateOrderRequest createOrderRequest) {
-        OrderEntity order = orderService.createOrder(createOrderRequest);
+    public ResponseEntity<OrderEntity> createOrder(@Valid @RequestBody CreateOrderDto createOrderDto) {
+        OrderEntity order = orderService.createOrder(createOrderDto);
         return ResponseEntity.ok(order);
     }
 
