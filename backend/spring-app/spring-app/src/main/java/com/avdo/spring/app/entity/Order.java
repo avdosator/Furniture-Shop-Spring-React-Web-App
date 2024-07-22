@@ -22,7 +22,7 @@ public class Order {
     private UserEntity userEntity;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    private List<OrderItemEntity> orderItemEntities;
 
     @Column(name = "total_amount")
     private double totalAmount;
@@ -44,8 +44,8 @@ public class Order {
         return this.userEntity;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return this.orderItems;
+    public List<OrderItemEntity> getOrderItems() {
+        return this.orderItemEntities;
     }
 
     public double getTotalAmount() {
@@ -68,8 +68,8 @@ public class Order {
         this.userEntity = userEntity;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setOrderItems(List<OrderItemEntity> orderItemEntities) {
+        this.orderItemEntities = orderItemEntities;
     }
 
     public void setTotalAmount(double totalAmount) {

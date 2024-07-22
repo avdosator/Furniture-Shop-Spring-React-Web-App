@@ -4,6 +4,7 @@ import com.avdo.spring.app.controller.dto.CreateOrderRequest;
 import com.avdo.spring.app.entity.*;
 import com.avdo.spring.app.repository.OrderRepository;
 import com.avdo.spring.app.service.domain.model.Cart;
+import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,15 +61,27 @@ public class OrderService {
     }
 
     private void createAndSaveOrderItems(CartEntity cartEntity, Order order) {
+        List<OrderItem> orderItems = new ArrayList<>();
         for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProductEntity(cartItemEntity.getProductEntity());
-            orderItem.setQuantity(cartItemEntity.getQuantity());
-            orderItem.setPrice(cartItemEntity.getProductEntity().getPrice());
+            OrderItemEntity orderItemEntity = new OrderItemEntity();
+            orderItemEntity.setOrder(order);
+            orderItemEntity.setProductEntity(cartItemEntity.getProductEntity());
+            orderItemEntity.setQuantity(cartItemEntity.getQuantity());
+            orderItemEntity.setPrice(cartItemEntity.getProductEntity().getPrice());
 
-            orderItemService.createOrderItem(orderItem);
+            OrderItem orderItem = orderItemService.createOrderItem(orderItemEntity);
+            orderItems.add(orderItem);
         }
+        setOrderItems(orderItems, order);
+
+    }
+
+    private void setOrderItems(List<OrderItem> orderItems, Order order) {
+        List<OrderItemEntity> orderItemEntities = new ArrayList<>();
+        for (OrderItem orderItem: orderItems) {
+            orderItemEntities.add(OrderItemEntity.fromOrderItem(orderItem));
+        }
+        order.setOrderItems(orderItemEntities);
     }
 
     private Order createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
