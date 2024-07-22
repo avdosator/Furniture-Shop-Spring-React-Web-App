@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findAllOrders();
     }
 
     @Transactional
