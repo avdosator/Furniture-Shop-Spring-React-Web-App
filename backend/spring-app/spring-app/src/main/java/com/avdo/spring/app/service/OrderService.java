@@ -72,6 +72,11 @@ public class OrderService {
             OrderItem orderItem = orderItemService.createOrderItem(orderItemEntity);
             orderItems.add(orderItem);
         }
+        setOrderItems(orderItems, order);
+
+    }
+
+    private void setOrderItems(List<OrderItem> orderItems, Order order) {
         List<OrderItemEntity> orderItemEntities = new ArrayList<>();
         for (OrderItem orderItem: orderItems) {
             orderItemEntities.add(OrderItemEntity.fromOrderItem(orderItem));
