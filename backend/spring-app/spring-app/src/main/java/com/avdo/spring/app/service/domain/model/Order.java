@@ -17,4 +17,12 @@ public class Order {
     private final String orderStatus;
     private final Date dateCreated;
 
+    public String toString() {
+        return "Order(id=" + this.getId() +
+                ", userId=" + this.getUser().getId() +
+                ", orderItems=" + this.getOrderItems() +
+                ", totalAmount=" + this.getTotalAmount() +
+                ", orderStatus=" + this.getOrderStatus() +
+                ", dateCreated=" + this.getDateCreated() + ")";
+    }
 }
