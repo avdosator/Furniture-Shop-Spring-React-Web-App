@@ -2,6 +2,7 @@ package com.avdo.spring.app.entity;
 
 
 import com.avdo.spring.app.service.domain.model.OrderItem;
+import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -45,6 +46,16 @@ public class OrderItemEntity {
                 .price(this.price)
                 .product(this.productEntity.toDomainModel())
                 .build();
+    }
+
+    public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
+        OrderItemEntity orderItemEntity = new OrderItemEntity();
+        orderItemEntity.setId(orderItem.getId());
+        orderItemEntity.setOrder(orderItem.getOrder());
+        orderItemEntity.setQuantity(orderItem.getQuantity());
+        orderItemEntity.setPrice(orderItem.getPrice());
+        orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
+        return orderItemEntity;
     }
 
     public String toString() {
