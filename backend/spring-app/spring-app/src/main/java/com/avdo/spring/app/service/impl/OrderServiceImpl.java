@@ -1,9 +1,7 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.entity.*;
+import com.avdo.spring.app.config.security.CustomUserDetails;
 import com.avdo.spring.app.repository.OrderRepository;
-import com.avdo.spring.app.service.CartService;
-import com.avdo.spring.app.service.OrderItemService;
 import com.avdo.spring.app.service.OrderService;
 import com.avdo.spring.app.service.domain.model.Order;
 import com.avdo.spring.app.service.domain.model.User;
@@ -11,7 +9,6 @@ import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

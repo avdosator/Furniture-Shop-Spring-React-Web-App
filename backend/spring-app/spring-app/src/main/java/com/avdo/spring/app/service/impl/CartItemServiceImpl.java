@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.entity.CustomUserDetails;
+import com.avdo.spring.app.config.security.CustomUserDetails;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.service.CartItemService;
 import com.avdo.spring.app.service.CartService;
