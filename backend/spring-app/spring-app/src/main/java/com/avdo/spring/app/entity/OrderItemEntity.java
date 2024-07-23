@@ -40,14 +40,14 @@ public class OrderItemEntity {
     public OrderItem toDomainModel() {
         return OrderItem.builder()
                 .id(this.id)
-                .order(this.orderEntity.toDomainModel())
+                .orderId(this.orderEntity.getId())
                 .quantity(this.quantity)
                 .price(this.price)
                 .product(this.productEntity.toDomainModel())
                 .build();
     }
 
-    public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
+    /*public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
         OrderItemEntity orderItemEntity = new OrderItemEntity();
         orderItemEntity.setId(orderItem.getId());
         orderItemEntity.setOrderEntity(OrderEntity.fromOrder(orderItem.getOrder()));
@@ -55,7 +55,7 @@ public class OrderItemEntity {
         orderItemEntity.setPrice(orderItem.getPrice());
         orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
         return orderItemEntity;
-    }
+    }*/
 
     public String toString() {
         return "OrderItem(id=" + this.getId() +
