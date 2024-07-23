@@ -5,14 +5,10 @@ import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Getter
-@Setter
 public class OrderItemEntity {
 
     @Id
@@ -36,6 +32,26 @@ public class OrderItemEntity {
 
     public OrderItemEntity() {
     }
+
+    public Long getId() { return this.id; }
+
+    public OrderEntity getOrderEntity() { return this.orderEntity; }
+
+    public int getQuantity() { return this.quantity; }
+
+    public double getPrice() { return this.price; }
+
+    public ProductEntity getProductEntity() { return this.productEntity; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public void setOrderEntity(OrderEntity orderEntity) { this.orderEntity = orderEntity; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public void setPrice(double price) { this.price = price; }
+
+    public void setProductEntity(ProductEntity productEntity) { this.productEntity = productEntity; }
 
     public OrderItem toDomainModel() {
         return OrderItem.builder()

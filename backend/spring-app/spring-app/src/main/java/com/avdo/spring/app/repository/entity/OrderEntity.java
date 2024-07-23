@@ -39,6 +39,30 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
+    public Long getId() { return this.id; }
+
+    public UserEntity getUserEntity() { return this.userEntity; }
+
+    public List<OrderItemEntity> getOrderItems() { return this.orderItemEntities; }
+
+    public double getTotalAmount() { return this.totalAmount; }
+
+    public String getOrderStatus() { return this.orderStatus; }
+
+    public Date getDateCreated() { return this.dateCreated; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public void setUserEntity(UserEntity userEntity) { this.userEntity = userEntity; }
+
+    public void setOrderItems(List<OrderItemEntity> orderItemEntities) { this.orderItemEntities = orderItemEntities; }
+
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
+
+    public void setOrderStatus(String orderStatus) { this.orderStatus = orderStatus; }
+
+    public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
+
     public Order toDomainModel() {
         List<OrderItem> orderItems =
                 (this.orderItemEntities == null ? Collections.emptyList() : this.orderItemEntities.stream()
@@ -74,54 +98,6 @@ public class OrderEntity {
         orderEntity.setOrderStatus(order.getOrderStatus());
         orderEntity.setDateCreated(order.getDateCreated());
         return orderEntity;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public UserEntity getUserEntity() {
-        return this.userEntity;
-    }
-
-    public List<OrderItemEntity> getOrderItems() {
-        return this.orderItemEntities;
-    }
-
-    public double getTotalAmount() {
-        return this.totalAmount;
-    }
-
-    public String getOrderStatus() {
-        return this.orderStatus;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
-    public void setOrderItems(List<OrderItemEntity> orderItemEntities) {
-        this.orderItemEntities = orderItemEntities;
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public String toString() {

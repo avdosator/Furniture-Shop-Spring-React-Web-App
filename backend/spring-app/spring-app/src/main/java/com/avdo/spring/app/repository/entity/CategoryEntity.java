@@ -24,20 +24,6 @@ public class CategoryEntity {
     @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
     private List<ProductEntity> productEntities = new ArrayList<>();
 
-    public Category toDomainModel() {
-        return Category.builder()
-                .id(this.id)
-                .name(this.name)
-                .build();
-    }
-
-    public static CategoryEntity fromCategory(Category category) {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(category.getId());
-        categoryEntity.setName(category.getName());
-        return categoryEntity;
-    }
-
     public CategoryEntity() {
     }
 
@@ -63,6 +49,20 @@ public class CategoryEntity {
 
     public void setProductEntities(List<ProductEntity> productEntities) {
         this.productEntities = productEntities;
+    }
+
+    public Category toDomainModel() {
+        return Category.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
+    }
+
+    public static CategoryEntity fromCategory(Category category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setId(category.getId());
+        categoryEntity.setName(category.getName());
+        return categoryEntity;
     }
 
     public String toString() {

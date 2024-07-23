@@ -4,14 +4,10 @@ import com.avdo.spring.app.service.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
 @Table(name = "users")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -50,6 +46,42 @@ public class UserEntity {
     public UserEntity() {
     }
 
+    public Long getId() { return this.id; }
+
+    public String getFirstname() { return this.firstname; }
+
+    public String getLastname() { return this.lastname; }
+
+    public String getUsername() { return this.username; }
+
+    public String getEmail() { return this.email; }
+
+    public String getPassword() { return this.password; }
+
+    public Date getDateCreated() { return this.dateCreated; }
+
+    public String getRole() { return this.role; }
+
+    public List<OrderEntity> getOrders() { return this.orders; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public void setFirstname(String firstname) { this.firstname = firstname; }
+
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
+
+    public void setRole(String role) { this.role = role; }
+
+    public void setOrders(List<OrderEntity> orders) { this.orders = orders; }
+
     public User toDomainModel() {
         return User.builder()
                 .id(this.id)
@@ -87,6 +119,6 @@ public class UserEntity {
                 ", email=" + this.getEmail() +
                 ", password=" + this.getPassword() +
                 ", dateCreated=" + this.getDateCreated() +
-                ", role=" + this.getRole()  + ")";
+                ", role=" + this.getRole() + ")";
     }
 }

@@ -39,30 +39,6 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public Product toDomainModel() {
-        return Product.builder()
-                .id(this.id)
-                .name(this.name)
-                .price(this.price)
-                .stock(this.stock)
-                .description(this.description)
-                .category(this.categoryEntity.toDomainModel())
-                .orderItemEntities(this.orderItemEntities)
-                .build();
-    }
-
-    public static ProductEntity fromProduct(Product product) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(product.getId());
-        productEntity.setName(product.getName());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setStock(product.getStock());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
-        productEntity.setOrderItems(product.getOrderItemEntities());
-        return productEntity;
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -119,13 +95,36 @@ public class ProductEntity {
         this.orderItemEntities = orderItemEntities;
     }
 
+    public Product toDomainModel() {
+        return Product.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .stock(this.stock)
+                .description(this.description)
+                .category(this.categoryEntity.toDomainModel())
+                .orderItemEntities(this.orderItemEntities)
+                .build();
+    }
+
+    public static ProductEntity fromProduct(Product product) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setId(product.getId());
+        productEntity.setName(product.getName());
+        productEntity.setPrice(product.getPrice());
+        productEntity.setStock(product.getStock());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
+        productEntity.setOrderItems(product.getOrderItemEntities());
+        return productEntity;
+    }
+
     public String toString() {
         return "Product(id=" + this.getId() +
                 ", name=" + this.getName() +
                 ", price=" + this.getPrice() +
                 ", stock=" + this.getStock() +
                 ", description=" + this.getDescription() +
-                ", categoryName=" + this.getCategoryEntity().getName() +
-                /*", orderItems=" + this.getOrderItems() +*/ ")";
+                ", categoryName=" + this.getCategoryEntity().getName() + ")";
     }
 }
