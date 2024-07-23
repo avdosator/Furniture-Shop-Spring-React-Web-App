@@ -1,6 +1,5 @@
 package com.avdo.spring.app.service;
 
-import com.avdo.spring.app.entity.OrderEntity;
 import com.avdo.spring.app.service.domain.model.Order;
 import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
 

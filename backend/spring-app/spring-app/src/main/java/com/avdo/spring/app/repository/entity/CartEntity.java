@@ -1,4 +1,4 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;

@@ -1,6 +1,5 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
-import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.Order;
 import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -10,7 +9,6 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "\"order\"")

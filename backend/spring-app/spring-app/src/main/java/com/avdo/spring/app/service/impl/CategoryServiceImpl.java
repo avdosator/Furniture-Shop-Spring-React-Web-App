@@ -1,6 +1,5 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.service.CategoryService;
 import com.avdo.spring.app.service.domain.model.Category;

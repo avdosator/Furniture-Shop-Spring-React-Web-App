@@ -1,15 +1,12 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.Category;
-import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "category")

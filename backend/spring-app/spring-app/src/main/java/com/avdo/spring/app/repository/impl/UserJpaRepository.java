@@ -1,6 +1,6 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.entity.UserEntity;
+import com.avdo.spring.app.repository.entity.UserEntity;
 import com.avdo.spring.app.repository.UserRepository;
 import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import com.avdo.spring.app.service.domain.model.User;
