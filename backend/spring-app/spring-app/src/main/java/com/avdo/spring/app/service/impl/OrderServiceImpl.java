@@ -29,7 +29,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     public OrderServiceImpl(OrderRepository orderRepository, CartService cartService, OrderItemService orderItemService) {
-
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.orderItemService = orderItemService;

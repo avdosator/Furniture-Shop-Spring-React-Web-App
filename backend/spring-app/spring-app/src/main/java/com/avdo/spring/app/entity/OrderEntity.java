@@ -1,11 +1,16 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.Order;
+import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "\"order\"")
@@ -34,6 +39,21 @@ public class OrderEntity {
     private Date dateCreated;
 
     public OrderEntity() {
+    }
+
+    public Order toDomainModel() {
+        List<OrderItem> orderItems =
+                (this.orderItemEntities == null ? Collections.emptyList() : this.orderItemEntities.stream()
+                .map(OrderItemEntity::toDomainModel)
+                .toList());
+        return Order.builder()
+                .id(this.id)
+                .user(this.userEntity.toDomainModel())
+                .orderItems(orderItems)
+                .totalAmount(this.totalAmount)
+                .orderStatus(this.orderStatus)
+                .dateCreated(this.dateCreated)
+                .build();
     }
 
     public Long getId() {
