@@ -1,9 +1,14 @@
 package com.avdo.spring.app.repository;
 
-import com.avdo.spring.app.entity.Order;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.avdo.spring.app.service.domain.model.Order;
+import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
 
-@Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+import java.util.List;
+
+public interface OrderRepository {
+
+    Order findById(Long id);
+    List<Order> findAllOrders();
+    Order createOrder(CreateOrderRequest createOrderRequest, User user);
 }

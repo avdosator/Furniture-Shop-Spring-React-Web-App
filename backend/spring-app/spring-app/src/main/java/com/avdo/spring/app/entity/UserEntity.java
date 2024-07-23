@@ -50,7 +50,7 @@ public class UserEntity implements UserDetails {
 
     // should I add this -> cascade = CascadeType.ALL, orphanRemoval = true
     @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
     public UserEntity() {
     }

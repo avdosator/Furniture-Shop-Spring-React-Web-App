@@ -2,7 +2,6 @@ package com.avdo.spring.app.entity;
 
 
 import com.avdo.spring.app.service.domain.model.OrderItem;
-import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -23,7 +22,7 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderEntity orderEntity;
 
     @Column(name = "quantity")
     private int quantity;
@@ -41,26 +40,26 @@ public class OrderItemEntity {
     public OrderItem toDomainModel() {
         return OrderItem.builder()
                 .id(this.id)
-                .order(this.order)
+                .orderId(this.orderEntity.getId())
                 .quantity(this.quantity)
                 .price(this.price)
                 .product(this.productEntity.toDomainModel())
                 .build();
     }
 
-    public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
+    /*public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
         OrderItemEntity orderItemEntity = new OrderItemEntity();
         orderItemEntity.setId(orderItem.getId());
-        orderItemEntity.setOrder(orderItem.getOrder());
+        orderItemEntity.setOrderEntity(OrderEntity.fromOrder(orderItem.getOrder()));
         orderItemEntity.setQuantity(orderItem.getQuantity());
         orderItemEntity.setPrice(orderItem.getPrice());
         orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
         return orderItemEntity;
-    }
+    }*/
 
     public String toString() {
         return "OrderItem(id=" + this.getId() +
-                ", orderId=" + this.getOrder().getId() +
+                ", orderId=" + this.getOrderEntity().getId() +
                 ", quantity=" + this.getQuantity() +
                 ", price=" + this.getPrice() +
                 ", productId=" + this.getProductEntity().getId() + ")";

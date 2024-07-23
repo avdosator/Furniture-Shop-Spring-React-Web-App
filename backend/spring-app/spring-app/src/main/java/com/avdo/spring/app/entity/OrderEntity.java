@@ -1,16 +1,21 @@
 package com.avdo.spring.app.entity;
 
+import com.avdo.spring.app.service.domain.model.CartItem;
+import com.avdo.spring.app.service.domain.model.Order;
+import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "\"order\"")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Order {
+public class OrderEntity {
 
     @Id
     @Column(name = "order_id")
@@ -21,7 +26,7 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemEntity> orderItemEntities;
 
     @Column(name = "total_amount")
@@ -33,7 +38,44 @@ public class Order {
     @Column(name = "date_created", updatable = false)
     private Date dateCreated;
 
-    public Order() {
+    public OrderEntity() {
+    }
+
+    public Order toDomainModel() {
+        List<OrderItem> orderItems =
+                (this.orderItemEntities == null ? Collections.emptyList() : this.orderItemEntities.stream()
+                .map(OrderItemEntity::toDomainModel)
+                .toList());
+        return Order.builder()
+                .id(this.id)
+                .user(this.userEntity.toDomainModel())
+                .orderItems(orderItems)
+                .totalAmount(this.totalAmount)
+                .orderStatus(this.orderStatus)
+                .dateCreated(this.dateCreated)
+                .build();
+    }
+
+    public static OrderEntity fromOrder(Order order) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(order.getId());
+        orderEntity.setUserEntity(UserEntity.fromUser(order.getUser()));
+        List<OrderItemEntity> orderItemEntities = order.getOrderItems().stream()
+                .map(orderItem -> {
+                    OrderItemEntity orderItemEntity = new OrderItemEntity();
+                    orderItemEntity.setId(orderItem.getId());
+                    orderItemEntity.setOrderEntity(orderEntity);
+                    orderItemEntity.setQuantity(orderItem.getQuantity());
+                    orderItemEntity.setPrice(orderItem.getPrice());
+                    orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
+                    return orderItemEntity;
+                })
+                .toList();
+        orderEntity.setOrderItems(orderItemEntities);
+        orderEntity.setTotalAmount(order.getTotalAmount());
+        orderEntity.setOrderStatus(order.getOrderStatus());
+        orderEntity.setDateCreated(order.getDateCreated());
+        return orderEntity;
     }
 
     public Long getId() {
