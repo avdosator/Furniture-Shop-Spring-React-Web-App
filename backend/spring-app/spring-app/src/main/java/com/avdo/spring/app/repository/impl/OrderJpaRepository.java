@@ -76,7 +76,7 @@ public class OrderJpaRepository implements OrderRepository {
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
-            orderItemEntity.setOrder(orderEntity);
+            orderItemEntity.setOrderEntity(orderEntity);
             orderItemEntity.setProductEntity(cartItemEntity.getProductEntity());
             orderItemEntity.setQuantity(cartItemEntity.getQuantity());
             orderItemEntity.setPrice(cartItemEntity.getProductEntity().getPrice());

@@ -22,7 +22,7 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    private OrderEntity orderEntity;
 
     @Column(name = "quantity")
     private int quantity;
@@ -40,7 +40,7 @@ public class OrderItemEntity {
     public OrderItem toDomainModel() {
         return OrderItem.builder()
                 .id(this.id)
-                .order(this.order)
+                .order(this.orderEntity.toDomainModel())
                 .quantity(this.quantity)
                 .price(this.price)
                 .product(this.productEntity.toDomainModel())
@@ -50,7 +50,7 @@ public class OrderItemEntity {
     public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
         OrderItemEntity orderItemEntity = new OrderItemEntity();
         orderItemEntity.setId(orderItem.getId());
-        orderItemEntity.setOrder(orderItem.getOrder());
+        orderItemEntity.setOrderEntity(OrderEntity.fromOrder(orderItem.getOrder()));
         orderItemEntity.setQuantity(orderItem.getQuantity());
         orderItemEntity.setPrice(orderItem.getPrice());
         orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
@@ -59,7 +59,7 @@ public class OrderItemEntity {
 
     public String toString() {
         return "OrderItem(id=" + this.getId() +
-                ", orderId=" + this.getOrder().getId() +
+                ", orderId=" + this.getOrderEntity().getId() +
                 ", quantity=" + this.getQuantity() +
                 ", price=" + this.getPrice() +
                 ", productId=" + this.getProductEntity().getId() + ")";
