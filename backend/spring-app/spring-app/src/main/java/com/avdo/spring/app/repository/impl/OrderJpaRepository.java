@@ -1,5 +1,7 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.repository.crud.CrudCartRepository;
+import com.avdo.spring.app.repository.crud.CrudOrderItemRepository;
 import com.avdo.spring.app.repository.entity.*;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.OrderItemRepository;
@@ -24,15 +26,18 @@ public class OrderJpaRepository implements OrderRepository {
 
     private final CrudOrderRepository crudOrderRepository;
     private final CartRepository cartRepository;
-    private final OrderItemRepository orderItemRepository;
+    private final CrudCartRepository crudCartRepository;
+    private final CrudOrderItemRepository crudOrderItemRepository;
 
     @Autowired
     public OrderJpaRepository(CrudOrderRepository crudOrderRepository,
                               CartRepository cartRepository,
-                              OrderItemRepository orderItemRepository) {
+                              CrudCartRepository crudCartRepository,
+                              CrudOrderItemRepository crudOrderItemRepository) {
         this.crudOrderRepository = crudOrderRepository;
         this.cartRepository = cartRepository;
-        this.orderItemRepository = orderItemRepository;
+        this.crudCartRepository = crudCartRepository;
+        this.crudOrderItemRepository = crudOrderItemRepository;
     }
 
     @Override
@@ -56,24 +61,18 @@ public class OrderJpaRepository implements OrderRepository {
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest, User user) {
         UserEntity userEntity = UserEntity.fromUser(user);
-        CartEntity cartEntity;
-        Cart cart = cartRepository.findByUserEntityId(user.getId());
-        if (cart != null) {
-            cartEntity = CartEntity.fromCart(cart, userEntity);
-            OrderEntity orderEntity = createAndSaveOrder(userEntity, cartEntity);
-            createAndSaveOrderItems(cartEntity, orderEntity);
-            return orderEntity.toDomainModel();
-        } else {
-            Cart newCart = cartRepository.createCart(user);
-            cartEntity = CartEntity.fromCart(newCart, userEntity);
-            OrderEntity orderEntity = createAndSaveOrder(userEntity, cartEntity);
-            createAndSaveOrderItems(cartEntity, orderEntity);
-            return orderEntity.toDomainModel();
-        }
+        CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId())
+                .orElseGet(() -> {
+                    Cart newCart = cartRepository.createCart(user);
+                    return CartEntity.fromCart(newCart, userEntity);
+                });
+
+        OrderEntity orderEntity = createAndSaveOrder(userEntity, cartEntity);
+        return orderEntity.toDomainModel();
     }
 
-    private void createAndSaveOrderItems(CartEntity cartEntity, OrderEntity orderEntity) {
-        List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItemEntity> createAndSaveOrderItems(OrderEntity orderEntity, CartEntity cartEntity) {
+        List<OrderItemEntity> orderItemEntities = new ArrayList<>();
         for (CartItemEntity cartItemEntity : cartEntity.getItems()) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
             orderItemEntity.setOrderEntity(orderEntity);
@@ -81,19 +80,10 @@ public class OrderJpaRepository implements OrderRepository {
             orderItemEntity.setQuantity(cartItemEntity.getQuantity());
             orderItemEntity.setPrice(cartItemEntity.getProductEntity().getPrice());
 
-            OrderItem orderItem = orderItemRepository.createOrderItem(orderItemEntity);
-            orderItems.add(orderItem);
+            OrderItemEntity savedOrderItemEntity = crudOrderItemRepository.save(orderItemEntity);
+            orderItemEntities.add(savedOrderItemEntity);
         }
-        setOrderItems(orderItems, orderEntity);
-
-    }
-
-    private void setOrderItems(List<OrderItem> orderItems, OrderEntity order) {
-        List<OrderItemEntity> orderItemEntities = new ArrayList<>();
-        for (OrderItem orderItem : orderItems) {
-            //orderItemEntities.add(OrderItemEntity.fromOrderItem(orderItem));
-        }
-        order.setOrderItems(orderItemEntities);
+        return orderItemEntities;
     }
 
     private OrderEntity createAndSaveOrder(UserEntity userEntity, CartEntity cartEntity) {
@@ -102,6 +92,8 @@ public class OrderJpaRepository implements OrderRepository {
         orderEntity.setTotalAmount(cartEntity.getItems().stream().mapToDouble(item -> item.getProductEntity().getPrice() * item.getQuantity()).sum());
         orderEntity.setOrderStatus("Pending");
         orderEntity.setDateCreated(Date.valueOf(LocalDate.now()));
+        List<OrderItemEntity> orderItemEntities = createAndSaveOrderItems(orderEntity, cartEntity);
+        orderEntity.setOrderItems(orderItemEntities);
 
         crudOrderRepository.save(orderEntity);
         return orderEntity;
