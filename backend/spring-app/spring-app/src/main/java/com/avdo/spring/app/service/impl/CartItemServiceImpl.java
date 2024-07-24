@@ -8,6 +8,7 @@ import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
+import com.avdo.spring.app.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
-        CustomUserDetails customUserDetails = extractUserFromToken();
-        User user = customUserDetails.getUser();
+        User user = UserUtils.getCurrentUser();
 
         try {
             Cart cart = cartService.findByUserId(user.getId());
@@ -44,9 +44,5 @@ public class CartItemServiceImpl implements CartItemService {
             Cart cart = cartService.createCart(user);
             return cartItemRepository.saveCartItem(createCartItemRequest, cart, user);
         }
-    }
-
-    private CustomUserDetails extractUserFromToken() {
-        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
