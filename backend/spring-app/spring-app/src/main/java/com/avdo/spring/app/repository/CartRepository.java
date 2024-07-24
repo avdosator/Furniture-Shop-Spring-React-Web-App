@@ -6,5 +6,5 @@ import com.avdo.spring.app.service.domain.model.User;
 public interface CartRepository {
 
     Cart findByUserEntityId(Long userId);
-    Cart createCart(User user);
+    Cart createCart();
 }

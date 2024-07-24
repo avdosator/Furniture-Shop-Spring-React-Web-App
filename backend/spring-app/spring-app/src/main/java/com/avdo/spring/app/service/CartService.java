@@ -5,6 +5,6 @@ import com.avdo.spring.app.service.domain.model.User;
 
 public interface CartService {
 
-    Cart createCart(User user);
+    Cart createCart();
     Cart findByUserId(Long id);
 }

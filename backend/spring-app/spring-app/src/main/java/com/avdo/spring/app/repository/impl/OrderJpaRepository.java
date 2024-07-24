@@ -12,6 +12,7 @@ import com.avdo.spring.app.service.domain.model.Order;
 import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
+import com.avdo.spring.app.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,13 +60,9 @@ public class OrderJpaRepository implements OrderRepository {
 
     @Override
     @Transactional
-    public Order createOrder(CreateOrderRequest createOrderRequest, User user) {
-        UserEntity userEntity = UserEntity.fromUser(user);
-        CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId())
-                .orElseGet(() -> {
-                    Cart newCart = cartRepository.createCart(user);
-                    return CartEntity.fromCart(newCart, userEntity);
-                });
+    public Order createOrder(CreateOrderRequest createOrderRequest) {
+        UserEntity userEntity = UserEntity.fromUser(UserUtils.getCurrentUser());
+        CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId()).orElseThrow();
 
         OrderEntity orderEntity = createAndSaveOrder(userEntity, cartEntity);
         return orderEntity.toDomainModel();

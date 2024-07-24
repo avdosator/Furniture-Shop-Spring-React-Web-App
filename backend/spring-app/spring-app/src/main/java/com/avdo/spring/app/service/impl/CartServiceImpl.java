@@ -18,8 +18,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart createCart(User user) {
-        return cartRepository.createCart(user);
+    public Cart createCart() {
+        return cartRepository.createCart();
     }
 
     @Override

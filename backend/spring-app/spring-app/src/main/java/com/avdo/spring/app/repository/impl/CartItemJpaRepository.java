@@ -12,6 +12,7 @@ import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
+import com.avdo.spring.app.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +35,8 @@ public class CartItemJpaRepository implements CartItemRepository {
     }
 
     @Override
-    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart, User user) {
+    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart) {
+        User user = UserUtils.getCurrentUser();
         UserEntity userEntity = UserEntity.fromUser(user);
         CartItemEntity cartItemEntity = new CartItemEntity();
 

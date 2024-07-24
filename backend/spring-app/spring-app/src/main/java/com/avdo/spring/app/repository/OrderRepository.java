@@ -10,5 +10,5 @@ public interface OrderRepository {
 
     Order findById(Long id);
     List<Order> findAllOrders();
-    Order createOrder(CreateOrderRequest createOrderRequest, User user);
+    Order createOrder(CreateOrderRequest createOrderRequest);
 }

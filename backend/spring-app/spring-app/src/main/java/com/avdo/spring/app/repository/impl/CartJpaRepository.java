@@ -6,6 +6,7 @@ import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.User;
+import com.avdo.spring.app.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,8 @@ public class CartJpaRepository implements CartRepository {
     }
 
     @Override
-    public Cart createCart(User user) {
+    public Cart createCart() {
+        User user = UserUtils.getCurrentUser();
         CartEntity cartEntity = new CartEntity();
         cartEntity.setUserEntity(UserEntity.fromUser(user));
         cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
