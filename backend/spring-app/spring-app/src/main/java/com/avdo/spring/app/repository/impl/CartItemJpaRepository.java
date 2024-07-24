@@ -1,5 +1,6 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.repository.crud.CrudProductRepository;
 import com.avdo.spring.app.repository.entity.CartEntity;
 import com.avdo.spring.app.repository.entity.CartItemEntity;
 import com.avdo.spring.app.repository.entity.ProductEntity;
@@ -23,13 +24,13 @@ import java.util.List;
 public class CartItemJpaRepository implements CartItemRepository {
 
     private final CrudCartItemRepository crudCartItemRepository;
-    private final ProductRepository productRepository;
+    private final CrudProductRepository crudProductRepository;
 
     @Autowired
     public CartItemJpaRepository(CrudCartItemRepository crudCartItemRepository,
-                                 ProductRepository productRepository) {
+                                 CrudProductRepository crudProductRepository) {
         this.crudCartItemRepository = crudCartItemRepository;
-        this.productRepository = productRepository;
+        this.crudProductRepository = crudProductRepository;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class CartItemJpaRepository implements CartItemRepository {
         CartItemEntity cartItemEntity = new CartItemEntity();
 
         cartItemEntity.setCartEntity(CartEntity.fromCart(cart, userEntity));
-        cartItemEntity.setProductEntity(ProductEntity.fromProduct(productRepository.findById(createCartItemRequest.getProductId())));
+        cartItemEntity.setProductEntity(crudProductRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
 
