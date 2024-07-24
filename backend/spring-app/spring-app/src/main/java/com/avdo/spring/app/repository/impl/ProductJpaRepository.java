@@ -1,5 +1,6 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.repository.crud.CrudCategoryRepository;
 import com.avdo.spring.app.repository.entity.CategoryEntity;
 import com.avdo.spring.app.repository.entity.ProductEntity;
 import com.avdo.spring.app.repository.ProductRepository;
@@ -18,19 +19,20 @@ import java.util.List;
 public class ProductJpaRepository implements ProductRepository {
 
     private final CrudProductRepository crudProductRepository;
-    private final CategoryService categoryService;
+    private final CrudCategoryRepository crudCategoryRepository;
 
     @Autowired
     public ProductJpaRepository(CrudProductRepository crudProductRepository,
-                                CategoryService categoryService) {
+                                CrudCategoryRepository crudCategoryRepository) {
         this.crudProductRepository = crudProductRepository;
-        this.categoryService = categoryService;
+        this.crudCategoryRepository = crudCategoryRepository;
     }
 
     @Override
     public Product createProduct(CreateProductRequest createProductRequest) {
-        Category category = categoryService.findCategoryByName(createProductRequest.getCategory());
-        ProductEntity product = ProductMapper.mapToProduct(createProductRequest, CategoryEntity.fromCategory(category));
+        CategoryEntity categoryEntity = crudCategoryRepository.findCategoryEntityByName
+                (createProductRequest.getCategory()).orElseThrow();
+        ProductEntity product = ProductMapper.mapToProduct(createProductRequest, categoryEntity);
         return crudProductRepository.save(product).toDomainModel();
     }
 
