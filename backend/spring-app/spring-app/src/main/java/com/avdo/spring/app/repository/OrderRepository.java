@@ -9,5 +9,5 @@ public interface OrderRepository {
 
     Order findById(Long id);
     List<Order> findAllOrders();
-    Order createOrder(CreateOrderRequest createOrderRequest);
+    Order createOrder(CreateOrderRequest createOrderRequest, Long userId);
 }
