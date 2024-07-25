@@ -42,6 +42,7 @@ public class CartItemJpaRepository implements CartItemRepository {
     public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart) {
         User user = UserUtils.getCurrentUser();
         UserEntity userEntity = UserEntity.fromUser(user);
+
         CartItemEntity cartItemEntity = new CartItemEntity();
         CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId()).orElseThrow();
         cartItemEntity.setCartEntity(cartEntity);
@@ -49,7 +50,11 @@ public class CartItemJpaRepository implements CartItemRepository {
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
 
-        return crudCartItemRepository.save(cartItemEntity).toDomainModel();
+        CartItemEntity savedCartItem = crudCartItemRepository.save(cartItemEntity);
+        List<CartItemEntity> cartItemEntities = crudCartItemRepository.findByCartEntity_Id(cartEntity.getId());
+        cartEntity.setItems(cartItemEntities);
+
+        return savedCartItem.toDomainModel();
     }
 
     @Override
