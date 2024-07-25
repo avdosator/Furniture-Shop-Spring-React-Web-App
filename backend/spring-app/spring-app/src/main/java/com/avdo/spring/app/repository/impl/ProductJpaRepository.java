@@ -1,12 +1,10 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.repository.ProductRepository;
 import com.avdo.spring.app.repository.crud.CrudCategoryRepository;
+import com.avdo.spring.app.repository.crud.CrudProductRepository;
 import com.avdo.spring.app.repository.entity.CategoryEntity;
 import com.avdo.spring.app.repository.entity.ProductEntity;
-import com.avdo.spring.app.repository.ProductRepository;
-import com.avdo.spring.app.repository.crud.CrudProductRepository;
-import com.avdo.spring.app.service.CategoryService;
-import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.model.Product;
 import com.avdo.spring.app.service.domain.request.CreateProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;

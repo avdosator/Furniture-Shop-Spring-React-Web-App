@@ -1,7 +1,7 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.repository.entity.OrderItemEntity;
 import com.avdo.spring.app.repository.OrderItemRepository;
+import com.avdo.spring.app.repository.entity.OrderItemEntity;
 import com.avdo.spring.app.service.OrderItemService;
 import com.avdo.spring.app.service.domain.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;

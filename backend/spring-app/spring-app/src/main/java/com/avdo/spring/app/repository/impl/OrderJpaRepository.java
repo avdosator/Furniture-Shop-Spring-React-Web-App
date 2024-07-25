@@ -1,16 +1,12 @@
 package com.avdo.spring.app.repository.impl;
 
+import com.avdo.spring.app.repository.OrderRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
 import com.avdo.spring.app.repository.crud.CrudOrderItemRepository;
+import com.avdo.spring.app.repository.crud.CrudOrderRepository;
 import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import com.avdo.spring.app.repository.entity.*;
-import com.avdo.spring.app.repository.CartRepository;
-import com.avdo.spring.app.repository.OrderItemRepository;
-import com.avdo.spring.app.repository.OrderRepository;
-import com.avdo.spring.app.repository.crud.CrudOrderRepository;
-import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.Order;
-import com.avdo.spring.app.service.domain.model.OrderItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateOrderRequest;
 import com.avdo.spring.app.utils.UserUtils;

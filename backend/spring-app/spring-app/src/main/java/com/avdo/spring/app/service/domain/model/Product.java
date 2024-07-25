@@ -1,7 +1,5 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.repository.entity.OrderItemEntity;
-
 import java.util.List;
 
 public class Product {

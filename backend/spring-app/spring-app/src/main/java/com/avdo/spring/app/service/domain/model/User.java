@@ -1,7 +1,5 @@
 package com.avdo.spring.app.service.domain.model;
 
-import com.avdo.spring.app.repository.entity.OrderEntity;
-
 import java.sql.Date;
 import java.util.List;
 

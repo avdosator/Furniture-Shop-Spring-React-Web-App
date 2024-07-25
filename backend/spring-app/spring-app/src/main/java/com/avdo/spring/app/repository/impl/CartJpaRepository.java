@@ -1,10 +1,9 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.repository.crud.CrudUserRepository;
-import com.avdo.spring.app.repository.entity.CartEntity;
-import com.avdo.spring.app.repository.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
+import com.avdo.spring.app.repository.entity.CartEntity;
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.utils.UserUtils;
