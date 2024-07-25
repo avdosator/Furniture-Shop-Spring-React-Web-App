@@ -36,10 +36,10 @@ public class CartItemServiceImpl implements CartItemService {
         User user = UserUtils.getCurrentUser();
         try {
             Cart cart = cartService.findByUserId(user.getId());
-            return cartItemRepository.saveCartItem(createCartItemRequest, cart);
+            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user.getId());
         } catch (NoSuchElementException e) {
             Cart cart = cartService.createCart();
-            return cartItemRepository.saveCartItem(createCartItemRequest, cart);
+            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user.getId());
         }
     }
 }
