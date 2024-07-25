@@ -93,9 +93,6 @@ public class UserEntity {
                 .password(this.password)
                 .dateCreated(this.dateCreated)
                 .role(this.role)
-                .orders(this.orders.stream()
-                        .map(OrderEntity::toDomainModel)
-                        .collect(Collectors.toList()))
                 .build();
     }
 

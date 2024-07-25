@@ -13,9 +13,8 @@ public class User {
     private final String password;
     private final Date dateCreated;
     private final String role;
-    private final List<Order> orders;
 
-    User(Long id, String firstname, String lastname, String username, String email, String password, Date dateCreated, String role, List<Order> orders) {
+    User(Long id, String firstname, String lastname, String username, String email, String password, Date dateCreated, String role) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -24,7 +23,6 @@ public class User {
         this.password = password;
         this.dateCreated = dateCreated;
         this.role = role;
-        this.orders = orders;
     }
 
     public static UserBuilder builder() {
@@ -63,10 +61,6 @@ public class User {
         return this.role;
     }
 
-    public List<Order> getOrders() {
-        return this.orders;
-    }
-
     public static class UserBuilder {
         private Long id;
         private String firstname;
@@ -76,7 +70,6 @@ public class User {
         private String password;
         private Date dateCreated;
         private String role;
-        private List<Order> orders;
 
         UserBuilder() {
         }
@@ -121,13 +114,8 @@ public class User {
             return this;
         }
 
-        public UserBuilder orders(List<Order> orders) {
-            this.orders = orders;
-            return this;
-        }
-
         public User build() {
-            return new User(this.id, this.firstname, this.lastname, this.username, this.email, this.password, this.dateCreated, this.role, this.orders);
+            return new User(this.id, this.firstname, this.lastname, this.username, this.email, this.password, this.dateCreated, this.role);
         }
     }
 
