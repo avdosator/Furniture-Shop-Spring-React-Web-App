@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "product")
@@ -103,7 +104,9 @@ public class ProductEntity {
                 .stock(this.stock)
                 .description(this.description)
                 .category(this.categoryEntity.toDomainModel())
-                .orderItemEntities(this.orderItemEntities)
+                .orderItems(this.orderItemEntities.stream()
+                        .map(OrderItemEntity::toDomainModel)
+                        .collect(Collectors.toList()))
                 .build();
     }
 

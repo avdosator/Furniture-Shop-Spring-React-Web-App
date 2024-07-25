@@ -15,9 +15,9 @@ public class User {
     private final String password;
     private final Date dateCreated;
     private final String role;
-    private final List<OrderEntity> orders;
+    private final List<Order> orders;
 
-    User(Long id, String firstname, String lastname, String username, String email, String password, Date dateCreated, String role, List<OrderEntity> orders) {
+    User(Long id, String firstname, String lastname, String username, String email, String password, Date dateCreated, String role, List<Order> orders) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -65,7 +65,7 @@ public class User {
         return this.role;
     }
 
-    public List<OrderEntity> getOrders() {
+    public List<Order> getOrders() {
         return this.orders;
     }
 
@@ -78,7 +78,7 @@ public class User {
         private String password;
         private Date dateCreated;
         private String role;
-        private List<OrderEntity> orders;
+        private List<Order> orders;
 
         UserBuilder() {
         }
@@ -123,7 +123,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder orders(List<OrderEntity> orders) {
+        public UserBuilder orders(List<Order> orders) {
             this.orders = orders;
             return this;
         }

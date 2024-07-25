@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -92,7 +93,9 @@ public class UserEntity {
                 .password(this.password)
                 .dateCreated(this.dateCreated)
                 .role(this.role)
-                .orders(this.orders)
+                .orders(this.orders.stream()
+                        .map(OrderEntity::toDomainModel)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
