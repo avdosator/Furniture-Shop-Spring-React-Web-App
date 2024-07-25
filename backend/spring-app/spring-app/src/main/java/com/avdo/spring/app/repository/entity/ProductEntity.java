@@ -104,9 +104,6 @@ public class ProductEntity {
                 .stock(this.stock)
                 .description(this.description)
                 .category(this.categoryEntity.toDomainModel())
-                .orderItems(this.orderItemEntities.stream()
-                        .map(OrderItemEntity::toDomainModel)
-                        .collect(Collectors.toList()))
                 .build();
     }
 

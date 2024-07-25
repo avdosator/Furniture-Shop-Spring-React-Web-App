@@ -10,16 +10,14 @@ public class Product {
     private final int stock;
     private final String description;
     private final Category category;
-    private final List<OrderItem> orderItems;
 
-    Product(Long id, String name, double price, int stock, String description, Category category, List<OrderItem> orderItems) {
+    Product(Long id, String name, double price, int stock, String description, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.description = description;
         this.category = category;
-        this.orderItems = orderItems;
     }
 
     public static ProductBuilder builder() {
@@ -50,10 +48,6 @@ public class Product {
         return this.category;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return this.orderItems;
-    }
-
     public static class ProductBuilder {
         private Long id;
         private String name;
@@ -61,7 +55,6 @@ public class Product {
         private int stock;
         private String description;
         private Category category;
-        private List<OrderItem> orderItems;
 
         ProductBuilder() {
         }
@@ -96,13 +89,8 @@ public class Product {
             return this;
         }
 
-        public ProductBuilder orderItems(List<OrderItem> orderItems) {
-            this.orderItems = orderItems;
-            return this;
-        }
-
         public Product build() {
-            return new Product(this.id, this.name, this.price, this.stock, this.description, this.category, this.orderItems);
+            return new Product(this.id, this.name, this.price, this.stock, this.description, this.category);
         }
     }
 
