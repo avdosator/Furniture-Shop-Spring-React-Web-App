@@ -77,7 +77,7 @@ public class OrderEntity {
                 .dateCreated(this.dateCreated)
                 .build();
     }
-
+    /*
     public static OrderEntity fromOrder(Order order) {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(order.getId());
@@ -99,7 +99,7 @@ public class OrderEntity {
         orderEntity.setDateCreated(order.getDateCreated());
         return orderEntity;
     }
-
+    */
     public String toString() {
         return "Order(id=" + this.getId() +
                 ", userEntityId=" + this.getUserEntity().getId() +
