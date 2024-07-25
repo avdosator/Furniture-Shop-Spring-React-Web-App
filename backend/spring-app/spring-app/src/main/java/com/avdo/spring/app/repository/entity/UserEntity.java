@@ -96,21 +96,6 @@ public class UserEntity {
                 .build();
     }
 
-    // this method will be deleted!!
-    public static UserEntity fromUser(User user) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.getId());
-        userEntity.setFirstname(user.getFirstname());
-        userEntity.setLastname(user.getLastname());
-        userEntity.setUsername(user.getUsername());
-        userEntity.setEmail(user.getEmail());
-        userEntity.setPassword(user.getPassword());
-        userEntity.setDateCreated(user.getDateCreated());
-        userEntity.setRole(user.getRole());
-        userEntity.setOrders(user.getOrders());
-        return userEntity;
-    }
-
     public String toString() {
         return "UserEntity(id=" + this.getId() +
                 ", firstname=" + this.getFirstname() +
