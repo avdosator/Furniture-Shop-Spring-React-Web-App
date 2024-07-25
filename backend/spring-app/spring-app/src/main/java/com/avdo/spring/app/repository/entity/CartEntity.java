@@ -79,26 +79,6 @@ public class CartEntity {
                 .build();
     }
 
-    // temporary method, delete it at the end!!
-    /*public static CartEntity fromCart(Cart cart, UserEntity userEntity) {
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setId(cart.getId());
-        cartEntity.setUserEntity(userEntity);
-        List<CartItemEntity> cartItemEntities = cart.getCartItems().stream()
-                .map(cartItem -> {
-                    CartItemEntity cartItemEntity = new CartItemEntity();
-                    cartItemEntity.setId(cartItem.getId());
-                    cartItemEntity.setCartEntity(cartEntity);
-                    cartItemEntity.setProductEntity(ProductEntity.fromProduct(cartItem.getProduct()));
-                    cartItemEntity.setQuantity(cartItem.getQuantity());
-                    cartItemEntity.setDateCreated(cartItem.getDateCreated());
-                    return cartItemEntity;
-                })
-                .toList();
-        cartEntity.setItems(cartItemEntities);
-        return cartEntity;
-    }*/
-
     public String toString() {
         return "CartEntity(id=" + this.getId() +
                 ", userEntityId=" + this.getUserEntity().getId() +

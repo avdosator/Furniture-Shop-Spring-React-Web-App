@@ -58,13 +58,6 @@ public class CategoryEntity {
                 .build();
     }
 
-    public static CategoryEntity fromCategory(Category category) {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(category.getId());
-        categoryEntity.setName(category.getName());
-        return categoryEntity;
-    }
-
     public String toString() {
         return "Category(id=" + this.getId() +
                 ", name=" + this.getName() + ")";

@@ -64,12 +64,6 @@ public class CartItemEntity {
                 .build();
     }
 
-    /*public static CartItemEntity fromCartItem(CartItem cartItem) {
-        CartItemEntity cartItemEntity = new CartItemEntity();
-        cartItemEntity.setId(cartItem.getId());
-        cartItemEntity.setCartEntity(cartItem.getCartId().);
-    }*/
-
     public String toString() {
         return "CartItemEntity(id=" + this.getId() +
                 ", cartEntityId=" + this.getCartEntity().getId() +

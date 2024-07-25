@@ -77,29 +77,7 @@ public class OrderEntity {
                 .dateCreated(this.dateCreated)
                 .build();
     }
-    /*
-    public static OrderEntity fromOrder(Order order) {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId(order.getId());
-        orderEntity.setUserEntity(UserEntity.fromUser(order.getUser()));
-        List<OrderItemEntity> orderItemEntities = order.getOrderItems().stream()
-                .map(orderItem -> {
-                    OrderItemEntity orderItemEntity = new OrderItemEntity();
-                    orderItemEntity.setId(orderItem.getId());
-                    orderItemEntity.setOrderEntity(orderEntity);
-                    orderItemEntity.setQuantity(orderItem.getQuantity());
-                    orderItemEntity.setPrice(orderItem.getPrice());
-                    orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
-                    return orderItemEntity;
-                })
-                .toList();
-        orderEntity.setOrderItems(orderItemEntities);
-        orderEntity.setTotalAmount(order.getTotalAmount());
-        orderEntity.setOrderStatus(order.getOrderStatus());
-        orderEntity.setDateCreated(order.getDateCreated());
-        return orderEntity;
-    }
-    */
+
     public String toString() {
         return "Order(id=" + this.getId() +
                 ", userEntityId=" + this.getUserEntity().getId() +

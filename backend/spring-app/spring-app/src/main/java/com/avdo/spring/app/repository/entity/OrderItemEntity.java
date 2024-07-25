@@ -63,16 +63,6 @@ public class OrderItemEntity {
                 .build();
     }
 
-    /*public static OrderItemEntity fromOrderItem(OrderItem orderItem) {
-        OrderItemEntity orderItemEntity = new OrderItemEntity();
-        orderItemEntity.setId(orderItem.getId());
-        orderItemEntity.setOrderEntity(OrderEntity.fromOrder(orderItem.getOrder()));
-        orderItemEntity.setQuantity(orderItem.getQuantity());
-        orderItemEntity.setPrice(orderItem.getPrice());
-        orderItemEntity.setProductEntity(ProductEntity.fromProduct(orderItem.getProduct()));
-        return orderItemEntity;
-    }*/
-
     public String toString() {
         return "OrderItem(id=" + this.getId() +
                 ", orderId=" + this.getOrderEntity().getId() +
