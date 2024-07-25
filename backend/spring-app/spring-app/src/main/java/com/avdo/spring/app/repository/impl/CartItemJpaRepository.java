@@ -51,8 +51,11 @@ public class CartItemJpaRepository implements CartItemRepository {
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
 
         CartItemEntity savedCartItem = crudCartItemRepository.save(cartItemEntity);
+
+        // add cartItems to cart and save that to database
         List<CartItemEntity> cartItemEntities = crudCartItemRepository.findByCartEntity_Id(cartEntity.getId());
         cartEntity.setItems(cartItemEntities);
+        crudCartRepository.save(cartEntity);
 
         return savedCartItem.toDomainModel();
     }

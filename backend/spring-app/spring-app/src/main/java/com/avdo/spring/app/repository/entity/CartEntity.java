@@ -80,7 +80,7 @@ public class CartEntity {
     }
 
     // temporary method, delete it at the end!!
-    public static CartEntity fromCart(Cart cart, UserEntity userEntity) {
+    /*public static CartEntity fromCart(Cart cart, UserEntity userEntity) {
         CartEntity cartEntity = new CartEntity();
         cartEntity.setId(cart.getId());
         cartEntity.setUserEntity(userEntity);
@@ -97,7 +97,7 @@ public class CartEntity {
                 .toList();
         cartEntity.setItems(cartItemEntities);
         return cartEntity;
-    }
+    }*/
 
     public String toString() {
         return "CartEntity(id=" + this.getId() +
