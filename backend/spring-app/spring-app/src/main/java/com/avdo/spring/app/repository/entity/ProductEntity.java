@@ -107,18 +107,6 @@ public class ProductEntity {
                 .build();
     }
 
-    public static ProductEntity fromProduct(Product product) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(product.getId());
-        productEntity.setName(product.getName());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setStock(product.getStock());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
-        productEntity.setOrderItems(product.getOrderItemEntities());
-        return productEntity;
-    }
-
     public String toString() {
         return "Product(id=" + this.getId() +
                 ", name=" + this.getName() +
