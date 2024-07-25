@@ -2,6 +2,7 @@ package com.avdo.spring.app.repository.impl;
 
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
 import com.avdo.spring.app.repository.crud.CrudOrderItemRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
 import com.avdo.spring.app.repository.entity.*;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.OrderItemRepository;
@@ -28,14 +29,17 @@ public class OrderJpaRepository implements OrderRepository {
     private final CrudOrderRepository crudOrderRepository;
     private final CrudCartRepository crudCartRepository;
     private final CrudOrderItemRepository crudOrderItemRepository;
+    private final CrudUserRepository crudUserRepository;
 
     @Autowired
     public OrderJpaRepository(CrudOrderRepository crudOrderRepository,
                               CrudCartRepository crudCartRepository,
-                              CrudOrderItemRepository crudOrderItemRepository) {
+                              CrudOrderItemRepository crudOrderItemRepository,
+                              CrudUserRepository crudUserRepository) {
         this.crudOrderRepository = crudOrderRepository;
         this.crudCartRepository = crudCartRepository;
         this.crudOrderItemRepository = crudOrderItemRepository;
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
@@ -58,7 +62,8 @@ public class OrderJpaRepository implements OrderRepository {
     @Override
     @Transactional
     public Order createOrder(CreateOrderRequest createOrderRequest) {
-        UserEntity userEntity = UserEntity.fromUser(UserUtils.getCurrentUser());
+        User user = UserUtils.getCurrentUser();
+        UserEntity userEntity = crudUserRepository.findById(user.getId()).orElseThrow();
         CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId()).orElseThrow();
 
         OrderEntity orderEntity = createAndSaveOrder(userEntity, cartEntity);
