@@ -26,17 +26,14 @@ import java.util.List;
 public class OrderJpaRepository implements OrderRepository {
 
     private final CrudOrderRepository crudOrderRepository;
-    private final CartRepository cartRepository;
     private final CrudCartRepository crudCartRepository;
     private final CrudOrderItemRepository crudOrderItemRepository;
 
     @Autowired
     public OrderJpaRepository(CrudOrderRepository crudOrderRepository,
-                              CartRepository cartRepository,
                               CrudCartRepository crudCartRepository,
                               CrudOrderItemRepository crudOrderItemRepository) {
         this.crudOrderRepository = crudOrderRepository;
-        this.cartRepository = cartRepository;
         this.crudCartRepository = crudCartRepository;
         this.crudOrderItemRepository = crudOrderItemRepository;
     }
