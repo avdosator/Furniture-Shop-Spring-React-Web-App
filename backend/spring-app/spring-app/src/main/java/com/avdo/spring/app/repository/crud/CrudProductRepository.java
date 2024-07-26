@@ -1,6 +1,6 @@
 package com.avdo.spring.app.repository.crud;
 
-import com.avdo.spring.app.entity.ProductEntity;
+import com.avdo.spring.app.repository.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

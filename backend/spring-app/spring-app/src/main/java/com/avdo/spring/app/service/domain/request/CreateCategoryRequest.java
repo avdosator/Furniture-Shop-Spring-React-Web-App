@@ -1,11 +1,14 @@
 package com.avdo.spring.app.service.domain.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
 public class CreateCategoryRequest {
 
     protected final String name;
+
+    public CreateCategoryRequest(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 }

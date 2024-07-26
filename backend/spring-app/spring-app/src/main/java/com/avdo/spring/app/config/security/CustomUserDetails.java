@@ -1,4 +1,4 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.config.security;
 
 import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.security.core.GrantedAuthority;

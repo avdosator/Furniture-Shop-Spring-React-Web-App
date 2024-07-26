@@ -1,6 +1,6 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.controller.dto.LoginUserRequest;
+import com.avdo.spring.app.controller.dto.LoginUserDto;
 import com.avdo.spring.app.repository.UserRepository;
 import com.avdo.spring.app.service.UserService;
 import com.avdo.spring.app.service.domain.model.User;
@@ -32,13 +32,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticate(LoginUserRequest loginUserRequest) {
+    public User authenticate(LoginUserDto loginUserDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginUserRequest.getUsername(),
-                        loginUserRequest.getPassword()));
+                        loginUserDto.getUsername(),
+                        loginUserDto.getPassword()));
 
-        return userRepository.findByUsername(loginUserRequest.getUsername());
+        return userRepository.findByUsername(loginUserDto.getUsername());
     }
 
     @Override

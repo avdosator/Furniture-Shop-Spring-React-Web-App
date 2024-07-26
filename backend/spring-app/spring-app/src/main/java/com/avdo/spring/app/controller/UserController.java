@@ -1,12 +1,13 @@
 package com.avdo.spring.app.controller;
 
 import com.avdo.spring.app.controller.dto.CreateUserDto;
-import com.avdo.spring.app.controller.dto.LoginUserRequest;
+import com.avdo.spring.app.controller.dto.LoginUserDto;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.UserService;
 import com.avdo.spring.app.service.domain.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 
 
 @RestController
@@ -51,9 +52,8 @@ public class UserController {
 
     // endpoint for logging in
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserRequest loginUserRequest) {
-        User authenticatedUser = userService.authenticate(loginUserRequest);
-        // should next line look like this?????
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
+        User authenticatedUser = userService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);

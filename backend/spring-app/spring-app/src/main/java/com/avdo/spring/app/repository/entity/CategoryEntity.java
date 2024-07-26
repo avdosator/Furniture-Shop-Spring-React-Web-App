@@ -1,15 +1,12 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.Category;
-import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "category")
@@ -26,20 +23,6 @@ public class CategoryEntity {
 
     @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
     private List<ProductEntity> productEntities = new ArrayList<>();
-
-    public Category toDomainModel() {
-        return Category.builder()
-                .id(this.id)
-                .name(this.name)
-                .build();
-    }
-
-    public static CategoryEntity fromCategory(Category category) {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setId(category.getId());
-        categoryEntity.setName(category.getName());
-        return categoryEntity;
-    }
 
     public CategoryEntity() {
     }
@@ -66,6 +49,13 @@ public class CategoryEntity {
 
     public void setProductEntities(List<ProductEntity> productEntities) {
         this.productEntities = productEntities;
+    }
+
+    public Category toDomainModel() {
+        return Category.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
     }
 
     public String toString() {

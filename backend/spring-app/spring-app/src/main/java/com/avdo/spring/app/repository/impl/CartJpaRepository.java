@@ -1,11 +1,10 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.entity.CartEntity;
-import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartRepository;
 import com.avdo.spring.app.repository.crud.CrudCartRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
+import com.avdo.spring.app.repository.entity.CartEntity;
 import com.avdo.spring.app.service.domain.model.Cart;
-import com.avdo.spring.app.service.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +15,13 @@ import java.time.LocalDate;
 public class CartJpaRepository implements CartRepository {
 
     private final CrudCartRepository crudCartRepository;
+    private final CrudUserRepository crudUserRepository;
 
     @Autowired
-    public CartJpaRepository(CrudCartRepository cartRepository) {
+    public CartJpaRepository(CrudCartRepository cartRepository,
+                             CrudUserRepository crudUserRepository) {
         this.crudCartRepository = cartRepository;
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
@@ -29,9 +31,9 @@ public class CartJpaRepository implements CartRepository {
     }
 
     @Override
-    public Cart createCart(User user) {
+    public Cart createCart(Long userId) {
         CartEntity cartEntity = new CartEntity();
-        cartEntity.setUserEntity(UserEntity.fromUser(user));
+        cartEntity.setUserEntity(crudUserRepository.findById(userId).orElseThrow());
         cartEntity.setDateCreated(Date.valueOf(LocalDate.now()));
         return crudCartRepository.save(cartEntity).toDomainModel();
 

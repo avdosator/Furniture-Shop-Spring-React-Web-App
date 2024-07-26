@@ -1,8 +1,8 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.entity.CategoryEntity;
 import com.avdo.spring.app.repository.CategoryRepository;
 import com.avdo.spring.app.repository.crud.CrudCategoryRepository;
+import com.avdo.spring.app.repository.entity.CategoryEntity;
 import com.avdo.spring.app.service.domain.model.Category;
 import com.avdo.spring.app.service.domain.request.CreateCategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;

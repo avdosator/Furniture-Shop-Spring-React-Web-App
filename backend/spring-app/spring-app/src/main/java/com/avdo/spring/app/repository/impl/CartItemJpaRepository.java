@@ -1,16 +1,15 @@
 package com.avdo.spring.app.repository.impl;
 
-import com.avdo.spring.app.entity.CartEntity;
-import com.avdo.spring.app.entity.CartItemEntity;
-import com.avdo.spring.app.entity.ProductEntity;
-import com.avdo.spring.app.entity.UserEntity;
 import com.avdo.spring.app.repository.CartItemRepository;
-import com.avdo.spring.app.repository.CartRepository;
-import com.avdo.spring.app.repository.ProductRepository;
 import com.avdo.spring.app.repository.crud.CrudCartItemRepository;
+import com.avdo.spring.app.repository.crud.CrudCartRepository;
+import com.avdo.spring.app.repository.crud.CrudProductRepository;
+import com.avdo.spring.app.repository.crud.CrudUserRepository;
+import com.avdo.spring.app.repository.entity.CartEntity;
+import com.avdo.spring.app.repository.entity.CartItemEntity;
+import com.avdo.spring.app.repository.entity.UserEntity;
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
-import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,22 +23,29 @@ import java.util.List;
 public class CartItemJpaRepository implements CartItemRepository {
 
     private final CrudCartItemRepository crudCartItemRepository;
-    private final ProductRepository productRepository;
+    private final CrudProductRepository crudProductRepository;
+    private final CrudCartRepository crudCartRepository;
+    private final CrudUserRepository crudUserRepository;
 
     @Autowired
     public CartItemJpaRepository(CrudCartItemRepository crudCartItemRepository,
-                                 ProductRepository productRepository) {
+                                 CrudProductRepository crudProductRepository,
+                                 CrudCartRepository crudCartRepository,
+                                 CrudUserRepository crudUserRepository) {
         this.crudCartItemRepository = crudCartItemRepository;
-        this.productRepository = productRepository;
+        this.crudProductRepository = crudProductRepository;
+        this.crudCartRepository = crudCartRepository;
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
-    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart, User user) {
-        UserEntity userEntity = UserEntity.fromUser(user);
-        CartItemEntity cartItemEntity = new CartItemEntity();
+    public CartItem saveCartItem(CreateCartItemRequest createCartItemRequest, Cart cart, Long userId) {
+        UserEntity userEntity = crudUserRepository.findById(userId).orElseThrow();
 
-        cartItemEntity.setCartEntity(CartEntity.fromCart(cart, userEntity));
-        cartItemEntity.setProductEntity(ProductEntity.fromProduct(productRepository.findById(createCartItemRequest.getProductId())));
+        CartItemEntity cartItemEntity = new CartItemEntity();
+        CartEntity cartEntity = crudCartRepository.findByUserEntityId(userEntity.getId()).orElseThrow();
+        cartItemEntity.setCartEntity(cartEntity);
+        cartItemEntity.setProductEntity(crudProductRepository.findById(createCartItemRequest.getProductId()).orElseThrow());
         cartItemEntity.setQuantity(createCartItemRequest.getQuantity());
         cartItemEntity.setDateCreated(Date.valueOf(LocalDate.now()));
 

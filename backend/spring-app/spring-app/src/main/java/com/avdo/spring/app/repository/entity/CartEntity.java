@@ -1,4 +1,4 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
@@ -35,38 +35,6 @@ public class CartEntity {
     public CartEntity() {
     }
 
-    public Cart toDomainModel() {
-        List<CartItem> cartItems = (this.items == null ? Collections.emptyList() : this.items.stream()
-                .map(CartItemEntity::toDomainModel)
-                .collect(Collectors.toList()));
-        return Cart.builder()
-                .id(this.id)
-                .user(this.userEntity.toDomainModel())
-                .cartItems(cartItems)
-                .dateCreated(this.dateCreated)
-                .build();
-    }
-
-    // temporary method, delete it at the end!!
-    public static CartEntity fromCart(Cart cart, UserEntity userEntity) {
-        CartEntity cartEntity = new CartEntity();
-        cartEntity.setId(cart.getId());
-        cartEntity.setUserEntity(userEntity);
-        List<CartItemEntity> cartItemEntities = cart.getCartItems().stream()
-                .map(cartItem -> {
-                    CartItemEntity cartItemEntity = new CartItemEntity();
-                    cartItemEntity.setId(cartItem.getId());
-                    cartItemEntity.setCartEntity(cartEntity);
-                    cartItemEntity.setProductEntity(ProductEntity.fromProduct(cartItem.getProduct()));
-                    cartItemEntity.setQuantity(cartItem.getQuantity());
-                    cartItemEntity.setDateCreated(cartItem.getDateCreated());
-                    return cartItemEntity;
-                })
-                .toList();
-        cartEntity.setItems(cartItemEntities);
-        return cartEntity;
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -97,6 +65,18 @@ public class CartEntity {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Cart toDomainModel() {
+        List<CartItem> cartItems = (this.items == null ? Collections.emptyList() : this.items.stream()
+                .map(CartItemEntity::toDomainModel)
+                .collect(Collectors.toList()));
+        return Cart.builder()
+                .id(this.id)
+                .user(this.userEntity.toDomainModel())
+                .cartItems(cartItems)
+                .dateCreated(this.dateCreated)
+                .build();
     }
 
     public String toString() {

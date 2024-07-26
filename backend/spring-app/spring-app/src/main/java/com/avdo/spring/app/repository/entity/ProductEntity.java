@@ -1,4 +1,4 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "product")
@@ -37,30 +38,6 @@ public class ProductEntity {
     private List<OrderItemEntity> orderItemEntities;
 
     public ProductEntity() {
-    }
-
-    public Product toDomainModel() {
-        return Product.builder()
-                .id(this.id)
-                .name(this.name)
-                .price(this.price)
-                .stock(this.stock)
-                .description(this.description)
-                .category(this.categoryEntity.toDomainModel())
-                .orderItemEntities(this.orderItemEntities)
-                .build();
-    }
-
-    public static ProductEntity fromProduct(Product product) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(product.getId());
-        productEntity.setName(product.getName());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setStock(product.getStock());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setCategoryEntity(CategoryEntity.fromCategory(product.getCategory()));
-        productEntity.setOrderItems(product.getOrderItemEntities());
-        return productEntity;
     }
 
     public Long getId() {
@@ -119,13 +96,23 @@ public class ProductEntity {
         this.orderItemEntities = orderItemEntities;
     }
 
+    public Product toDomainModel() {
+        return Product.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .stock(this.stock)
+                .description(this.description)
+                .category(this.categoryEntity.toDomainModel())
+                .build();
+    }
+
     public String toString() {
         return "Product(id=" + this.getId() +
                 ", name=" + this.getName() +
                 ", price=" + this.getPrice() +
                 ", stock=" + this.getStock() +
                 ", description=" + this.getDescription() +
-                ", categoryName=" + this.getCategoryEntity().getName() +
-                /*", orderItems=" + this.getOrderItems() +*/ ")";
+                ", categoryName=" + this.getCategoryEntity().getName() + ")";
     }
 }

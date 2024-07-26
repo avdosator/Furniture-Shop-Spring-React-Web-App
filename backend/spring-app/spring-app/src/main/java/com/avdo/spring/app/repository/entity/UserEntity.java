@@ -1,26 +1,18 @@
-package com.avdo.spring.app.entity;
+package com.avdo.spring.app.repository.entity;
 
 import com.avdo.spring.app.service.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Setter
-@Getter
 @Entity
 @Table(name = "users")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class UserEntity implements UserDetails {
+public class UserEntity {
 
     @Id
     @Column(name = "id")
@@ -55,6 +47,42 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
+    public Long getId() { return this.id; }
+
+    public String getFirstname() { return this.firstname; }
+
+    public String getLastname() { return this.lastname; }
+
+    public String getUsername() { return this.username; }
+
+    public String getEmail() { return this.email; }
+
+    public String getPassword() { return this.password; }
+
+    public Date getDateCreated() { return this.dateCreated; }
+
+    public String getRole() { return this.role; }
+
+    public List<OrderEntity> getOrders() { return this.orders; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public void setFirstname(String firstname) { this.firstname = firstname; }
+
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
+
+    public void setRole(String role) { this.role = role; }
+
+    public void setOrders(List<OrderEntity> orders) { this.orders = orders; }
+
     public User toDomainModel() {
         return User.builder()
                 .id(this.id)
@@ -65,51 +93,9 @@ public class UserEntity implements UserDetails {
                 .password(this.password)
                 .dateCreated(this.dateCreated)
                 .role(this.role)
-                .orders(this.orders)
                 .build();
     }
 
-    // this method will be deleted!!
-    public static UserEntity fromUser(User user) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.getId());
-        userEntity.setFirstname(user.getFirstname());
-        userEntity.setLastname(user.getLastname());
-        userEntity.setUsername(user.getUsername());
-        userEntity.setEmail(user.getEmail());
-        userEntity.setPassword(user.getPassword());
-        userEntity.setDateCreated(user.getDateCreated());
-        userEntity.setRole(user.getRole());
-        userEntity.setOrders(user.getOrders());
-        return userEntity;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(this.getRole()));
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    // try to resolve stackOverFlow exception
     public String toString() {
         return "UserEntity(id=" + this.getId() +
                 ", firstname=" + this.getFirstname() +
@@ -118,6 +104,6 @@ public class UserEntity implements UserDetails {
                 ", email=" + this.getEmail() +
                 ", password=" + this.getPassword() +
                 ", dateCreated=" + this.getDateCreated() +
-                ", role=" + this.getRole()  + ")";
+                ", role=" + this.getRole() + ")";
     }
 }

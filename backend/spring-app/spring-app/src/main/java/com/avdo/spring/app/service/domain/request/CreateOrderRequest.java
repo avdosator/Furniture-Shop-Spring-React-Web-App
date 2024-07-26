@@ -1,11 +1,14 @@
 package com.avdo.spring.app.service.domain.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
 public class CreateOrderRequest {
 
     protected final Long cartId;
+
+    public CreateOrderRequest(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public Long getCartId() {
+        return this.cartId;
+    }
 }

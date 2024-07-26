@@ -1,6 +1,5 @@
 package com.avdo.spring.app.service.impl;
 
-import com.avdo.spring.app.entity.CustomUserDetails;
 import com.avdo.spring.app.repository.CartItemRepository;
 import com.avdo.spring.app.service.CartItemService;
 import com.avdo.spring.app.service.CartService;
@@ -8,8 +7,8 @@ import com.avdo.spring.app.service.domain.model.Cart;
 import com.avdo.spring.app.service.domain.model.CartItem;
 import com.avdo.spring.app.service.domain.model.User;
 import com.avdo.spring.app.service.domain.request.CreateCartItemRequest;
+import com.avdo.spring.app.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,19 +33,13 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem createCartItem(CreateCartItemRequest createCartItemRequest) {
-        CustomUserDetails customUserDetails = extractUserFromToken();
-        User user = customUserDetails.getUser();
-
+        User user = UserUtils.getCurrentUser();
         try {
             Cart cart = cartService.findByUserId(user.getId());
-            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user);
+            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user.getId());
         } catch (NoSuchElementException e) {
-            Cart cart = cartService.createCart(user);
-            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user);
+            Cart cart = cartService.createCart();
+            return cartItemRepository.saveCartItem(createCartItemRequest, cart, user.getId());
         }
-    }
-
-    private CustomUserDetails extractUserFromToken() {
-        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
