@@ -54,7 +54,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = userService.authenticate(loginUserDto);
-        // should next line look like this?????
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
