@@ -29,7 +29,7 @@ export default function Navbar() {
                             <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div className="ms-lg-4 me-lg-2">
-                        <a href="#">Cart</a>
+                        
                     </div>
                 </div>
             </div>
