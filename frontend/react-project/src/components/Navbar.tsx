@@ -1,3 +1,5 @@
+import CartIcon from "./CartIcon";
+
 export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
@@ -29,7 +31,9 @@ export default function Navbar() {
                             <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div className="ms-lg-4 me-lg-2">
-                        
+                    <a href="#">
+                        <CartIcon />
+                        </a>
                     </div>
                 </div>
             </div>
