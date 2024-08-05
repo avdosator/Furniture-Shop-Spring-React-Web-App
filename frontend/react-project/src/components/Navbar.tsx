@@ -5,7 +5,7 @@ export default function Navbar() {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="#">F store</a>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -15,7 +15,7 @@ export default function Navbar() {
                             <a className="nav-link" href="#">About</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link">Products</a>
+                            <a className="nav-link" href="#">Products</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Latest</a>
@@ -28,6 +28,9 @@ export default function Navbar() {
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
+                    <div className="ms-lg-4 me-lg-2">
+                        <a href="#">Cart</a>
+                    </div>
                 </div>
             </div>
         </nav>
