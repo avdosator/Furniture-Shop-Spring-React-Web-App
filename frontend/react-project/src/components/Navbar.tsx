@@ -1,3 +1,5 @@
+import CartIcon from "./CartIcon";
+
 export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
@@ -26,10 +28,16 @@ export default function Navbar() {
                     </ul>
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <div className="ms-lg-4 me-lg-2">
-                        <a href="#">Cart</a>
+                    <div className="ms-lg-4 me-lg-2 mt-3 mt-lg-0">
+                        <a href="#" className="position-relative">
+                            <CartIcon />
+                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style={{ fontSize: '0.60rem', padding: '0.25em 0.55em' }}>
+                                5
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
