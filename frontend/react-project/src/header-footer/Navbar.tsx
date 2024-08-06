@@ -1,4 +1,4 @@
-import CartIcon from "./CartIcon";
+import CartIcon from "../components/CartIcon";
 
 export default function Navbar() {
     return (

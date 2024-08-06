@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import './App.css'
-import Navbar from './components/Navbar'
+import Navbar from './header-footer/Navbar'
 import Topbar from './components/Topbar'
 
 type ResponseType = {
