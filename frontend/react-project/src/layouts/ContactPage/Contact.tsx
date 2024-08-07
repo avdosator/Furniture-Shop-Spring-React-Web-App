@@ -2,7 +2,7 @@ import "./Contact.css"
 
 export default function Contact() {
     return (
-        <div className="container my-5">
+        <div className="container contact-container my-5">
             <h1 className="text-center mb-4">Contact Us</h1>
             <div className="card mb-4">
                 <img 
@@ -22,18 +22,18 @@ export default function Contact() {
                             <h3>Send us a message</h3>
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="name" className="form-label">Name</label>
-                                    <input type="text" className="form-control" id="name" placeholder="Your Name" />
+                                    <label htmlFor="contact-page-name" className="form-label">Name</label>
+                                    <input type="text" className="form-control contact-form-control" id="contact-page-name" placeholder="Your Name" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="email" className="form-label">Email</label>
-                                    <input type="email" className="form-control" id="email" placeholder="Your Email" />
+                                    <label htmlFor="contact-page-email" className="form-label">Email</label>
+                                    <input type="email" className="form-control contact-form-control" id="contact-page-email" placeholder="Your Email" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="message" className="form-label">Message</label>
-                                    <textarea className="form-control" id="message" rows={5} placeholder="Your Message"></textarea>
+                                    <label htmlFor="contact-page-message" className="form-label">Message</label>
+                                    <textarea className="form-control contact-form-control" id="contact-page-message" rows={5} placeholder="Your Message"></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-primary">Send</button>
+                                <button type="submit" className="btn btn-primary contact-form-button">Send</button>
                             </form>
                         </div>
                     </div>

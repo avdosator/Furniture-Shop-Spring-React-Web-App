@@ -1,16 +1,12 @@
-.container {
+.contact-container {
     max-width: 900px;
 }
 
-h1, h3 {
-    color: #333;
-}
-
-form .form-control {
+.contact-form-control {
     margin-bottom: 1rem;
 }
 
-form button {
+.contact-form-button {
     display: block;
     width: 100%;
 }
