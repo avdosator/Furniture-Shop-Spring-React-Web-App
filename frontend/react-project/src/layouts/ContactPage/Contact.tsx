@@ -1,16 +1,16 @@
 export default function Contact() {
     return (
-        <div>
-            <h1></h1>
+        <div className="container my-5">
+            <h1 className="text-center mb-3">Contact us</h1>
             <div className="row">
-                <div>
+                <div className="col-md-6 mb-3">
                     <h3>Contact information</h3>
                     <p><strong>Address: </strong>Grand opening of store in Sarajevo - SOON!</p>
                     <p><strong>Phone: </strong> +38700-000-000</p>
                     <p><strong>Email: </strong> avdo.sator@hotmail.com</p>
                     <p><strong>LinkedIn: </strong><a href="https://www.linkedin.com/in/avdo-%C5%A1ator-725370308/">Avdo Sator</a></p>
                 </div>
-                <div>
+                <div className="col-md-6">
                     <h3>Send us a message</h3>
                     <form>
                         <div className="mb-3">
