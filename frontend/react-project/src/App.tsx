@@ -5,6 +5,7 @@ import Navbar from './header-footer/Navbar'
 import Topbar from './header-footer/Topbar'
 import Footer from './header-footer/Footer'
 import HomePage from './layouts/HomePage/HomePage'
+import Contact from './layouts/ContactPage/Contact'
 
 type ResponseType = {
 	message: string
@@ -31,7 +32,7 @@ function App() {
 			<Topbar />
 			<Navbar />
 			<HomePage />
-			
+			<Contact />
 			<Footer />
 		</>
 	)
