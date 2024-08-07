@@ -1,0 +1,12 @@
+.contact-container {
+    max-width: 900px;
+}
+
+.contact-form-control {
+    margin-bottom: 1rem;
+}
+
+.contact-form-button {
+    display: block;
+    width: 100%;
+}
