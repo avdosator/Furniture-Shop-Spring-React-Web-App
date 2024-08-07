@@ -2,9 +2,9 @@ import "./AboutPage.css"
 
 export default function AboutPage() {
     return (
-        <div>
-            <div>
-                <div>
+        <div className="about-page">
+            <div className="full-screen-section d-flex justify-content-center align-items-center text-center">
+                <div className="overlay">
                     <h1 className="display-4">About F Store</h1>
                     <p className="lead">
                         F Store is your one-stop shop for all your needs. We provide high-quality products at competitive prices.
@@ -16,7 +16,7 @@ export default function AboutPage() {
                     </p>
                 </div>
             </div>
-            <div>
+            <div className="dark-section py-5 text-center">
                 <h1 className="display-4">Our Story</h1>
                 <p className="lead mx-auto" style={{ maxWidth: '600px' }}>
                     Founded in 2021, F Store started with a small group of passionate individuals committed to providing the best
