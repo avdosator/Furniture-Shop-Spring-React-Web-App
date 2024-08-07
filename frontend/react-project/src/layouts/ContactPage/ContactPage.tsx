@@ -1,4 +1,4 @@
-import "./Contact.css"
+import "./ContactPage.css"
 
 export default function Contact() {
     return (
