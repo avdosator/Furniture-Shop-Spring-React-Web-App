@@ -7,14 +7,25 @@ export default function AboutPage() {
                 <div>
                     <h1></h1>
                     <p>
-
+                        F Store is your one-stop shop for all your needs. We provide high-quality products at competitive prices.
+                        Our mission is to deliver exceptional value and service to our customers. At F Store, we believe in offering
+                        a diverse range of products to cater to all your preferences and needs. Whether you're looking for the latest
+                        gadgets, fashion trends, home essentials, or unique gifts, we have it all under one roof. Our dedicated team
+                        works tirelessly to ensure that every product meets our stringent quality standards, so you can shop with confidence.
+                        Experience the convenience of online shopping with F Store, where customer satisfaction is our top priority.
                     </p>
                 </div>
             </div>
             <div>
                 <h1></h1>
                 <p>
-                    
+                    Founded in 2021, F Store started with a small group of passionate individuals committed to providing the best
+                    shopping experience. Over the years, we have grown into a beloved brand with a wide range of products and a
+                    dedicated customer base. Our journey began with a simple idea: to make shopping more accessible and enjoyable
+                    for everyone. We have since expanded our offerings, constantly innovating and adapting to the latest market trends
+                    to ensure that our customers always find what they are looking for. From humble beginnings to becoming a household name,
+                    F Store's success is built on the trust and loyalty of our customers. Join us as we continue to grow and evolve, bringing
+                    you the best in retail every day.
                 </p>
             </div>
         </div>
