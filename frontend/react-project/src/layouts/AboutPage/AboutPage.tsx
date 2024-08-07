@@ -5,7 +5,7 @@ export default function AboutPage() {
         <div>
             <div>
                 <div>
-                    <h1></h1>
+                    <h1>About F Store</h1>
                     <p>
                         F Store is your one-stop shop for all your needs. We provide high-quality products at competitive prices.
                         Our mission is to deliver exceptional value and service to our customers. At F Store, we believe in offering
@@ -17,7 +17,7 @@ export default function AboutPage() {
                 </div>
             </div>
             <div>
-                <h1></h1>
+                <h1>Our Story</h1>
                 <p>
                     Founded in 2021, F Store started with a small group of passionate individuals committed to providing the best
                     shopping experience. Over the years, we have grown into a beloved brand with a wide range of products and a
