@@ -1,0 +1,9 @@
+#topbarMessage {
+    display: none;
+}
+
+@media (min-width: 455px) {
+    #topbarMessage {
+        display: block;
+    }
+}
