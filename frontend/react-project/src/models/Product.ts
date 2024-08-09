@@ -1,3 +1,5 @@
+import Category from "./Category";
+
 export default class Product {
 
     private id: number;
@@ -5,14 +7,15 @@ export default class Product {
     private price: number;
     private stock: number;
     private description: string;
-    // private category: Category;
+    private category: Category;
 
-    constructor (id: number, name: string, price: number, stock: number, description: string/*, category: Category*/) {
+    constructor(id: number, name: string, price: number, stock: number, description: string, category: Category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.description = description;
+        this.category = category;
     }
 
     public getId(): number {
@@ -50,10 +53,10 @@ export default class Product {
         this.description = value;
     }
 
-    // public getCategory(): Category {
-    //     return this.category;
-    // }
-    // public setCategory(value: Category) {
-    //     this.category = value;
-    // }
+    public getCategory(): Category {
+        return this.category;
+    }
+    public setCategory(value: Category) {
+        this.category = value;
+    }
 }

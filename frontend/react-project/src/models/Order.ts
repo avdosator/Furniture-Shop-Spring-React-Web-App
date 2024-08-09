@@ -1,17 +1,19 @@
+import OrderItem from "./OrderItem";
 import User from "./User";
 
 export default class Order {
 
     private id: number;
     private user: User;
-    // private orderItems: OrderItem[];
+    private orderItems: OrderItem[];
     private totalAmount: number;
     private orderStatus: string;
     private dateCreated: Date;
 
-    public constructor(id: number, user: User, /*orderItems: OrderItem[]*/ totalAmount: number, orderStatus: string, dateCreated: Date) {
+    public constructor(id: number, user: User, orderItems: OrderItem[], totalAmount: number, orderStatus: string, dateCreated: Date) {
         this.id = id;
         this.user = user;
+        this.orderItems = orderItems;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
         this.dateCreated = dateCreated;
@@ -31,12 +33,12 @@ export default class Order {
         this.user = value;
     }
 
-    // public getOrderItems(): OrderItem[] {
-    //     return this.orderItems;
-    // }
-    // public setOrderItems(value: OrderItem[]) {
-    //     this.orderItems = value;
-    // }
+    public getOrderItems(): OrderItem[] {
+        return this.orderItems;
+    }
+    public setOrderItems(value: OrderItem[]) {
+        this.orderItems = value;
+    }
 
     public getTotalAmount(): number {
         return this.totalAmount;
