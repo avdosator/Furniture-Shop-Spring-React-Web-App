@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CartIcon from "../components/CartIcon";
 
 export default function Navbar() {
@@ -8,23 +9,23 @@ export default function Navbar() {
                     aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <a className="navbar-brand" href="#">F store</a>
+                <Link className="navbar-brand" to="/">F store</Link>
                 <div className="collapse navbar-collapse" id="navbarToggler">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">About</a>
+                            <Link className="nav-link" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Products</a>
+                            <Link className="nav-link" to="#">Products</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Latest</a>
+                            <Link className="nav-link" to="#">Latest</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Contact</a>
+                            <Link className="nav-link" to="/contact">Contact</Link>
                         </li>
                     </ul>
                     <form className="d-flex" role="search">
