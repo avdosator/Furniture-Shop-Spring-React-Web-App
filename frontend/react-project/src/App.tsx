@@ -37,11 +37,15 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 				<Route path='/home' element={<HomePage />} />
 				<Route path='/about' element={<AboutPage />} />
+				<Route path='/products' element={<h1>Placeholder for "products" page</h1>} />
+				<Route path='/latest' element={<h1>Placeholder for "latest" page</h1>} />
 				<Route path='/contact' element={<Contact />} />
+				<Route path='/login' element={<h1>Placeholder for "login" page</h1>} />
+				<Route path='/signup' element={<h1>Placeholder for "sign up" page</h1>} />
 			</Routes>
 			<Footer />
 		</>
-	)
+	);
 }
 
 export default App
