@@ -7,6 +7,7 @@ import Footer from './header-footer/Footer'
 import HomePage from './layouts/HomePage/HomePage'
 import Contact from './layouts/ContactPage/ContactPage'
 import AboutPage from './layouts/AboutPage/AboutPage'
+import { Route, Routes } from 'react-router-dom'
 
 type ResponseType = {
 	message: string
@@ -29,12 +30,15 @@ function App() {
 	// 	connect();
 	// }, [])
 	return (
-		<>	
+		<>
 			<Topbar />
 			<Navbar />
-			<HomePage />
-			<Contact />
-			<AboutPage />
+			<Routes>
+				<Route path='/' element={<HomePage />} />
+				<Route path='/home' element={<HomePage />} />
+				<Route path='/about' element={<AboutPage />} />
+				<Route path='/contact' element={<Contact />} />
+			</Routes>
 			<Footer />
 		</>
 	)
