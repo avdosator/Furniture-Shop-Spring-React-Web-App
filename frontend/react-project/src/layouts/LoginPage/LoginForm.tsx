@@ -10,17 +10,17 @@ export default function LoginForm() {
                 ...oldData,
                 [name]: value
             }
-        })
+        });
     }
 
-    function handleSubmit(e:React.FormEvent<HTMLFormElement> ): void {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         console.log(formData);
         //logic for sending data to server
     }
 
     return (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit} > 
             <h1>Login:</h1>
             <label htmlFor="username">Username</label>
             <input type="text"
@@ -29,6 +29,7 @@ export default function LoginForm() {
                 name="username"
                 onChange={handleChange}
                 placeholder="Enter your username here"
+                autoComplete="username"
                 autoFocus
             />
             <label htmlFor="password">Password</label>
@@ -38,6 +39,7 @@ export default function LoginForm() {
                 name="password"
                 onChange={handleChange}
                 placeholder="Password"
+                autoComplete="current-password"
             />
             <button type="submit">Log In</button>
         </form>
