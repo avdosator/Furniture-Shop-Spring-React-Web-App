@@ -9,6 +9,7 @@ import Contact from './layouts/ContactPage/ContactPage'
 import AboutPage from './layouts/AboutPage/AboutPage'
 import { Route, Routes } from 'react-router-dom'
 import ProductRoutes from './routes/ProductRoutes'
+import LoginForm from './layouts/LoginPage/LoginForm'
 
 type ResponseType = {
 	message: string
@@ -41,7 +42,7 @@ function App() {
 				<Route path='/products/*' element={<ProductRoutes />} />
 				<Route path='/latest' element={<h1>Placeholder for "latest" page</h1>} />
 				<Route path='/contact' element={<Contact />} />
-				<Route path='/login' element={<h1>Placeholder for "login" page</h1>} />
+				<Route path='/login' element={<LoginForm />} />
 				<Route path='/signup' element={<h1>Placeholder for "sign up" page</h1>} />
 				<Route path='*' element={<h1>Placeholder for 404 page</h1>} />
 			</Routes>
