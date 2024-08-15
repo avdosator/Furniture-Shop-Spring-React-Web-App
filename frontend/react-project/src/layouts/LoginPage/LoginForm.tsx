@@ -3,8 +3,13 @@ import { useState } from "react";
 export default function LoginForm() {
     let [formData, setFormData] = useState({username: "", password: ""});
 
+    function handleSubmit(e:React.FormEvent<HTMLFormElement> ): void {
+        e.preventDefault();
+        //logic for sending data to server
+    }
+
     return (
-        <form >
+        <form onSubmit={handleSubmit} >
             <h1>Login:</h1>
             <label htmlFor="username">Username</label>
             <input type="text"
