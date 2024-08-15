@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import CartIcon from "../components/CartIcon";
 
 export default function Navbar() {
@@ -9,23 +9,26 @@ export default function Navbar() {
                     aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <Link className="navbar-brand" to="/">F store</Link>
+                <NavLink className="navbar-brand" to="/">F store</NavLink>
                 <div className="collapse navbar-collapse" id="navbarToggler">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" aria-current="page" to="/home">Home</Link>
+                            <NavLink className="nav-link" aria-current="page" to="/home"
+                            /*style={({isActive}) => isActive ? {color:"green"} : {}} - a way to use isActive info*/>
+                                Home
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
+                            <NavLink className="nav-link" to="/about">About</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/products">Products</Link>
+                            <NavLink className="nav-link" to="/products">Products</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/latest">Latest</Link>
+                            <NavLink className="nav-link" to="/latest">Latest</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact</Link>
+                            <NavLink className="nav-link" to="/contact">Contact</NavLink>
                         </li>
                     </ul>
                     <form className="d-flex" role="search">
@@ -44,5 +47,5 @@ export default function Navbar() {
                 </div>
             </div>
         </nav>
-    )
+    );
 }
