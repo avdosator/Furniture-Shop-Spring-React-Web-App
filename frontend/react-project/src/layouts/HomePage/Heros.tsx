@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import "./Heros.css"
 
 export default function Heros() {
     return (
-        <div className="container">
+        <div className="container pb-5">
             <div className="d-none d-lg-block">
                 <div className="row g-0 mt-5">
                     <div className="col-sm-6 col-md-6">
@@ -16,7 +17,7 @@ export default function Heros() {
                                 Whether it is some luxury bed for your bedroom or some cozy detail for living room,
                                 we will be able to provide top products for you!
                             </p>
-                            <a href="#" className="btn btn-dark btn-lg text-white">Sign Up</a>
+                            <Link to="/signup" className="btn btn-dark btn-lg text-white">Sign Up</Link>
                         </div>
                     </div>
                 </div>
