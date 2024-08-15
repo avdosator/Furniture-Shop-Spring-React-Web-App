@@ -37,7 +37,11 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 				<Route path='/home' element={<HomePage />} />
 				<Route path='/about' element={<AboutPage />} />
-				<Route path='/products' element={<h1>Placeholder for "products" page</h1>} />
+				<Route path='/products'>
+					<Route index element={<h1>Placeholder for "products" page</h1>} />
+					<Route path=':id' element={<h1>Placeholder for single product page</h1>} />
+					<Route path='new' element={<h1>Placeholder for adding new product</h1>} />
+				</Route>
 				<Route path='/latest' element={<h1>Placeholder for "latest" page</h1>} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='/login' element={<h1>Placeholder for "login" page</h1>} />
