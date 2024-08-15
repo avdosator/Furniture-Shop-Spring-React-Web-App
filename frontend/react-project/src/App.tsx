@@ -43,6 +43,7 @@ function App() {
 				<Route path='/contact' element={<Contact />} />
 				<Route path='/login' element={<h1>Placeholder for "login" page</h1>} />
 				<Route path='/signup' element={<h1>Placeholder for "sign up" page</h1>} />
+				<Route path='*' element={<h1>Placeholder for 404 page</h1>} />
 			</Routes>
 			<Footer />
 		</>
