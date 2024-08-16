@@ -10,6 +10,7 @@ import AboutPage from './layouts/AboutPage/AboutPage'
 import { Route, Routes } from 'react-router-dom'
 import ProductRoutes from './routes/ProductRoutes'
 import LoginForm from './layouts/LoginPage/LoginForm'
+import SignupForm from './layouts/SignupPage/SignupForm'
 
 type ResponseType = {
 	message: string
@@ -43,7 +44,7 @@ function App() {
 				<Route path='/latest' element={<h1>Placeholder for "latest" page</h1>} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='/login' element={<LoginForm />} />
-				<Route path='/signup' element={<h1>Placeholder for "sign up" page</h1>} />
+				<Route path='/signup' element={<SignupForm />} />
 				<Route path='*' element={<h1>Placeholder for 404 page</h1>} />
 			</Routes>
 			<Footer />
