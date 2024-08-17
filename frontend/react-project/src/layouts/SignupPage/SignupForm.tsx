@@ -7,6 +7,8 @@ export default function SignupForm() {
                 <input type="text"
                     id="firstname"
                     name="firstname"
+                    placeholder="Enter your firstname"
+                    autoFocus
                 />
             </div>
             <div>
@@ -14,6 +16,7 @@ export default function SignupForm() {
                 <input type="text"
                     id="lastname"
                     name="firstname"
+                    placeholder="Enter your lastname"
                 />
             </div>
             <div>
@@ -21,13 +24,15 @@ export default function SignupForm() {
                 <input type="text"
                     id="createUserUsername"
                     name="firstname"
+                    placeholder="Enter your username"
                 />
             </div>
             <div>
-                <label htmlFor="createUserPassword">Password</label>
+                <label htmlFor="createUserPassword">Password(8-20 characters)</label>
                 <input type="password"
                     id="createUserPassword"
                     name="firstname"
+                    placeholder="Enter your password (8-20 characters)"
                 />
             </div>
             <div>
@@ -35,6 +40,7 @@ export default function SignupForm() {
                 <input type="email"
                     id="email"
                     name="firstname"
+                    placeholder="Enter your email"
                 />
             </div>
         </form>
