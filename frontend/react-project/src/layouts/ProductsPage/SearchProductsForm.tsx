@@ -1,7 +1,13 @@
 export default function SearchProductsForm() {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+        console.log(searchParameters);
+        //logic for searching products
+    }
+
     return (
         <div>
-            <form onSubmit={}>
+            <form onSubmit={handleSubmit}>
                 <div>
 
                 </div>
@@ -12,7 +18,7 @@ export default function SearchProductsForm() {
 
                 </div>
                 <div>
-                    
+
                 </div>
                 <button></button>
                 <button></button>
