@@ -17,6 +17,7 @@ export default function LoginForm() {
         e.preventDefault();
         console.log(formData);
         //logic for sending data to server
+        setFormData({ username: "", password: "" });
     }
 
     return (
@@ -32,7 +33,7 @@ export default function LoginForm() {
                             <form onSubmit={handleSubmit} >
                                 <h4 className="card-title text-center">Login</h4>
                                 <div className="mb-3">
-                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <label htmlFor="username" className="form-label fw-medium">Username</label>
                                     <input type="text"
                                         className="form-control"
                                         value={formData.username}
@@ -45,7 +46,7 @@ export default function LoginForm() {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="password" className="form-label">Password</label>
+                                    <label htmlFor="password" className="form-label fw-medium">Password</label>
                                     <input type="password"
                                         className="form-control"
                                         value={formData.password}
@@ -57,7 +58,7 @@ export default function LoginForm() {
                                     />
                                 </div>
                                 <div className="d-grid gap-2">
-                                    <button type="submit" className="btn btn-success">Submit</button>
+                                    <button type="submit" className="btn btn-success fw-semibold">Submit</button>
                                 </div>
                             </form>
                         </div>
