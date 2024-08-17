@@ -4,6 +4,22 @@ export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "", sortBy: "" });
     let [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 10000 }); //implement to set maxPrice to most expensive product price
 
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        let { name, value } = e.target as HTMLInputElement;
+        setSearchParameters(oldData => {
+            return {
+                ...oldData,
+                [name]: value
+            }
+        });
+        setPriceRange(oldData => {
+            return {
+                ...oldData,
+                [name]: value
+            }
+        });
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         console.log(searchParameters);
@@ -21,11 +37,12 @@ export default function SearchProductsForm() {
                     <input type="text"
                         id="productName"
                         name="productName"
+                        value={searchParameters.productName}
                     />
                 </div>
                 <div>
                     <label htmlFor="category">Category</label>
-                    <select id="category" name="category" >
+                    <select id="category" name="category" value={searchParameters.category} >
                         <option value="all" selected>All</option>
                         <option value="chair">Chair</option>
                         <option value="double bed">Double Bed</option>
@@ -38,6 +55,7 @@ export default function SearchProductsForm() {
                     <input type="text"
                         id="sortBy"
                         name="sortBy"
+                        value={searchParameters.sortBy}
                     />
                 </div>
                 <div>
