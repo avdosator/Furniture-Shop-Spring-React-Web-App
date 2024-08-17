@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { useState } from "react";
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
@@ -38,7 +38,7 @@ export default function SignupForm() {
                 <input type="text"
                     value={formData.lastname}
                     id="lastname"
-                    name="firstname"
+                    name="lastname"
                     onChange={handleChange}
                     placeholder="Enter your lastname"
                 />
@@ -48,7 +48,7 @@ export default function SignupForm() {
                 <input type="text"
                     value={formData.username}
                     id="createUserUsername"
-                    name="firstname"
+                    name="username"
                     onChange={handleChange}
                     placeholder="Enter your username"
                 />
@@ -58,7 +58,7 @@ export default function SignupForm() {
                 <input type="password"
                     value={formData.password}
                     id="createUserPassword"
-                    name="firstname"
+                    name="password"
                     onChange={handleChange}
                     placeholder="Enter your password (8-20 characters)"
                 />
@@ -68,11 +68,12 @@ export default function SignupForm() {
                 <input type="email"
                     value={formData.email}
                     id="email"
-                    name="firstname"
+                    name="email"
                     onChange={handleChange}
                     placeholder="Enter your email"
                 />
             </div>
+            <button type="submit">Submit</button>
         </form>
     )
 }
