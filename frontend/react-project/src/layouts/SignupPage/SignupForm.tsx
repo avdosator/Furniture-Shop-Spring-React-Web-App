@@ -21,73 +21,75 @@ export default function SignupForm() {
     }
 
     return (
-        <div className="container">
-
-        
-        <form onSubmit={handleSubmit}>
-            <h4 className="card-title text-center">Sign up</h4>
-            <div>
-                <label htmlFor="firstname" className="form-label">Firstname</label>
-                <input type="text"
-                    className="form-control"
-                    value={formData.firstname}
-                    id="firstname"
-                    name="firstname"
-                    onChange={handleChange}
-                    placeholder="Enter your firstname"
-                    autoFocus
-                />
+        <div className="container mt-5">
+            <div className="row">
+                <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                    <form onSubmit={handleSubmit}>
+                        <h4 className=" text-center fw-semibold">Sign up to F Store</h4>
+                        <div className="mb-2">
+                            <label htmlFor="firstname" className="form-label fw-medium">Firstname</label>
+                            <input type="text"
+                                className="form-control"
+                                value={formData.firstname}
+                                id="firstname"
+                                name="firstname"
+                                onChange={handleChange}
+                                placeholder="Enter your firstname"
+                                autoFocus
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label htmlFor="lastname" className="form-label fw-medium">Lastname</label>
+                            <input type="text"
+                                className="form-control"
+                                value={formData.lastname}
+                                id="lastname"
+                                name="lastname"
+                                onChange={handleChange}
+                                placeholder="Enter your lastname"
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label htmlFor="createUserUsername" className="form-label fw-medium">Username</label>
+                            <input type="text"
+                                className="form-control"
+                                value={formData.username}
+                                id="createUserUsername"
+                                name="username"
+                                onChange={handleChange}
+                                autoComplete="username"
+                                placeholder="Enter your username"
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label htmlFor="createUserPassword" className="form-label fw-medium">Password</label>
+                            <input type="password"
+                                className="form-control"
+                                value={formData.password}
+                                id="createUserPassword"
+                                name="password"
+                                onChange={handleChange}
+                                autoComplete="current-password"
+                                placeholder="Enter your password (8-20 characters)"
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label htmlFor="email" className="form-label fw-medium">Email</label>
+                            <input type="email"
+                                className="form-control"
+                                value={formData.email}
+                                id="email"
+                                name="email"
+                                onChange={handleChange}
+                                placeholder="Enter your email"
+                            />
+                        </div>
+                        <div className="d-grid gap-2 mt-3">
+                            <button type="submit" className="btn btn-success fw-semibold">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div>
-                <label htmlFor="lastname" className="form-label">Lastname</label>
-                <input type="text"
-                    className="form-control"
-                    value={formData.lastname}
-                    id="lastname"
-                    name="lastname"
-                    onChange={handleChange}
-                    placeholder="Enter your lastname"
-                />
-            </div>
-            <div>
-                <label htmlFor="createUserUsername" className="form-label">Username</label>
-                <input type="text"
-                    className="form-control"
-                    value={formData.username}
-                    id="createUserUsername"
-                    name="username"
-                    onChange={handleChange}
-                    autoComplete="username"
-                    placeholder="Enter your username"
-                />
-            </div>
-            <div>
-                <label htmlFor="createUserPassword" className="form-label">Password(8-20 characters)</label>
-                <input type="password"
-                    className="form-control"
-                    value={formData.password}
-                    id="createUserPassword"
-                    name="password"
-                    onChange={handleChange}
-                    autoComplete="current-password"
-                    placeholder="Enter your password (8-20 characters)"
-                />
-            </div>
-            <div>
-                <label htmlFor="email" className="form-label">Email</label>
-                <input type="email"
-                    className="form-control"
-                    value={formData.email}
-                    id="email"
-                    name="email"
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                />
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
         </div>
-    )
+    );
 }
