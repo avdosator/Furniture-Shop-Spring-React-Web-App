@@ -3,24 +3,34 @@ export default function SignupForm() {
         <form>
             <h4>Sign up</h4>
             <div>
-                <label htmlFor="">Firstname</label>
-                <input type="text" />
+                <label htmlFor="firstname">Firstname</label>
+                <input type="text"
+                    id="firstname"
+                />
             </div>
             <div>
-                <label htmlFor="">Lastname</label>
-                <input type="text" />
+                <label htmlFor="lastname">Lastname</label>
+                <input type="text"
+                    id="lastname"
+                />
             </div>
             <div>
-                <label htmlFor="">Username</label>
-                <input type="text" />
+                <label htmlFor="createUserUsername">Username</label>
+                <input type="text"
+                    id="createUserUsername"
+                />
             </div>
             <div>
-                <label htmlFor="">Password</label>
-                <input type="password" />
+                <label htmlFor="createUserPassword">Password</label>
+                <input type="password"
+                    id="createUserPassword"
+                />
             </div>
             <div>
-                <label htmlFor="">Email</label>
-                <input type="email" />
+                <label htmlFor="email">Email</label>
+                <input type="email"
+                    id="email"
+                />
             </div>
         </form>
     )
