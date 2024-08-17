@@ -19,29 +19,32 @@ export default function SearchProductsForm() {
                 <div>
                     <label htmlFor="productName">Product name</label>
                     <input type="text"
-                    id="productName"
-                    name="productName"
-                     />
+                        id="productName"
+                        name="productName"
+                    />
                 </div>
                 <div>
                     <label htmlFor="category">Category</label>
-                    <input type="text"
-                    id="category"
-                    name="category"
-                     />
+                    <select id="category" name="category" >
+                        <option value="all" selected>All</option>
+                        <option value="chair">Chair</option>
+                        <option value="double bed">Double Bed</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="table">Table</option>
+                    </select>
                 </div>
                 <div>
                     <label htmlFor="sortBy">Sort By</label>
                     <input type="text"
-                    id="sortBy"
-                    name="sortBy"
+                        id="sortBy"
+                        name="sortBy"
                     />
                 </div>
                 <div>
                     <label htmlFor="priceRange">Price range</label>
                     <input type="text"
-                    id="priceRange"
-                    name="priceRange"                    
+                        id="priceRange"
+                        name="priceRange"
                     />
                 </div>
                 <button type="submit">Submit</button>
