@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
@@ -13,8 +13,14 @@ export default function SignupForm() {
         });
     }
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+        console.log(formData);
+        //logic for sending data to server
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <h4>Sign up</h4>
             <div>
                 <label htmlFor="firstname">Firstname</label>
