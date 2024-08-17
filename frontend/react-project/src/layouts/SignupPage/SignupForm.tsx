@@ -26,7 +26,7 @@ export default function SignupForm() {
                 <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
                     <form onSubmit={handleSubmit}>
                         <h4 className=" text-center fw-semibold">Sign up to F Store</h4>
-                        <div className="mb-2">
+                        <div className="mb-3">
                             <label htmlFor="firstname" className="form-label fw-medium">Firstname</label>
                             <input type="text"
                                 className="form-control"
@@ -38,7 +38,7 @@ export default function SignupForm() {
                                 autoFocus
                             />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-3">
                             <label htmlFor="lastname" className="form-label fw-medium">Lastname</label>
                             <input type="text"
                                 className="form-control"
@@ -49,7 +49,7 @@ export default function SignupForm() {
                                 placeholder="Enter your lastname"
                             />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-3">
                             <label htmlFor="createUserUsername" className="form-label fw-medium">Username</label>
                             <input type="text"
                                 className="form-control"
@@ -61,7 +61,7 @@ export default function SignupForm() {
                                 placeholder="Enter your username"
                             />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-3">
                             <label htmlFor="createUserPassword" className="form-label fw-medium">Password</label>
                             <input type="password"
                                 className="form-control"
@@ -73,7 +73,7 @@ export default function SignupForm() {
                                 placeholder="Enter your password (8-20 characters)"
                             />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-3">
                             <label htmlFor="email" className="form-label fw-medium">Email</label>
                             <input type="email"
                                 className="form-control"
