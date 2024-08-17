@@ -1,10 +1,15 @@
+import { useState } from "react";
+
 export default function SignupForm() {
+    let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
+
     return (
         <form>
             <h4>Sign up</h4>
             <div>
                 <label htmlFor="firstname">Firstname</label>
                 <input type="text"
+                    value={formData.firstname}
                     id="firstname"
                     name="firstname"
                     placeholder="Enter your firstname"
@@ -14,6 +19,7 @@ export default function SignupForm() {
             <div>
                 <label htmlFor="lastname">Lastname</label>
                 <input type="text"
+                    value={formData.lastname}
                     id="lastname"
                     name="firstname"
                     placeholder="Enter your lastname"
@@ -22,6 +28,7 @@ export default function SignupForm() {
             <div>
                 <label htmlFor="createUserUsername">Username</label>
                 <input type="text"
+                    value={formData.username}
                     id="createUserUsername"
                     name="firstname"
                     placeholder="Enter your username"
@@ -30,6 +37,7 @@ export default function SignupForm() {
             <div>
                 <label htmlFor="createUserPassword">Password(8-20 characters)</label>
                 <input type="password"
+                    value={formData.password}
                     id="createUserPassword"
                     name="firstname"
                     placeholder="Enter your password (8-20 characters)"
@@ -38,6 +46,7 @@ export default function SignupForm() {
             <div>
                 <label htmlFor="email">Email</label>
                 <input type="email"
+                    value={formData.email}
                     id="email"
                     name="firstname"
                     placeholder="Enter your email"
