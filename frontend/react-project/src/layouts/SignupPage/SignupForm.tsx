@@ -3,6 +3,16 @@ import { useState } from "react";
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
 
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        let { name, value } = e.target as HTMLInputElement;
+        setFormData(oldData => {
+            return {
+                ...oldData,
+                [name]: value
+            }
+        });
+    }
+
     return (
         <form>
             <h4>Sign up</h4>
@@ -12,6 +22,7 @@ export default function SignupForm() {
                     value={formData.firstname}
                     id="firstname"
                     name="firstname"
+                    onChange={handleChange}
                     placeholder="Enter your firstname"
                     autoFocus
                 />
@@ -22,6 +33,7 @@ export default function SignupForm() {
                     value={formData.lastname}
                     id="lastname"
                     name="firstname"
+                    onChange={handleChange}
                     placeholder="Enter your lastname"
                 />
             </div>
@@ -31,6 +43,7 @@ export default function SignupForm() {
                     value={formData.username}
                     id="createUserUsername"
                     name="firstname"
+                    onChange={handleChange}
                     placeholder="Enter your username"
                 />
             </div>
@@ -40,6 +53,7 @@ export default function SignupForm() {
                     value={formData.password}
                     id="createUserPassword"
                     name="firstname"
+                    onChange={handleChange}
                     placeholder="Enter your password (8-20 characters)"
                 />
             </div>
@@ -49,6 +63,7 @@ export default function SignupForm() {
                     value={formData.email}
                     id="email"
                     name="firstname"
+                    onChange={handleChange}
                     placeholder="Enter your email"
                 />
             </div>
