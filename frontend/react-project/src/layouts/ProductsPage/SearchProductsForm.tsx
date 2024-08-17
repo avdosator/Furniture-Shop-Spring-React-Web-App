@@ -17,20 +17,32 @@ export default function SearchProductsForm() {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor=""></label>
-                    <input type="text" />
+                    <label htmlFor="productName">Product name</label>
+                    <input type="text"
+                    id="productName"
+                    name="productName"
+                     />
                 </div>
                 <div>
-                    <label htmlFor=""></label>
-                    <input type="text" />
+                    <label htmlFor="category">Category</label>
+                    <input type="text"
+                    id="category"
+                    name="category"
+                     />
                 </div>
                 <div>
-                    <label htmlFor=""></label>
-                    <input type="text" />
+                    <label htmlFor="sortBy">Sort By</label>
+                    <input type="text"
+                    id="sortBy"
+                    name="sortBy"
+                    />
                 </div>
                 <div>
-                    <label htmlFor=""></label>
-                    <input type="text" />
+                    <label htmlFor="priceRange">Price range</label>
+                    <input type="text"
+                    id="priceRange"
+                    name="priceRange"                    
+                    />
                 </div>
                 <button type="submit">Submit</button>
                 <button type="reset">Reset</button>
