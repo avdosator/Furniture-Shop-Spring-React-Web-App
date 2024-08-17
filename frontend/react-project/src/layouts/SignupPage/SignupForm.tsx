@@ -17,6 +17,7 @@ export default function SignupForm() {
         e.preventDefault();
         console.log(formData);
         //logic for sending data to server
+        setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
     }
 
     return (

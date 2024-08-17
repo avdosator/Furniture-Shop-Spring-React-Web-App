@@ -17,6 +17,7 @@ export default function LoginForm() {
         e.preventDefault();
         console.log(formData);
         //logic for sending data to server
+        setFormData({ username: "", password: "" });
     }
 
     return (
