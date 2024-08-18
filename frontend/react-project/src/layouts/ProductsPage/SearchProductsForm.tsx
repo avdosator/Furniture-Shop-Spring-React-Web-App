@@ -38,11 +38,12 @@ export default function SearchProductsForm() {
                         id="productName"
                         name="productName"
                         value={searchParameters.productName}
+                        onChange={handleChange}
                     />
                 </div>
                 <div>
                     <label htmlFor="category">Category</label>
-                    <select id="category" name="category" value={searchParameters.category} >
+                    <select id="category" name="category">
                         <option value="all" selected>All</option>
                         <option value="chair">Chair</option>
                         <option value="double bed">Double Bed</option>
@@ -52,11 +53,13 @@ export default function SearchProductsForm() {
                 </div>
                 <div>
                     <label htmlFor="sortBy">Sort By</label>
-                    <input type="text"
-                        id="sortBy"
-                        name="sortBy"
-                        value={searchParameters.sortBy}
-                    />
+                    <select id="sortBy" name="sortBy">
+                        <option value="name (ascending)" selected>Name (ascending)</option>
+                        <option value="name (descending)">Name (descending)</option>
+                        <option value="price (ascending)">Price (ascending)</option>
+                        <option value="price (descending)">Price (descending)</option>
+                        <option value="newest">Newest</option>
+                    </select>
                 </div>
                 <div>
                     <label htmlFor="priceRange">Price range</label>
