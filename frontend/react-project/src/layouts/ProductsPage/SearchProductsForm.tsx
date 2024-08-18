@@ -31,11 +31,11 @@ export default function SearchProductsForm() {
 
     return (
         <div className="container mt-3">
-            <div className="row col-md-8 offset-md-2 col-lg-7 offset-lg-3">
+            <div className="col-lg-10 offset-lg-1">
                 <form onSubmit={handleSubmit}>
                     <div className="row">
-                        <div className="mb-3 col-lg-4">
-                            <label htmlFor="productName" className="form-label">Product name</label>
+                        {/* <div className="mb-3 col-lg-4 form-floating">
+                            
                             <input type="text"
                                 className="form-control"
                                 id="productName"
@@ -43,10 +43,22 @@ export default function SearchProductsForm() {
                                 value={searchParameters.productName}
                                 onChange={handleChange}
                             />
+                            <label htmlFor="productName" className="">Product name</label>
+                        </div> */}
+                        <div className="form-floating mb-3 col-md-4">
+                            <input type="text" 
+                            className="form-control" 
+                            id="productName"
+                             placeholder="email"
+                             value={searchParameters.productName}
+                             onChange={handleChange}
+                             name="productName"
+                              />
+                            <label htmlFor="productName">Product Name</label>
                         </div>
-                        <div className="row col-lg-8">
-                            <div className="mb-3 col-sm-6">
-                                <label htmlFor="category" className="form-label">Category</label>
+                        <div className="row col-md-8">
+                            <div className="form-floating mb-3 col-sm-6">
+                                
                                 <select id="category" name="category" className="form-select" defaultValue={searchParameters.category}>
                                     <option value="all" >All</option>
                                     <option value="chair">Chair</option>
@@ -54,9 +66,10 @@ export default function SearchProductsForm() {
                                     <option value="kitchen">Kitchen</option>
                                     <option value="table">Table</option>
                                 </select>
+                                <label htmlFor="category" className="form-label">Category</label>
                             </div>
-                            <div className="mb-3 col-sm-6">
-                                <label htmlFor="sortBy" className="form-label">Sort By</label>
+                            <div className="form-floating mb-3 col-sm-6">
+                                
                                 <select id="sortBy" name="sortBy" className="form-select" defaultValue={searchParameters.sortBy}>
                                     <option value="name (ascending)">Name (ascending)</option>
                                     <option value="name (descending)">Name (descending)</option>
@@ -64,29 +77,30 @@ export default function SearchProductsForm() {
                                     <option value="price (descending)">Price (descending)</option>
                                     <option value="newest">Newest</option>
                                 </select>
+                                <label htmlFor="sortBy" className="form-label">Sort By</label>
                             </div>
                         </div>
                     </div>
                     <div className="row">
-                    <div className="mb-3 col-lg-6">
-                        <label htmlFor="priceRange" className="form-label">Price range</label>
-                        <input type="range"
-                            className="form-range"
-                            id="priceRange"
-                            name="priceRange"
-                            min={0}
-                            max={10000}
-                            step={1}
-                        />
-                        <div className="">
-                            <span>0</span>
-                            <span>10 000</span>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="priceRange" className="form-label">Price range</label>
+                            <input type="range"
+                                className="form-range"
+                                id="priceRange"
+                                name="priceRange"
+                                min={0}
+                                max={10000}
+                                step={1}
+                            />
+                            <div className="">
+                                <span>0</span>
+                                <span>10 000</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-lg-6 mt-2">
-                        <button type="submit" className="btn btn-success ms-5">Submit</button>
-                        <button type="reset" className="btn btn-danger ms-3">Reset</button>
-                    </div>
+                        <div className="col-md-6 mt-2">
+                            <button type="submit" className="btn btn-success ms-lg-5 px-4">Submit</button>
+                            <button type="reset" className="btn btn-danger ms-3 px-4">Reset</button>
+                        </div>
                     </div>
                 </form>
             </div>
