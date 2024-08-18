@@ -1,4 +1,6 @@
 import { useState } from "react";
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
 
 export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
@@ -7,7 +9,7 @@ export default function SearchProductsForm() {
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         let { name, value } = e.target;
 
-        if (name === 'minPrice' || name === 'maxPrice') {
+        if (name === 'maxPrice') {
             setPriceRange(oldData => ({
                 ...oldData,
                 [name]: Number(value)
@@ -87,10 +89,12 @@ export default function SearchProductsForm() {
                             <input type="range"
                                 className="form-range"
                                 id="priceRange"
-                                name="priceRange"
+                                name="maxPrice"
                                 min={0}
                                 max={10000}
                                 step={1}
+                                value={priceRange.maxPrice}
+                                onChange={handleChange}
                             />
                             <div className="d-flex justify-content-between">
                                 <span>0</span>
