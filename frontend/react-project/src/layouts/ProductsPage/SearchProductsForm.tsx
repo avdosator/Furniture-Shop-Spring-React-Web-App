@@ -4,8 +4,8 @@ export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
     let [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 10000 }); //implement to set maxPrice to most expensive product price
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        let { name, value } = e.target as HTMLInputElement;
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
+        let { name, value } = e.target;
         setSearchParameters(oldData => {
             return {
                 ...oldData,
@@ -35,20 +35,23 @@ export default function SearchProductsForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-floating mb-3 col-md-4">
-                            <input type="text" 
-                            className="form-control" 
-                            id="productName"
-                             placeholder="email"
-                             value={searchParameters.productName}
-                             onChange={handleChange}
-                             name="productName"
-                              />
+                            <input type="text"
+                                className="form-control"
+                                id="productName"
+                                placeholder="email"
+                                value={searchParameters.productName}
+                                onChange={handleChange}
+                                name="productName"
+                            />
                             <label htmlFor="productName" className="ms-2">Product Name</label>
                         </div>
                         <div className="row col-md-8 pe-0 pe-md-1">
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-                                
-                                <select id="category" name="category" className="form-select" defaultValue={searchParameters.category}>
+
+                                <select id="category" name="category" className="form-select"
+                                    value={searchParameters.category}
+                                    onChange={handleChange}
+                                >
                                     <option value="all" >All</option>
                                     <option value="chair">Chair</option>
                                     <option value="double bed">Double Bed</option>
@@ -58,8 +61,11 @@ export default function SearchProductsForm() {
                                 <label htmlFor="category" className="ms-2">Category</label>
                             </div>
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-                                
-                                <select id="sortBy" name="sortBy" className="form-select" defaultValue={searchParameters.sortBy}>
+
+                                <select id="sortBy" name="sortBy" className="form-select"
+                                    value={searchParameters.sortBy}
+                                    onChange={handleChange}
+                                >
                                     <option value="name (ascending)">Name (ascending)</option>
                                     <option value="name (descending)">Name (descending)</option>
                                     <option value="price (ascending)">Price (ascending)</option>
