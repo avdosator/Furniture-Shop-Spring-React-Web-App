@@ -63,9 +63,12 @@ export default function SearchProductsForm() {
                 </div>
                 <div>
                     <label htmlFor="priceRange">Price range</label>
-                    <input type="text"
+                    <input type="range"
                         id="priceRange"
                         name="priceRange"
+                        min={0}
+                        max={10000}
+                        step={1}
                     />
                 </div>
                 <button type="submit">Submit</button>
