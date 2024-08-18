@@ -6,18 +6,18 @@ export default function SearchProductsForm() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         let { name, value } = e.target;
-        setSearchParameters(oldData => {
-            return {
+        
+        if (name === 'minPrice' || name === 'maxPrice') {
+            setPriceRange(oldData => ({
+                ...oldData,
+                [name]: Number(value)
+            }));
+        } else {
+            setSearchParameters(oldData => ({
                 ...oldData,
                 [name]: value
-            }
-        });
-        setPriceRange(oldData => {
-            return {
-                ...oldData,
-                [name]: value
-            }
-        });
+            }));
+        }
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
