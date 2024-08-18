@@ -4,27 +4,27 @@ import Slider from 'rc-slider';
 
 export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
-    let [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 10000 }); //implement to set maxPrice to most expensive product price
+    let [priceRange, setPriceRange] = useState([0, 10000]); //implement to set maxPrice to most expensive product price
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         let { name, value } = e.target;
 
-        if (name === 'maxPrice') {
-            setPriceRange(oldData => ({
-                ...oldData,
-                [name]: Number(value)
-            }));
-        } else {
-            setSearchParameters(oldData => ({
-                ...oldData,
-                [name]: value
-            }));
+        setSearchParameters(oldData => ({
+            ...oldData,
+            [name]: value
+        }));
+
+    }
+
+    function handleSliderChange(value: number | number[]): void {
+        if (Array.isArray(value)) {
+            setPriceRange([value[0], value[1]]);
         }
     }
 
     function handleReset(): void {
         setSearchParameters({ productName: "", category: "all", sortBy: "name (ascending)" });
-        setPriceRange({ minPrice: 0, maxPrice: 10000 });
+        setPriceRange([0, 10000]);
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
@@ -33,7 +33,7 @@ export default function SearchProductsForm() {
         console.log(priceRange);
         //logic for searching products
         setSearchParameters({ productName: "", category: "", sortBy: "" });
-        setPriceRange({ minPrice: 0, maxPrice: 10000 });
+        setPriceRange([0, 10000]);
     }
 
     return (
@@ -86,19 +86,17 @@ export default function SearchProductsForm() {
                     <div className="row">
                         <div className="mb-3 col-md-6">
                             <label htmlFor="priceRange" className="form-label">Price range</label>
-                            <input type="range"
-                                className="form-range"
-                                id="priceRange"
-                                name="maxPrice"
+                            <Slider
+                                range
                                 min={0}
                                 max={10000}
-                                step={1}
-                                value={priceRange.maxPrice}
-                                onChange={handleChange}
+                                step={10}
+                                value={priceRange}
+                                onChange={handleSliderChange}
                             />
                             <div className="d-flex justify-content-between">
-                                <span>0</span>
-                                <span>10 000</span>
+                                <span>{priceRange[0]}</span>
+                                <span>{priceRange[1]}</span>
                             </div>
                         </div>
                         <div className="col-md-6 mt-2 pt-md-3 offset-0">
