@@ -21,7 +21,7 @@ export default function LoginForm() {
     }
 
     return (
-        <div className="container d-flex align-items-center justify-content-center mt-3">
+        <div className="container d-flex align-items-center justify-content-center mt-4">
             <div className="row">
                 <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 mb-1">
                     <div className="card shadow">
@@ -31,9 +31,8 @@ export default function LoginForm() {
                         </div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit} >
-                                <h4 className="card-title text-center">Login</h4>
-                                <div className="mb-3">
-                                    <label htmlFor="username" className="form-label fw-medium">Username</label>
+                                <h4 className="card-title text-center mb-3">Login</h4>
+                                <div className="mb-3 form-floating">
                                     <input type="text"
                                         className="form-control"
                                         value={formData.username}
@@ -44,9 +43,9 @@ export default function LoginForm() {
                                         autoComplete="username"
                                         autoFocus
                                     />
+                                    <label htmlFor="username" className="form-label fw-medium">Username</label>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="password" className="form-label fw-medium">Password</label>
+                                <div className="mb-3 form-floating">
                                     <input type="password"
                                         className="form-control"
                                         value={formData.password}
@@ -56,6 +55,7 @@ export default function LoginForm() {
                                         placeholder="Enter your password"
                                         autoComplete="current-password"
                                     />
+                                    <label htmlFor="password" className="form-label fw-medium">Password</label>
                                 </div>
                                 <div className="d-grid gap-2">
                                     <button type="submit" className="btn btn-success fw-semibold">Submit</button>

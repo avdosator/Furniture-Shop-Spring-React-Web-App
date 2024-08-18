@@ -81,12 +81,12 @@ export default function SearchProductsForm() {
                                 max={10000}
                                 step={1}
                             />
-                            <div className="">
+                            <div className="d-flex justify-content-between">
                                 <span>0</span>
                                 <span>10 000</span>
                             </div>
                         </div>
-                        <div className="col-md-6 mt-2">
+                        <div className="col-md-6 mt-2 pt-md-3 offset-0">
                             <button type="submit" className="btn btn-success ms-lg-5 px-4">Submit</button>
                             <button type="reset" className="btn btn-danger ms-3 px-4">Reset</button>
                         </div>
