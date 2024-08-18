@@ -34,17 +34,6 @@ export default function SearchProductsForm() {
             <div className="col-lg-10 offset-lg-1">
                 <form onSubmit={handleSubmit}>
                     <div className="row">
-                        {/* <div className="mb-3 col-lg-4 form-floating">
-                            
-                            <input type="text"
-                                className="form-control"
-                                id="productName"
-                                name="productName"
-                                value={searchParameters.productName}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="productName" className="">Product name</label>
-                        </div> */}
                         <div className="form-floating mb-3 col-md-4">
                             <input type="text" 
                             className="form-control" 
@@ -54,10 +43,10 @@ export default function SearchProductsForm() {
                              onChange={handleChange}
                              name="productName"
                               />
-                            <label htmlFor="productName">Product Name</label>
+                            <label htmlFor="productName" className="ms-2">Product Name</label>
                         </div>
-                        <div className="row col-md-8">
-                            <div className="form-floating mb-3 col-sm-6">
+                        <div className="row col-md-8 pe-0 pe-md-1">
+                            <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
                                 
                                 <select id="category" name="category" className="form-select" defaultValue={searchParameters.category}>
                                     <option value="all" >All</option>
@@ -66,9 +55,9 @@ export default function SearchProductsForm() {
                                     <option value="kitchen">Kitchen</option>
                                     <option value="table">Table</option>
                                 </select>
-                                <label htmlFor="category" className="form-label">Category</label>
+                                <label htmlFor="category" className="ms-2">Category</label>
                             </div>
-                            <div className="form-floating mb-3 col-sm-6">
+                            <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
                                 
                                 <select id="sortBy" name="sortBy" className="form-select" defaultValue={searchParameters.sortBy}>
                                     <option value="name (ascending)">Name (ascending)</option>
@@ -77,7 +66,7 @@ export default function SearchProductsForm() {
                                     <option value="price (descending)">Price (descending)</option>
                                     <option value="newest">Newest</option>
                                 </select>
-                                <label htmlFor="sortBy" className="form-label">Sort By</label>
+                                <label htmlFor="sortBy" className="ms-2">Sort By</label>
                             </div>
                         </div>
                     </div>
