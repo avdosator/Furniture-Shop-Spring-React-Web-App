@@ -6,7 +6,7 @@ export default function SearchProductsForm() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         let { name, value } = e.target;
-        
+
         if (name === 'minPrice' || name === 'maxPrice') {
             setPriceRange(oldData => ({
                 ...oldData,
@@ -18,6 +18,11 @@ export default function SearchProductsForm() {
                 [name]: value
             }));
         }
+    }
+
+    function handleReset(): void {
+        setSearchParameters({ productName: "", category: "all", sortBy: "name (ascending)" });
+        setPriceRange({ minPrice: 0, maxPrice: 10000 });
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
@@ -94,7 +99,7 @@ export default function SearchProductsForm() {
                         </div>
                         <div className="col-md-6 mt-2 pt-md-3 offset-0">
                             <button type="submit" className="btn btn-success ms-lg-5 px-4">Submit</button>
-                            <button type="reset" className="btn btn-danger ms-3 px-4">Reset</button>
+                            <button type="button" className="btn btn-danger ms-3 px-4" onClick={handleReset}>Reset</button>
                         </div>
                     </div>
                 </form>
