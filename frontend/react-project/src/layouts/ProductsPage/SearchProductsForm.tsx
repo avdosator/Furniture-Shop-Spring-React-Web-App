@@ -99,7 +99,7 @@ export default function SearchProductsForm() {
                                 <span>{priceRange[1]}</span>
                             </div>
                         </div>
-                        <div className="col-md-6 mt-2 pt-md-3 offset-0">
+                        <div className="col-md-6 mt-2 pt-md-3">
                             <button type="submit" className="btn btn-success ms-lg-5 px-4">Submit</button>
                             <button type="button" className="btn btn-danger ms-3 px-4" onClick={handleReset}>Reset</button>
                         </div>
