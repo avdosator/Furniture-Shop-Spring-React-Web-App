@@ -25,9 +25,9 @@ export default function SignupForm() {
             <div className="row">
                 <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
                     <form onSubmit={handleSubmit}>
-                        <h4 className=" text-center fw-semibold">Sign up to F Store</h4>
-                        <div className="mb-3">
-                            <label htmlFor="firstname" className="form-label fw-medium">Firstname</label>
+                        <h4 className=" text-center fw-semibold mb-3">Sign up to F Store</h4>
+                        <div className="mb-3 form-floating">
+
                             <input type="text"
                                 className="form-control"
                                 value={formData.firstname}
@@ -37,9 +37,9 @@ export default function SignupForm() {
                                 placeholder="Enter your firstname"
                                 autoFocus
                             />
+                            <label htmlFor="firstname" className="form-label fw-medium">Firstname</label>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="lastname" className="form-label fw-medium">Lastname</label>
+                        <div className="mb-3 form-floating">
                             <input type="text"
                                 className="form-control"
                                 value={formData.lastname}
@@ -48,9 +48,10 @@ export default function SignupForm() {
                                 onChange={handleChange}
                                 placeholder="Enter your lastname"
                             />
+                            <label htmlFor="lastname" className="form-label fw-medium">Lastname</label>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="createUserUsername" className="form-label fw-medium">Username</label>
+                        <div className="mb-3 form-floating">
+
                             <input type="text"
                                 className="form-control"
                                 value={formData.username}
@@ -60,9 +61,10 @@ export default function SignupForm() {
                                 autoComplete="username"
                                 placeholder="Enter your username"
                             />
+                            <label htmlFor="createUserUsername" className="form-label fw-medium">Username</label>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="createUserPassword" className="form-label fw-medium">Password</label>
+                        <div className="mb-3 form-floating">
+
                             <input type="password"
                                 className="form-control"
                                 value={formData.password}
@@ -72,9 +74,10 @@ export default function SignupForm() {
                                 autoComplete="current-password"
                                 placeholder="Enter your password (8-20 characters)"
                             />
+                            <label htmlFor="createUserPassword" className="form-label fw-medium">Password</label>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label fw-medium">Email</label>
+                        <div className="mb-3 form-floating">
+
                             <input type="email"
                                 className="form-control"
                                 value={formData.email}
@@ -83,6 +86,7 @@ export default function SignupForm() {
                                 onChange={handleChange}
                                 placeholder="Enter your email"
                             />
+                            <label htmlFor="email" className="form-label fw-medium">Email</label>
                         </div>
                         <div className="d-grid gap-2 mt-3">
                             <button type="submit" className="btn btn-success fw-semibold">Submit</button>
