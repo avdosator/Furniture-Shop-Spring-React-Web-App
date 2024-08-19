@@ -11,7 +11,10 @@ export default function AddProductForm() {
             ...oldData,
             [name]: value
         }));
+    }
 
+    function handleReset(): void {
+        setFormData({ productName: "", price: 0, stock: 0, description: "", category: "" });
     }
 
     return (
@@ -79,7 +82,7 @@ export default function AddProductForm() {
                 </div>
                 <div>
                     <button type="submit">Submit</button>
-                    <button type="button">Reset</button>
+                    <button type="button" onClick={handleReset}>Reset</button>
                 </div>
             </form>
         </div>
