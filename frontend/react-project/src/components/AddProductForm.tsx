@@ -4,6 +4,15 @@ export default function AddProductForm() {
     let [formData, setFormData] = useState({ productName: "", price: 0, stock: 0, description: "", category: "" });
     let categories: string[] = ["chair", "double bed", "kitchen", "table"];
 
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
+        let { name, value } = e.target;
+
+        setFormData(oldData => ({
+            ...oldData,
+            [name]: value
+        }));
+
+    }
 
     return (
         <div className="container">
