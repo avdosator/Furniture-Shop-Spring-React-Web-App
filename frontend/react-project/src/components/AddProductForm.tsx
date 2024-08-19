@@ -6,8 +6,31 @@ export default function AddProductForm() {
     
 
     return (
-        <div>
+        <div className="container">
+            <form >
+                <div>
+                    <input type="text" id="productName" />
+                    <label htmlFor="productName">Product name</label>
+                </div>
+                <div>
+                    <input type="number" name="price" id="productPrice" />
+                    <label htmlFor="productPrice">Price</label>
+                </div>
+                <div>
+                    <input type="number" name="stock" id="numberOfProducts" />
+                    <label htmlFor="numberOfProducts">Number of products</label>
+                </div>
+                <div>
+                    <textarea name="description" id="productDescription" rows={3}></textarea>
+                    <label htmlFor="productDescription">Description</label>
+                </div>
+                <div>
+                    <select name="category" id="productCategory">
 
+                    </select>
+                    <label htmlFor="productCategory">Select category</label>
+                </div>
+            </form>
         </div>
     );
 }
