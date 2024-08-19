@@ -17,9 +17,16 @@ export default function AddProductForm() {
         setFormData({ productName: "", price: 0, stock: 0, description: "", category: "" });
     }
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+        console.log(formData);
+        //logic for sending request to create product
+        setFormData({ productName: "", price: 0, stock: 0, description: "", category: "" });
+    }
+
     return (
         <div className="container">
-            <form >
+            <form onSubmit={handleSubmit}>
                 <h4>Add new product</h4>
                 <div>
                     <input type="text"
