@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function AddProductForm() {
     let [formData, setFormData] = useState({ productName: "", price: 0, stock: 0, description: "", category: "" });
-
+    let categories: string[] = ["chair", "double bed", "kitchen", "table"];
 
 
     return (
@@ -60,7 +60,11 @@ export default function AddProductForm() {
                         value={formData.category}
                         onChange={handleChange}
                     >
-
+                        {categories.map((category, index) => (
+                            <option key={index} value={category}>
+                                {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
+                            </option>
+                        ))}
                     </select>
                     <label htmlFor="productCategory">Select category</label>
                 </div>
