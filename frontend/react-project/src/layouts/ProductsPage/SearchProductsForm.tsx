@@ -83,7 +83,7 @@ export default function SearchProductsForm() {
                     </div>
                     <div className="row">
                         <div className="mb-3 col-md-6">
-                            <label htmlFor="priceRange" className="form-label">Price range</label>
+                            <label className="form-label">Price range</label>
                             <Slider
                                 range
                                 min={0}

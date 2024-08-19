@@ -52,7 +52,7 @@ export default function AddProductForm() {
                                 onChange={handleChange}
                                 placeholder="Enter product price"
                             />
-                            <label htmlFor="productPrice">Price</label>
+                            <label htmlFor="productPrice" className="ms-2">Price</label>
                         </div>
                         <div className="form-floating mb-3 col-6">
                             <input type="number"
@@ -64,7 +64,7 @@ export default function AddProductForm() {
                                 placeholder="Enter number of products adding"
                                 min={0}
                             />
-                            <label htmlFor="numberOfProducts">Number of products</label>
+                            <label htmlFor="numberOfProducts" className="ms-2">Number of products</label>
                         </div>
                     </div>
                     <div className="form-floating mb-3">
