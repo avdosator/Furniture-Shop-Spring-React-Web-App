@@ -8,6 +8,7 @@ export default function AddProductForm() {
     return (
         <div className="container">
             <form >
+                <h4>Add new product</h4>
                 <div>
                     <input type="text" id="productName" />
                     <label htmlFor="productName">Product name</label>
@@ -29,6 +30,10 @@ export default function AddProductForm() {
 
                     </select>
                     <label htmlFor="productCategory">Select category</label>
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                    <button type="button">Reset</button>
                 </div>
             </form>
         </div>
