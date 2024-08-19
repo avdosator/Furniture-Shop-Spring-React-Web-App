@@ -1,32 +1,65 @@
 import { useState } from "react";
 
 export default function AddProductForm() {
-    let [formData, setFormData] = useState({ name: "", price: 0, stock: 0, description: "", category: "" });
+    let [formData, setFormData] = useState({ productName: "", price: 0, stock: 0, description: "", category: "" });
 
-    
+
 
     return (
         <div className="container">
             <form >
                 <h4>Add new product</h4>
                 <div>
-                    <input type="text" id="productName" />
+                    <input type="text"
+                        className=""
+                        value={formData.productName}
+                        id="productName"
+                        name="productName"
+                        onChange={handleChange}
+                        placeholder="Enter product name"
+                        autoFocus
+                    />
                     <label htmlFor="productName">Product name</label>
                 </div>
                 <div>
-                    <input type="number" name="price" id="productPrice" />
+                    <input type="number"
+                        className=""
+                        value={formData.price}
+                        id="productPrice"
+                        name="price"
+                        onChange={handleChange}
+                        placeholder="Enter product price"
+                    />
                     <label htmlFor="productPrice">Price</label>
                 </div>
                 <div>
-                    <input type="number" name="stock" id="numberOfProducts" />
+                    <input type="number"
+                        className=""
+                        value={formData.stock}
+                        id="numberOfProducts"
+                        name="stock"
+                        onChange={handleChange}
+                        placeholder="Enter number of products adding"
+                    />
                     <label htmlFor="numberOfProducts">Number of products</label>
                 </div>
                 <div>
-                    <textarea name="description" id="productDescription" rows={3}></textarea>
+                    <textarea
+                        className=""
+                        value={formData.description}
+                        id="productDescription"
+                        name="description"
+                        onChange={handleChange}
+                        placeholder="Enter product description"
+                        rows={3}>
+                    </textarea>
                     <label htmlFor="productDescription">Description</label>
                 </div>
                 <div>
-                    <select name="category" id="productCategory">
+                    <select name="category" id="productCategory"
+                        value={formData.category}
+                        onChange={handleChange}
+                    >
 
                     </select>
                     <label htmlFor="productCategory">Select category</label>

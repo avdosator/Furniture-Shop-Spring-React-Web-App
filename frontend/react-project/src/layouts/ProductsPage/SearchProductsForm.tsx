@@ -44,17 +44,16 @@ export default function SearchProductsForm() {
                         <div className="form-floating mb-3 col-md-4">
                             <input type="text"
                                 className="form-control"
-                                id="productName"
-                                placeholder="email"
                                 value={searchParameters.productName}
-                                onChange={handleChange}
+                                id="productName"
                                 name="productName"
+                                onChange={handleChange}
+                                placeholder="email"
                             />
                             <label htmlFor="productName" className="ms-2">Product Name</label>
                         </div>
                         <div className="row col-md-8 pe-0 pe-md-1">
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-
                                 <select id="category" name="category" className="form-select"
                                     value={searchParameters.category}
                                     onChange={handleChange}
@@ -68,7 +67,6 @@ export default function SearchProductsForm() {
                                 <label htmlFor="category" className="ms-2">Category</label>
                             </div>
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-
                                 <select id="sortBy" name="sortBy" className="form-select"
                                     value={searchParameters.sortBy}
                                     onChange={handleChange}
