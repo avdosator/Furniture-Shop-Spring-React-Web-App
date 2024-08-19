@@ -1,5 +1,6 @@
 import Category from "../../models/Category";
 import Product from "../../models/Product";
+import ProductItem from "./ProductItem";
 import SearchProductsForm from "./SearchProductsForm";
 
 export default function ProductsList() {
@@ -12,6 +13,16 @@ export default function ProductsList() {
             <SearchProductsForm />
             <main className="mt-5">
                 <h1 className="text-center">Products (88- this should represent number of products based on search parameters)</h1>
+                <ul>
+                    {products.map(p => (<ProductItem key={p.getId()}
+                        id={p.getId()}
+                        name={p.getName()}
+                        price={p.getPrice()}
+                        stock={p.getStock()}
+                        description={p.getDescription()}
+                        category={p.getCategory()}
+                    />))}
+                </ul>
             </main>
         </>
     );
