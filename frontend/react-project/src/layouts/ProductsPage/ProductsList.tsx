@@ -30,7 +30,7 @@ export default function ProductsList() {
                 <div className="container">
                     <div className="row mt-5">
                         {products.map(p => (
-                            <div className="col-3" key={p.getId()}>
+                            <div className="col-3 mb-3" key={p.getId()}>
                                 <ProductItem
                                     id={p.getId()}
                                     name={p.getName()}

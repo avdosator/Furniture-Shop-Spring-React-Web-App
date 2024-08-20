@@ -12,14 +12,14 @@ type ProductItemProps = {
 
 export default function ProductItem({ id, name, price, stock, description, category }: ProductItemProps) {
     return (
-        <div className="card">
-            <img src="https://via.placeholder.com/200x200" alt="..." />
+        <Link to={`/products/:{id}`} style={{textDecoration:"none"}}>
+        <div className="card shadow">
+            <img src="https://via.placeholder.com/150x100" className="card-img-top img-fluid rounded p-2" alt="..." />
             <div className="card-body">
-                <h5 className="card-title">{name}</h5>
-                <h6>{category.getName()}</h6>
-                <h6 className="">{price}</h6>
-                <Link to={`/products/:{id}`}>View Product</Link>
+                <h5 className="card-title text-center">{name}</h5>
+                <h6 className="card-text text-center">${price.toFixed(2)}</h6>
             </div>
         </div>
+        </Link>
     )
 }
