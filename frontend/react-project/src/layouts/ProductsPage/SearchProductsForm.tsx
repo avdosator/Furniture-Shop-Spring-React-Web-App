@@ -38,7 +38,7 @@ export default function SearchProductsForm() {
 
     return (
         <div className="container mt-3">
-            <div className="col-lg-10 offset-lg-1">
+            <div className="col-lg-10 offset-lg-1 bg-success-subtle text-success-emphasis rounded p-2">
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-floating mb-3 col-md-4">
@@ -91,6 +91,7 @@ export default function SearchProductsForm() {
                                 step={10}
                                 value={priceRange}
                                 onChange={handleSliderChange}
+                                style={{marginLeft: "0.5rem"}}
                             />
                             <div className="d-flex justify-content-between">
                                 <span>{priceRange[0]}</span>
