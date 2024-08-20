@@ -26,7 +26,7 @@ export default function ProductsList() {
         <>
             <SearchProductsForm />
             <main className="mt-5">
-                <h1 className="text-center mb-5 col-10 offset-1">Products (88- this should represent number of products based on search parameters)</h1>
+                <p className="mb-5 col-10 offset-1 fw-bolder border-bottom pb-3"> {products.length} products</p>
                 <div className="container">
                     <div className="row mt-5">
                         {products.map(p => (

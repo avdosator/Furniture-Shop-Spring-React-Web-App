@@ -17,8 +17,8 @@ export default function ProductItem({ id, name, price, stock, description, categ
         <div className="card shadow product-item">
             <img src="https://via.placeholder.com/150x100" className="card-img-top p-3 card-image" alt="..." />
             <div className="card-body">
-                <h5 className="card-title text-center">{name}</h5>
-                <h6 className="card-text text-center">${price.toFixed(2)}</h6>
+                <h5 className="card-title text-center text-capitalize">{name}</h5>
+                <h6 className="card-text text-center fw-light">${price.toFixed(2)}</h6>
             </div>
         </div>
         </Link>
