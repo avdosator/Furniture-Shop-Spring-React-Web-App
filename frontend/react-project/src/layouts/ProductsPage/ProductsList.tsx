@@ -13,16 +13,20 @@ export default function ProductsList() {
             <SearchProductsForm />
             <main className="mt-5">
                 <h1 className="text-center">Products (88- this should represent number of products based on search parameters)</h1>
-                <ul>
-                    {products.map(p => (<ProductItem key={p.getId()}
-                        id={p.getId()}
-                        name={p.getName()}
-                        price={p.getPrice()}
-                        stock={p.getStock()}
-                        description={p.getDescription()}
-                        category={p.getCategory()}
-                    />))}
-                </ul>
+                <div className="container">
+                    <div className="d-flex row">
+                        <div className="">
+                        {products.map(p => (<ProductItem key={p.getId()}
+                            id={p.getId()}
+                            name={p.getName()}
+                            price={p.getPrice()}
+                            stock={p.getStock()}
+                            description={p.getDescription()}
+                            category={p.getCategory()}
+                        />))}
+                        </div>
+                    </div>
+                </div>
             </main>
         </>
     );
