@@ -47,7 +47,7 @@ export default function ProductDetails() {
                             value={amount}
                             onChange={handleAmount}
                         >
-                            {generateOptions(10)}
+                            {generateOptions(10)} {/* 10 should be defined dynamically based on number of products available */}
                         </select>
                         <label htmlFor="amount" className="">Amount</label>
                     </div>
