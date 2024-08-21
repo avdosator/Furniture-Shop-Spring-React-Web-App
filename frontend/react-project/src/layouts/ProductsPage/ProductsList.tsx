@@ -13,7 +13,7 @@ export default function ProductsList() {
                 const response = await fetch("http://localhost:8080/api/products", {
                     method: 'GET',
                     headers: {
-                        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcGVsZSIsImlhdCI6MTcyNDI2MzExMiwiZXhwIjoxNzI0MjY2NzEyfQ.CJp6u8V5u8E9ORyuZkgz0xVYEq_jTaJk9gX0kfxHsOBfhEhZaMQ59lm7tovqCPtGy1sCI4NoBztRiY5XFJhMRA',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcGVsZSIsImlhdCI6MTcyNDI3MDg2MCwiZXhwIjoxNzI0Mjc0NDYwfQ.m3dvjkZRF2Shs6si880sf_qsSDbNk_1dsEGcI_Fn8fOTSN8Nrl8r-HIgdOG-NdY_RZAVkZt0vA0c7AZSMKa8TA',
                     }
                 });
 
