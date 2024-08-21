@@ -1,0 +1,14 @@
+.back-button {
+    color: rgba(45, 44, 44, 0.9);
+    font-weight: 400;
+    font-size: large;
+    transition: border-bottom 30ms ease-in 30ms;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.back-button:hover {
+    color: rgb(67, 64, 64);
+    border-bottom: 2px solid rgb(67, 64, 64);
+    font-weight: 600;
+}

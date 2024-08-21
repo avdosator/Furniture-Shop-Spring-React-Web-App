@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import "./ProductDetails.css"
 
 export default function ProductDetails() {
     const location = useLocation();
@@ -22,15 +23,16 @@ export default function ProductDetails() {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container my-5">
+            <Link to={"/products"} className="back-button">All products</Link>
             <div className="row mt-5">
-                <div className="col-lg-6 mb-3 d-none d-sm-block">
+                <div className="col-lg-5 mb-3 d-none d-sm-block">
                     <img className="rounded" src="https://via.placeholder.com/450x300" alt="" />
                 </div>
                 <div className="d-sm-none mb-3">
                     <img className="rounded img-fluid w-100" src="https://via.placeholder.com/300x200" alt="" />
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-5">
                     <h1 className="text-capitalize">{name}</h1>
                     <h3 className="text-capitalize">Category: {category.name}</h3>
                     <p className="fs-3">${price.toFixed(2)}</p>
