@@ -30,7 +30,7 @@ export default function ProductsList() {
                         item.price,
                         item.stock,
                         item.description,
-                        new Category(item.id, item.category.name) // Assuming your category object has these fields
+                        new Category(item.id, item.category.name) // or some new ID for category because we just get category as a string from APi
                     );
                 });
 
