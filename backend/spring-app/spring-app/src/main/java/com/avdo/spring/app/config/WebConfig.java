@@ -22,7 +22,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        //.allowedOrigins(/*"http://localhost:5173"*/"https://hoppscotch.io/")
+                        //.allowedOrigins("http://localhost:5173")
                         .allowedOriginPatterns("*")
                         .allowedMethods("GET", "POST")
                         .allowedHeaders(allowedHeaders)

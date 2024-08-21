@@ -1,26 +1,48 @@
+import { useEffect, useState } from "react";
 import Category from "../../models/Category";
 import Product from "../../models/Product";
 import ProductItem from "./ProductItem";
 import SearchProductsForm from "./SearchProductsForm";
 
 export default function ProductsList() {
+    let [products, setProducts] = useState<Product[]>([]);
 
-    let products: Product[] = [];
-    products.push(new Product(1, "iron chair", 50.0, 1, "The best chair", new Category(1, "chair")));
-    products.push(new Product(2, "wooden table", 195.0, 1, "Top quality", new Category(1, "bed")));
-    products.push(new Product(3, "double bed", 995.0, 1, "Top quality", new Category(1, "bed")));
-    products.push(new Product(4, "kitchen", 3500.0, 1, "Top quality", new Category(1, "kitchen")));
-    products.push(new Product(5, "sofa", 355.0, 1, "Top quality", new Category(1, "sofa")));
-    products.push(new Product(6, "table", 250.0, 1, "Top quality", new Category(1, "table")));
-    products.push(new Product(7, "chair", 45.0, 1, "Top quality", new Category(1, "chair")));
-    products.push(new Product(8, "closet", 1500.0, 1, "Top quality", new Category(1, "closet")));
-    products.push(new Product(9, "big mirror", 150.0, 1, "Top quality", new Category(1, "accessories")));
-    products.push(new Product(10, "gaming table", 300.0, 1, "Top quality", new Category(1, "table")));
-    products.push(new Product(11, "gaming chair", 250.0, 1, "Top quality", new Category(1, "chair")));
-    products.push(new Product(12, "shelves", 199.0, 1, "Top quality", new Category(1, "shelve")));
-    products.push(new Product(13, "king size bed", 995.0, 1, "Top quality", new Category(1, "bed")));
-    products.push(new Product(14, "single bed", 400.0, 1, "Top quality", new Category(1, "bed")));
-    products.push(new Product(15, "lamp", 25.0, 1, "Top quality", new Category(1, "accessories")));
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                const response = await fetch("http://localhost:8080/api/products", {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcGVsZSIsImlhdCI6MTcyNDI2MzExMiwiZXhwIjoxNzI0MjY2NzEyfQ.CJp6u8V5u8E9ORyuZkgz0xVYEq_jTaJk9gX0kfxHsOBfhEhZaMQ59lm7tovqCPtGy1sCI4NoBztRiY5XFJhMRA',
+                    }
+                });
+
+                if (!response.ok) throw new Error(response.statusText);
+
+                const resJson = await response.json();
+                console.log(resJson);
+
+                // Mapping response data to Product array
+                const productsData: Product[] = resJson.map((item: any) => {
+                    return new Product(
+                        item.id,
+                        item.name,
+                        item.price,
+                        item.stock,
+                        item.description,
+                        new Category(item.id, item.category.name) // or some new ID for category because we just get category as a string from APi
+                    );
+                });
+
+                setProducts(productsData);
+
+            } catch (error) {
+                console.log('Failed to fetch products:', error);
+            }
+        };
+
+        getProducts();
+    }, []);
 
     return (
         <>
