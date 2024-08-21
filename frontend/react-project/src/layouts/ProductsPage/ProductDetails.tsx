@@ -32,7 +32,7 @@ export default function ProductDetails() {
                 <div className="d-sm-none mb-3">
                     <img className="rounded img-fluid w-100" src="https://via.placeholder.com/300x200" alt="" />
                 </div>
-                <div className="col-lg-5">
+                <div className="col-lg-5 offset-lg-1 offset-xl-0">
                     <h1 className="text-capitalize">{name}</h1>
                     <h3 className="text-capitalize">Category: {category.name}</h3>
                     <p className="fs-3">${price.toFixed(2)}</p>
