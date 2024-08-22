@@ -3,6 +3,7 @@ package com.avdo.spring.app.controller;
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserDto;
 import com.avdo.spring.app.service.JwtService;
+import com.avdo.spring.app.service.RefreshTokenService;
 import com.avdo.spring.app.service.UserService;
 import com.avdo.spring.app.service.domain.model.User;
 import jakarta.validation.Valid;
@@ -26,12 +27,17 @@ public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final RefreshTokenService refreshTokenService;
 
     @Autowired
-    public UserController(UserService userService, JwtService jwtService, UserDetailsService userDetailsService) {
+    public UserController(UserService userService,
+                          JwtService jwtService,
+                          UserDetailsService userDetailsService,
+                          RefreshTokenService refreshTokenService) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
+        this.refreshTokenService = refreshTokenService;
     }
 
     // endpoint for creating user
@@ -52,13 +58,16 @@ public class UserController {
 
     // endpoint for logging in
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
+    public LoginResponse loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = userService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
+        String refreshToken = refreshTokenService.createRefreshToken();
         LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setToken(jwtToken);
+        loginResponse.setAccessToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
-        return ResponseEntity.ok(loginResponse);
+        loginResponse.setRefreshToken(refreshToken);
+
+        return loginResponse;
     }
 
     // endpoints for testing
@@ -79,5 +88,4 @@ public class UserController {
     public ResponseEntity<String> testRoles() {
         return ResponseEntity.ok("This is a protected route, you should see it only if you are logged in and have role ADMIN or USER");
     }
-
 }
