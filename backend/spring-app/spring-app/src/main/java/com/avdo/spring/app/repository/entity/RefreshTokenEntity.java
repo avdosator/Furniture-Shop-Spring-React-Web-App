@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "refresh_token")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class RefreshToken {
+public class RefreshTokenEntity {
 
     @Id
     @Column(name = "id")
@@ -24,12 +24,12 @@ public class RefreshToken {
     private UserEntity user;
 
     @Column(name = "expiry_date", nullable = false)
-    private Date expiryDate;
+    private LocalDateTime expiryDate;
 
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    public RefreshToken() {
+    public RefreshTokenEntity() {
     }
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class RefreshToken {
         return this.user;
     }
 
-    public Date getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return this.expiryDate;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
 
@@ -64,11 +64,11 @@ public class RefreshToken {
         this.user = user;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
