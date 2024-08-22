@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="refresh_token")
+@Table(name = "refresh_token")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RefreshToken {
 
@@ -28,4 +28,47 @@ public class RefreshToken {
 
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
+
+    public RefreshToken() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getTokenHash() {
+        return this.tokenHash;
+    }
+
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    public Date getExpiryDate() {
+        return this.expiryDate;
+    }
+
+    public Date getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTokenHash(String tokenHash) {
+        this.tokenHash = tokenHash;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
