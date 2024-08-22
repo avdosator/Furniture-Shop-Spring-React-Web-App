@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")

@@ -4,7 +4,7 @@
 
 CREATE TABLE public.refresh_token (
     id SERIAL PRIMARY KEY,
-    token_hash CHAR(128) NOT NULL,  -- SHA-512 produces a 128-character hex string
+    token_hash CHAR(128) NOT NULL,
     user_id INTEGER NOT NULL,
     expiry_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
