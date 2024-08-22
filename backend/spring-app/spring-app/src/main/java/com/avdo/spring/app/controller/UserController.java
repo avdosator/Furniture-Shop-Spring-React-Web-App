@@ -1,10 +1,14 @@
 package com.avdo.spring.app.controller;
 
+import com.avdo.spring.app.controller.dto.CreateRefreshTokenDto;
 import com.avdo.spring.app.controller.dto.CreateUserDto;
 import com.avdo.spring.app.controller.dto.LoginUserDto;
+import com.avdo.spring.app.controller.response.LoginResponse;
+import com.avdo.spring.app.controller.response.RefreshTokenResponse;
 import com.avdo.spring.app.service.JwtService;
 import com.avdo.spring.app.service.RefreshTokenService;
 import com.avdo.spring.app.service.UserService;
+import com.avdo.spring.app.service.domain.model.RefreshToken;
 import com.avdo.spring.app.service.domain.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +72,21 @@ public class UserController {
         loginResponse.setRefreshToken(refreshToken);
 
         return loginResponse;
+    }
+
+    @PostMapping("/refresh-token")
+    public RefreshTokenResponse refreshToken(@Valid @RequestBody CreateRefreshTokenDto createRefreshTokenDto) {
+        String refreshToken = createRefreshTokenDto.getRefreshToken();
+        RefreshToken validatedToken = refreshTokenService.validateToken(refreshToken);
+        if (validatedToken == null) {
+            throw new RuntimeException("Invalid refresh token");
+        }
+
+        String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(validatedToken.getUser().getUsername()));
+        RefreshTokenResponse response = new RefreshTokenResponse();
+        response.setToken(jwtToken);
+        response.setExpiresIn(jwtService.getExpirationTime());
+        return response;
     }
 
     // endpoints for testing

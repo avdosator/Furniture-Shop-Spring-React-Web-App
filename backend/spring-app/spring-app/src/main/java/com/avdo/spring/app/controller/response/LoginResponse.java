@@ -1,4 +1,4 @@
-package com.avdo.spring.app.controller;
+package com.avdo.spring.app.controller.response;
 
 public class LoginResponse {
 
