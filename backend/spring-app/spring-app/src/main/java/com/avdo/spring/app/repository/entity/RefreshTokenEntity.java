@@ -1,5 +1,6 @@
 package com.avdo.spring.app.repository.entity;
 
+import com.avdo.spring.app.service.domain.model.RefreshToken;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -70,5 +71,15 @@ public class RefreshTokenEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public RefreshToken toDomainModel() {
+        return RefreshToken.builder()
+                .id(this.id)
+                .tokenHash(this.tokenHash)
+                .user(this.user.toDomainModel())
+                .expiryDate(this.expiryDate)
+                .createdAt(this.createdAt)
+                .build();
     }
 }
