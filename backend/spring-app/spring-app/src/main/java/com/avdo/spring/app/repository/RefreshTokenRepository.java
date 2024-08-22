@@ -5,7 +5,7 @@ import com.avdo.spring.app.service.domain.model.User;
 
 public interface RefreshTokenRepository {
 
-    String createRefreshToken(User user);
+    String createRefreshToken(Long userId);
     RefreshToken validateToken(String token);
     void deleteToken(String token);
 }
