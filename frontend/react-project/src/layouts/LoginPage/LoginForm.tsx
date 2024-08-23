@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
     let [formData, setFormData] = useState({ username: "", password: "" });
+    const navigate = useNavigate();
+    
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         let { name, value } = e.target as HTMLInputElement;
@@ -33,6 +36,7 @@ export default function LoginForm() {
             console.log(resJson);
 
             localStorage.setItem("accessToken", JSON.stringify(resJson));
+            navigate("/home");
         }
 
         login();
