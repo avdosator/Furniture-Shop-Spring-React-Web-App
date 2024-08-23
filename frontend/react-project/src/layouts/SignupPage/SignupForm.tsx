@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
+    const navigate = useNavigate();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         let { name, value } = e.target as HTMLInputElement;
@@ -16,8 +18,30 @@ export default function SignupForm() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         console.log(formData);
-        //logic for sending data to server
-        setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+
+        const register = async () => {
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstname: formData.firstname,
+                    lastname: formData.lastname,
+                    username: formData.username,
+                    password: formData.password,
+                    email: formData.email
+                })
+            }
+
+            const response = await fetch("http://localhost:8080/users", requestOptions);
+            if (!response.ok) throw new Error(response.statusText);
+
+            const resJson = await response.json();
+            setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+
+            // localStorage.setItem("accessToken", JSON.stringify(resJson)); Here we should automatically log in user and send him access token
+            navigate("/home");
+        }
+        register();
     }
 
     return (
