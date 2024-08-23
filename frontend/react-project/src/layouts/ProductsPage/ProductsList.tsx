@@ -10,12 +10,7 @@ export default function ProductsList() {
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const response = await fetch("http://localhost:8080/api/products", {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcGVsZSIsImlhdCI6MTcyNDI3MDg2MCwiZXhwIjoxNzI0Mjc0NDYwfQ.m3dvjkZRF2Shs6si880sf_qsSDbNk_1dsEGcI_Fn8fOTSN8Nrl8r-HIgdOG-NdY_RZAVkZt0vA0c7AZSMKa8TA',
-                    }
-                });
+                const response = await fetch("http://localhost:8080/api/products", { method: 'GET' });
 
                 if (!response.ok) throw new Error(response.statusText);
 

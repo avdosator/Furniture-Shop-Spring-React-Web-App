@@ -15,7 +15,24 @@ export default function LoginForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
-        console.log(formData);
+        const login = async () => {
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: formData.username,
+                    password: formData.password
+                })
+            }
+
+            const response: Response = await fetch("http://localhost:8080/login", requestOptions);
+            if (!response.ok) throw new Error(response.statusText);
+
+            const resJson = await response.json();
+            console.log(resJson);
+        }
+
+        login();
         //logic for sending data to server
         setFormData({ username: "", password: "" });
     }
