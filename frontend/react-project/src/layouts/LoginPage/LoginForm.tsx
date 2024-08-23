@@ -29,12 +29,13 @@ export default function LoginForm() {
             if (!response.ok) throw new Error(response.statusText);
 
             const resJson = await response.json();
+            setFormData({ username: "", password: "" });
             console.log(resJson);
+
+            localStorage.setItem("accessToken", JSON.stringify(resJson));
         }
 
         login();
-        //logic for sending data to server
-        setFormData({ username: "", password: "" });
     }
 
     return (
