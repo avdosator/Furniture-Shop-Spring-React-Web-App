@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import User from "../../models/User";
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
+    const navigate = useNavigate();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         let { name, value } = e.target as HTMLInputElement;
@@ -15,9 +18,60 @@ export default function SignupForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
-        console.log(formData);
-        //logic for sending data to server
-        setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+
+        const register = async () => {
+            const registerOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstname: formData.firstname,
+                    lastname: formData.lastname,
+                    username: formData.username,
+                    password: formData.password,
+                    email: formData.email
+                })
+            }
+
+            try {
+
+                // user creation
+                const registerResponse: Response = await fetch("http://localhost:8080/users", registerOptions);
+                if (!registerResponse.ok) throw new Error(registerResponse.statusText);
+
+                const registeredUser = await registerResponse.json();
+                const user = new User(registeredUser.id,
+                    registeredUser.firstname,
+                    registeredUser.lastname,
+                    registeredUser.username,
+                    registeredUser.email,
+                    registeredUser.password,
+                    registeredUser.dateCreated,
+                    registeredUser.role);
+                // do I need this user...
+
+                // user login
+                const loginOptions = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: formData.username,
+                        password: formData.password
+                    })
+                }
+
+                const loginResponse: Response = await fetch("http://localhost:8080/login", loginOptions);
+                if (!loginResponse.ok) throw new Error(loginResponse.statusText);
+
+                const loginJson = await loginResponse.json();
+                localStorage.setItem("accessToken", JSON.stringify(loginJson));
+
+                setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+                navigate("/home", {replace: true});
+            } catch (e) {
+                console.error("Error during signup or login", e);
+            }
+        }
+        register();
     }
 
     return (

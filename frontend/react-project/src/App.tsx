@@ -1,5 +1,3 @@
-
-import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './header-footer/Navbar'
 import Topbar from './header-footer/Topbar'
@@ -12,26 +10,9 @@ import ProductRoutes from './routes/ProductRoutes'
 import LoginForm from './layouts/LoginPage/LoginForm'
 import SignupForm from './layouts/SignupPage/SignupForm'
 
-type ResponseType = {
-	message: string
-}
 
 function App() {
-	// let [responseMessage, setResponseMessage] = useState<ResponseType | null>(null);
 
-	// useEffect(() => {
-	// 	const connect = async () => {
-	// 		try {
-	// 			const response = await fetch("http://localhost:8080/test");
-	// 			if (!response.ok) throw new Error("Could not get the data!");
-	// 			const resJson = await response.json();
-	// 			setResponseMessage(resJson);
-	// 		} catch (error) {
-	// 			setResponseMessage({message: `${error}`});
-	// 		}
-	// 	}
-	// 	connect();
-	// }, [])
 	return (
 		<>
 			<Topbar />

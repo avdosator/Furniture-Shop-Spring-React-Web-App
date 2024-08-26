@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
     let [formData, setFormData] = useState({ username: "", password: "" });
+    const navigate = useNavigate();
+    
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         let { name, value } = e.target as HTMLInputElement;
@@ -15,9 +18,28 @@ export default function LoginForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
-        console.log(formData);
-        //logic for sending data to server
-        setFormData({ username: "", password: "" });
+        const login = async () => {
+            const registerOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: formData.username,
+                    password: formData.password
+                })
+            }
+
+            const response: Response = await fetch("http://localhost:8080/login", registerOptions);
+            if (!response.ok) throw new Error(response.statusText);
+
+            const resJson = await response.json();
+            setFormData({ username: "", password: "" });
+            console.log(resJson);
+
+            localStorage.setItem("accessToken", JSON.stringify(resJson));
+            navigate("/home", {replace: true});
+        }
+
+        login();
     }
 
     return (

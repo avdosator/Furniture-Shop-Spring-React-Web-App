@@ -52,13 +52,13 @@ public class UserController {
 
     // endpoint for logging in
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
+    public LoginResponse loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = userService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(authenticatedUser.getUsername()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
-        return ResponseEntity.ok(loginResponse);
+        return loginResponse;
     }
 
     // endpoints for testing
