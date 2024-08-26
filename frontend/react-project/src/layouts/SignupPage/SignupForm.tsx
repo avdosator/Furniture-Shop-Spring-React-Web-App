@@ -47,6 +47,7 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
+                // do I need this user...
 
                 // user login
                 const loginOptions = {
