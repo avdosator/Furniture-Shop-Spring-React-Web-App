@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import User from "../../models/User";
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
@@ -17,7 +18,6 @@ export default function SignupForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
-        console.log(formData);
 
         const register = async () => {
             const registerOptions = {
@@ -38,8 +38,15 @@ export default function SignupForm() {
                 const registerResponse: Response = await fetch("http://localhost:8080/users", registerOptions);
                 if (!registerResponse.ok) throw new Error(registerResponse.statusText);
 
-                const registerJson = await registerResponse.json();
-                console.log(registerJson);
+                const registeredUser = await registerResponse.json();
+                const user = new User(registeredUser.id,
+                    registeredUser.firstname,
+                    registeredUser.lastname,
+                    registeredUser.username,
+                    registeredUser.email,
+                    registeredUser.password,
+                    registeredUser.dateCreated,
+                    registeredUser.role);
 
                 // user login
                 const loginOptions = {
@@ -55,7 +62,6 @@ export default function SignupForm() {
                 if (!loginResponse.ok) throw new Error(loginResponse.statusText);
 
                 const loginJson = await loginResponse.json();
-                console.log(loginJson);
                 localStorage.setItem("accessToken", JSON.stringify(loginJson));
 
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
