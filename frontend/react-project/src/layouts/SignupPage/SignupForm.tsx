@@ -20,7 +20,7 @@ export default function SignupForm() {
         console.log(formData);
 
         const register = async () => {
-            const requestOptions = {
+            const registerOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -32,14 +32,37 @@ export default function SignupForm() {
                 })
             }
 
-            const response = await fetch("http://localhost:8080/users", requestOptions);
-            if (!response.ok) throw new Error(response.statusText);
+            try {
 
-            const resJson = await response.json();
-            setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+                // user creation
+                const registerResponse: Response = await fetch("http://localhost:8080/users", registerOptions);
+                if (!registerResponse.ok) throw new Error(registerResponse.statusText);
 
-            // localStorage.setItem("accessToken", JSON.stringify(resJson)); Here we should automatically log in user and send him access token
-            navigate("/home");
+                const registerJson = await registerResponse.json();
+                console.log(registerJson);
+
+                // user login
+                const loginOptions = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: formData.username,
+                        password: formData.password
+                    })
+                }
+
+                const loginResponse: Response = await fetch("http://localhost:8080/login", loginOptions);
+                if (!loginResponse.ok) throw new Error(loginResponse.statusText);
+
+                const loginJson = await loginResponse.json();
+                console.log(loginJson);
+                localStorage.setItem("accessToken", JSON.stringify(loginJson));
+
+                setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+                navigate("/home");
+            } catch (e) {
+                console.error("Error during signup or login", e);
+            }
         }
         register();
     }

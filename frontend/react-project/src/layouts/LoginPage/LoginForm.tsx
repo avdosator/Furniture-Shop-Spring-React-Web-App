@@ -19,7 +19,7 @@ export default function LoginForm() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         const login = async () => {
-            const requestOptions = {
+            const registerOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -28,7 +28,7 @@ export default function LoginForm() {
                 })
             }
 
-            const response: Response = await fetch("http://localhost:8080/login", requestOptions);
+            const response: Response = await fetch("http://localhost:8080/login", registerOptions);
             if (!response.ok) throw new Error(response.statusText);
 
             const resJson = await response.json();
