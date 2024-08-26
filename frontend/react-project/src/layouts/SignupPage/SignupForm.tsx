@@ -66,7 +66,7 @@ export default function SignupForm() {
                 localStorage.setItem("accessToken", JSON.stringify(loginJson));
 
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
-                navigate("/home");
+                navigate("/home", {replace: true});
             } catch (e) {
                 console.error("Error during signup or login", e);
             }

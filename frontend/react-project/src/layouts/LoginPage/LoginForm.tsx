@@ -36,7 +36,7 @@ export default function LoginForm() {
             console.log(resJson);
 
             localStorage.setItem("accessToken", JSON.stringify(resJson));
-            navigate("/home");
+            navigate("/home", {replace: true});
         }
 
         login();
