@@ -4,7 +4,7 @@ import User from "../../models/User";
 import ApiService from "../../service/ApiService";
 import { LoginResponse } from "../LoginPage/LoginForm";
 
-type RegisterResponse = {
+type SignupResponse = {
     id: number,
     firstname: string,
     lastname: string,
@@ -43,7 +43,7 @@ export default function SignupForm() {
 
             try {
                 // user creation
-                const registeredUser = await ApiService.call<RegisterResponse>("users", "POST", body);
+                const registeredUser = await ApiService.call<SignupResponse>("users", "POST", body);
                 // do I need this user...
                 const user = new User(registeredUser.id,
                     registeredUser.firstname,
@@ -53,7 +53,7 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-                    
+
                 // user login    
                 const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
                 localStorage.setItem("accessToken", JSON.stringify(loginResponse));
