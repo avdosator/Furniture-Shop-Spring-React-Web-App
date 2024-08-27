@@ -3,7 +3,16 @@ import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
 import ApiService from "../../service/ApiService";
 
-
+type RegisterResponse = {
+    id: number,
+    firstname: string,
+    lastname: string,
+    username: string,
+    email: string,
+    password: string,
+    dateCreated: Date,
+    role: string
+}
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
