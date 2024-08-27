@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
 import ApiService from "../../service/ApiService";
+import { LoginResponse } from "../LoginPage/LoginForm";
 
 type RegisterResponse = {
     id: number,
@@ -32,7 +33,6 @@ export default function SignupForm() {
         e.preventDefault();
 
         const register = async () => {
-
             const body = {
                 firstname: formData.firstname,
                 lastname: formData.lastname,
@@ -42,11 +42,9 @@ export default function SignupForm() {
             }
 
             try {
-
                 // user creation
                 const registeredUser = await ApiService.call<RegisterResponse>("users", "POST", body);
-                if (!registeredUser.ok) throw new Error(registeredUser.statusText);
-
+                // do I need this user...
                 const user = new User(registeredUser.id,
                     registeredUser.firstname,
                     registeredUser.lastname,
@@ -55,23 +53,10 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-                // do I need this user...
-
-                // user login
-                const loginOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        username: formData.username,
-                        password: formData.password
-                    })
-                }
-
-                const loginResponse: Response = await fetch("http://localhost:8080/login", loginOptions);
-                if (!loginResponse.ok) throw new Error(loginResponse.statusText);
-
-                const loginJson = await loginResponse.json();
-                localStorage.setItem("accessToken", JSON.stringify(loginJson));
+                    
+                // user login    
+                const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
+                localStorage.setItem("accessToken", JSON.stringify(loginResponse));
 
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
                 navigate("/home", { replace: true });
@@ -79,6 +64,7 @@ export default function SignupForm() {
                 console.error("Error during signup or login", e);
             }
         }
+
         register();
     }
 
