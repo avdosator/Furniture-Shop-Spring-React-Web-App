@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ApiService from "../../service/ApiService";
 
 export default function LoginForm() {
     let [formData, setFormData] = useState({ username: "", password: "" });
@@ -19,21 +20,10 @@ export default function LoginForm() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         const login = async () => {
-            const registerOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    username: formData.username,
-                    password: formData.password
-                })
-            }
-
-            const response: Response = await fetch("http://localhost:8080/login", registerOptions);
-            if (!response.ok) throw new Error(response.statusText);
-
-            const resJson = await response.json();
-            setFormData({ username: "", password: "" });
+            const resJson = await ApiService.call("login", "POST", {username: formData.username, password: formData.password});
             console.log(resJson);
+
+            setFormData({ username: "", password: "" });
 
             localStorage.setItem("accessToken", JSON.stringify(resJson));
             navigate("/home", {replace: true});
