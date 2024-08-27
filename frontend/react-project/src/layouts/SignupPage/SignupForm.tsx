@@ -1,6 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
+import ApiService from "../../service/ApiService";
+import { LoginResponse } from "../LoginPage/LoginForm";
+
+type SignupResponse = {
+    id: number,
+    firstname: string,
+    lastname: string,
+    username: string,
+    email: string,
+    password: string,
+    dateCreated: Date,
+    role: string
+}
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
@@ -20,25 +33,18 @@ export default function SignupForm() {
         e.preventDefault();
 
         const register = async () => {
-            const registerOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    username: formData.username,
-                    password: formData.password,
-                    email: formData.email
-                })
+            const body = {
+                firstname: formData.firstname,
+                lastname: formData.lastname,
+                username: formData.username,
+                password: formData.password,
+                email: formData.email
             }
 
             try {
-
                 // user creation
-                const registerResponse: Response = await fetch("http://localhost:8080/users", registerOptions);
-                if (!registerResponse.ok) throw new Error(registerResponse.statusText);
-
-                const registeredUser = await registerResponse.json();
+                const registeredUser = await ApiService.call<SignupResponse>("users", "POST", body);
+                // do I need this user...
                 const user = new User(registeredUser.id,
                     registeredUser.firstname,
                     registeredUser.lastname,
@@ -47,30 +53,18 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-                // do I need this user...
 
-                // user login
-                const loginOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        username: formData.username,
-                        password: formData.password
-                    })
-                }
-
-                const loginResponse: Response = await fetch("http://localhost:8080/login", loginOptions);
-                if (!loginResponse.ok) throw new Error(loginResponse.statusText);
-
-                const loginJson = await loginResponse.json();
-                localStorage.setItem("accessToken", JSON.stringify(loginJson));
+                // user login    
+                const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
+                localStorage.setItem("accessToken", JSON.stringify(loginResponse));
 
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
-                navigate("/home", {replace: true});
+                navigate("/home", { replace: true });
             } catch (e) {
                 console.error("Error during signup or login", e);
             }
         }
+
         register();
     }
 

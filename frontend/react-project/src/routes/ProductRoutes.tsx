@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import AddProductForm from "../components/AddProductForm";
+import AddProductForm from "../layouts/ProductsPage/AddProductForm";
 import ProductsList from "../layouts/ProductsPage/ProductsList";
 import ProductDetails from "../layouts/ProductsPage/ProductDetails";
 
