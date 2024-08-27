@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
+import ApiService from "../../service/ApiService";
+
+
 
 export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
@@ -20,25 +23,21 @@ export default function SignupForm() {
         e.preventDefault();
 
         const register = async () => {
-            const registerOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    username: formData.username,
-                    password: formData.password,
-                    email: formData.email
-                })
+
+            const body = {
+                firstname: formData.firstname,
+                lastname: formData.lastname,
+                username: formData.username,
+                password: formData.password,
+                email: formData.email
             }
 
             try {
 
                 // user creation
-                const registerResponse: Response = await fetch("http://localhost:8080/users", registerOptions);
-                if (!registerResponse.ok) throw new Error(registerResponse.statusText);
+                const registeredUser = await ApiService.call<RegisterResponse>("users", "POST", body);
+                if (!registeredUser.ok) throw new Error(registeredUser.statusText);
 
-                const registeredUser = await registerResponse.json();
                 const user = new User(registeredUser.id,
                     registeredUser.firstname,
                     registeredUser.lastname,
@@ -66,7 +65,7 @@ export default function SignupForm() {
                 localStorage.setItem("accessToken", JSON.stringify(loginJson));
 
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
-                navigate("/home", {replace: true});
+                navigate("/home", { replace: true });
             } catch (e) {
                 console.error("Error during signup or login", e);
             }

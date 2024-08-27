@@ -24,7 +24,6 @@ export default function ProductsList() {
         const getProducts = async () => {
             try {
                 const resJson = await ApiService.call<ProductResponse[]>("api/products", "GET");
-                console.log(resJson);
 
                 setProducts(resJson.map((item) => {
                     return new Product(
@@ -33,7 +32,7 @@ export default function ProductsList() {
                         item.price,
                         item.stock,
                         item.description,
-                        new Category(item.category.id, item.category.name) // or some new ID for category because we just get category as a string from APi
+                        new Category(item.category.id, item.category.name)
                     );
                 }));
             } catch (error) {

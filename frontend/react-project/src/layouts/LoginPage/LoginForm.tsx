@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 
-type LoginResponse = {
+export type LoginResponse = {
     token: string,
     expiresIn: number
 }

@@ -1,6 +1,6 @@
 export default class ApiService {
 
-    static async call<T>(route: string, method: string = "GET", body: any = null, headers: Record<string, string> = {}): Promise<T> {
+    static async call<T>(route: string, method: string = "GET", body: Object = {}, headers: Record<string, string> = {}): Promise<T> {
         const options: RequestInit = {
             method: method,
             headers: {
