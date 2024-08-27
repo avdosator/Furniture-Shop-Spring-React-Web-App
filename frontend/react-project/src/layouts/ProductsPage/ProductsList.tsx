@@ -3,6 +3,9 @@ import Category from "../../models/Category";
 import Product from "../../models/Product";
 import ProductItem from "./ProductItem";
 import SearchProductsForm from "./SearchProductsForm";
+import ApiService from "../../service/ApiService";
+
+
 
 export default function ProductsList() {
     let [products, setProducts] = useState<Product[]>([]);
@@ -10,27 +13,19 @@ export default function ProductsList() {
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const response = await fetch("http://localhost:8080/api/products", { method: 'GET' });
-
-                if (!response.ok) throw new Error(response.statusText);
-
-                const resJson = await response.json();
+                const resJson = await ApiService.call<ProductResponse[]>("api/products", "GET");
                 console.log(resJson);
 
-                // Mapping response data to Product array
-                const productsData: Product[] = resJson.map((item: any) => {
+                setProducts(resJson.map((item) => {
                     return new Product(
                         item.id,
                         item.name,
                         item.price,
                         item.stock,
                         item.description,
-                        new Category(item.id, item.category.name) // or some new ID for category because we just get category as a string from APi
+                        new Category(item.category.id, item.category.name) // or some new ID for category because we just get category as a string from APi
                     );
-                });
-
-                setProducts(productsData);
-
+                }));
             } catch (error) {
                 console.log('Failed to fetch products:', error);
             }

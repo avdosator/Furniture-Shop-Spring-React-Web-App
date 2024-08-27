@@ -14,7 +14,8 @@ export default class ApiService {
         try {
             const response = await fetch(`http://localhost:8080/${route}`, options);
             if (!response.ok) throw new Error(response.statusText);
-            return await response.json();
+            const data: T = await response.json();
+            return data;
         } catch (error) {
             console.error("Api call failed ", error);
             throw error;
