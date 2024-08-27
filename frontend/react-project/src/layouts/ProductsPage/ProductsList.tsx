@@ -5,7 +5,17 @@ import ProductItem from "./ProductItem";
 import SearchProductsForm from "./SearchProductsForm";
 import ApiService from "../../service/ApiService";
 
-
+type ProductResponse = {
+    id: number,
+    name: string,
+    price: number,
+    stock: number,
+    description: string,
+    category: {
+        id: number,
+        name: string
+    }
+}
 
 export default function ProductsList() {
     let [products, setProducts] = useState<Product[]>([]);
