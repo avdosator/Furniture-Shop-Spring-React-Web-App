@@ -24,7 +24,6 @@ export default function ProductsList() {
         const getProducts = async () => {
             try {
                 const resJson = await ApiService.call<ProductResponse[]>("api/products", "GET");
-
                 setProducts(resJson.map((item) => {
                     return new Product(
                         item.id,
