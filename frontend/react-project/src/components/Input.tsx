@@ -5,7 +5,7 @@ type InputProps = {
     id: string,
     name: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void,
-    placeholder: string,
+    placeholder?: string,
     autoComplete?: string,
     autoFocus?: boolean
 }

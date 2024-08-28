@@ -1,13 +1,14 @@
 import { useState } from "react";
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+import Input from "../../components/Input";
 
 export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
     let [priceRange, setPriceRange] = useState([0, 10000]); //implement to set maxPrice to most expensive product price
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
-        let { name, value } = e.target;
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
+        let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
         setSearchParameters(oldData => ({
             ...oldData,
@@ -42,14 +43,8 @@ export default function SearchProductsForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-floating mb-3 col-md-4">
-                            <input type="text"
-                                className="form-control"
-                                value={searchParameters.productName}
-                                id="productName"
-                                name="productName"
-                                onChange={handleChange}
-                                placeholder="email"
-                            />
+                            <Input type="text" className="form-control" value={searchParameters.productName} id="productName" 
+                            name="productName" onChange={handleChange} />
                             <label htmlFor="productName" className="ms-2">Product Name</label>
                         </div>
                         <div className="row col-md-8 pe-0 pe-md-1">
