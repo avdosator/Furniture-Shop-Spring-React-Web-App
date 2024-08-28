@@ -9,7 +9,7 @@ export type LoginResponse = {
 }
 
 export default function LoginForm() {
-    let [formData, setFormData] = useState({ loginUsername: "", password: "" });
+    let [formData, setFormData] = useState({ loginUsername: "", loginPassword: "" });
     const navigate = useNavigate();
 
 
@@ -26,9 +26,9 @@ export default function LoginForm() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         const login = async () => {
-            const resJson = await ApiService.call<LoginResponse>("login", "POST", { username: formData.loginUsername, password: formData.password });
+            const resJson = await ApiService.call<LoginResponse>("login", "POST", { username: formData.loginUsername, password: formData.loginPassword });
             localStorage.setItem("accessToken", JSON.stringify(resJson));
-            setFormData({ loginUsername: "", password: "" });
+            setFormData({ loginUsername: "", loginPassword: "" });
             navigate("/home", { replace: true });
         }
 
@@ -48,31 +48,16 @@ export default function LoginForm() {
                             <form onSubmit={handleSubmit} >
                                 <h4 className="card-title text-center mb-3">Login</h4>
                                 <div className="mb-3 form-floating">
-                                    {/* <input type="text"
-                                        className="form-control"
-                                        value={formData.username}
-                                        id="username"
-                                        name="username"
-                                        onChange={handleChange}
-                                        placeholder="Enter your username"
-                                        autoComplete="username"
-                                        autoFocus
-                                    />  */}
                                     <Input type="text" className="form-control" value={formData.loginUsername} id="loginUsername"
-                                        name="loginUsername" onChange={handleChange} placeholder="Enter your username" />
+                                        name="loginUsername" onChange={handleChange} placeholder="Enter your username"
+                                        autoComplete="username" autoFocus={true} />
                                     <label htmlFor="loginUsername" className="form-label fw-medium">Username</label>
                                 </div>
                                 <div className="mb-3 form-floating">
-                                    <input type="password"
-                                        className="form-control"
-                                        value={formData.password}
-                                        id="password"
-                                        name="password"
-                                        onChange={handleChange}
-                                        placeholder="Enter your password"
-                                        autoComplete="current-password"
-                                    />
-                                    <label htmlFor="password" className="form-label fw-medium">Password</label>
+                                    <Input type="password" className="form-control" value={formData.loginPassword} id="loginPassword"
+                                        name="loginPassword" onChange={handleChange} placeholder="Enter your password"
+                                        autoComplete="current-password" />
+                                    <label htmlFor="loginPassword" className="form-label fw-medium">Password</label>
                                 </div>
                                 <div className="d-grid gap-2">
                                     <button type="submit" className="btn btn-success fw-semibold">Submit</button>
