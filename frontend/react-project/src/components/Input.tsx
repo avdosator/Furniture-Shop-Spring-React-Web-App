@@ -6,21 +6,21 @@ type InputProps = {
     name: string,
     onChange: Function,
     placeholder: string,
-    autoComplete: string,
-    autofocus: boolean 
+    autoComplete?: string,
+    autoFocus?: boolean
 }
 
-export default function Input({type, classname, value, id, name, onChange, placeholder, autoComplete, autoFocus }: InputProps) {
+export default function Input({ type, className, value, id, name, onChange, placeholder, autoComplete, autoFocus = false }: InputProps) {
     return (
-        <input type="text"
-        className=""
-        value={}
-        id=""
-        name=""
-        onChange={}
-        placeholder=""
-        autoComplete=""
-        autoFocus
-         />
+        <input type={type}
+            className={className}
+            value={value}
+            id={id}
+            name={name}
+            onChange={(e) => onChange(e)}
+            placeholder={placeholder}
+            autoComplete={autoComplete}
+            autoFocus={autoFocus}
+        />
     )
 }

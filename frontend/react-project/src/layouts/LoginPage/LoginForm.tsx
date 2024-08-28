@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import Input from "../../components/Input";
 
 export type LoginResponse = {
     token: string,
@@ -8,9 +9,9 @@ export type LoginResponse = {
 }
 
 export default function LoginForm() {
-    let [formData, setFormData] = useState({ username: "", password: "" });
+    let [formData, setFormData] = useState({ loginUsername: "", password: "" });
     const navigate = useNavigate();
-    
+
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         let { name, value } = e.target as HTMLInputElement;
@@ -25,10 +26,10 @@ export default function LoginForm() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         const login = async () => {
-            const resJson = await ApiService.call<LoginResponse>("login", "POST", {username: formData.username, password: formData.password});
+            const resJson = await ApiService.call<LoginResponse>("login", "POST", { username: formData.loginUsername, password: formData.password });
             localStorage.setItem("accessToken", JSON.stringify(resJson));
-            setFormData({ username: "", password: "" });
-            navigate("/home", {replace: true});
+            setFormData({ loginUsername: "", password: "" });
+            navigate("/home", { replace: true });
         }
 
         login();
@@ -47,7 +48,7 @@ export default function LoginForm() {
                             <form onSubmit={handleSubmit} >
                                 <h4 className="card-title text-center mb-3">Login</h4>
                                 <div className="mb-3 form-floating">
-                                    <input type="text"
+                                    {/* <input type="text"
                                         className="form-control"
                                         value={formData.username}
                                         id="username"
@@ -56,8 +57,10 @@ export default function LoginForm() {
                                         placeholder="Enter your username"
                                         autoComplete="username"
                                         autoFocus
-                                    />
-                                    <label htmlFor="username" className="form-label fw-medium">Username</label>
+                                    />  */}
+                                    <Input type="text" className="form-control" value={formData.loginUsername} id="loginUsername"
+                                        name="loginUsername" onChange={handleChange} placeholder="Enter your username" />
+                                    <label htmlFor="loginUsername" className="form-label fw-medium">Username</label>
                                 </div>
                                 <div className="mb-3 form-floating">
                                     <input type="password"
