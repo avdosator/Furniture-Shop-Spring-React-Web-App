@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
 import ApiService from "../../service/ApiService";
 import { LoginResponse } from "../LoginPage/LoginForm";
+import Input from "../../components/Input";
 
 type SignupResponse = {
     id: number,
@@ -53,7 +54,7 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-
+                console.log(registeredUser);
                 // user login    
                 const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
                 localStorage.setItem("accessToken", JSON.stringify(loginResponse));
@@ -75,65 +76,28 @@ export default function SignupForm() {
                     <form onSubmit={handleSubmit}>
                         <h4 className=" text-center fw-semibold mb-3">Sign up to F Store</h4>
                         <div className="mb-3 form-floating">
-
-                            <input type="text"
-                                className="form-control"
-                                value={formData.firstname}
-                                id="firstname"
-                                name="firstname"
-                                onChange={handleChange}
-                                placeholder="Enter your firstname"
-                                autoFocus
-                            />
+                            <Input type="text" className="form-control" value={formData.firstname} id="firstname" name="firstname"
+                                onChange={handleChange} placeholder="Enter your firstname" autoFocus={true} />
                             <label htmlFor="firstname" className="form-label fw-medium">Firstname</label>
                         </div>
                         <div className="mb-3 form-floating">
-                            <input type="text"
-                                className="form-control"
-                                value={formData.lastname}
-                                id="lastname"
-                                name="lastname"
-                                onChange={handleChange}
-                                placeholder="Enter your lastname"
-                            />
+                            <Input type="text" className="form-control" value={formData.lastname} id="lastname" name="lastname"
+                                onChange={handleChange} placeholder="Enter your lastname" />
                             <label htmlFor="lastname" className="form-label fw-medium">Lastname</label>
                         </div>
                         <div className="mb-3 form-floating">
-
-                            <input type="text"
-                                className="form-control"
-                                value={formData.username}
-                                id="createUserUsername"
-                                name="username"
-                                onChange={handleChange}
-                                autoComplete="username"
-                                placeholder="Enter your username"
-                            />
-                            <label htmlFor="createUserUsername" className="form-label fw-medium">Username</label>
+                            <Input type="text" className="form-control" value={formData.username} id="registerUsername"
+                                name="username" onChange={handleChange} placeholder="Enter your username" autoComplete="username" />
+                            <label htmlFor="registerUsername" className="form-label fw-medium">Username</label>
                         </div>
                         <div className="mb-3 form-floating">
-
-                            <input type="password"
-                                className="form-control"
-                                value={formData.password}
-                                id="createUserPassword"
-                                name="password"
-                                onChange={handleChange}
-                                autoComplete="current-password"
-                                placeholder="Enter your password (8-20 characters)"
-                            />
-                            <label htmlFor="createUserPassword" className="form-label fw-medium">Password</label>
+                            <Input type="password" className="form-control" value={formData.password} id="registerPassword"
+                                name="password" onChange={handleChange} placeholder="Enter your password" />
+                            <label htmlFor="registerPassword" className="form-label fw-medium">Password</label>
                         </div>
                         <div className="mb-3 form-floating">
-
-                            <input type="email"
-                                className="form-control"
-                                value={formData.email}
-                                id="email"
-                                name="email"
-                                onChange={handleChange}
-                                placeholder="Enter your email"
-                            />
+                            <Input type="email" className="form-control" value={formData.email} id="email" name="email"
+                                onChange={handleChange} placeholder="Enter your email" autoComplete="email" />
                             <label htmlFor="email" className="form-label fw-medium">Email</label>
                         </div>
                         <div className="d-grid gap-2 mt-3">
