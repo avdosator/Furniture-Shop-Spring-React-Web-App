@@ -20,7 +20,7 @@ export default function SignupForm() {
     let [formData, setFormData] = useState({ firstname: "", lastname: "", username: "", password: "", email: "" });
     const navigate = useNavigate();
 
-    function handleChange(e: React.ChangeEvent<any>): void {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
         setFormData(oldData => {
             return {
