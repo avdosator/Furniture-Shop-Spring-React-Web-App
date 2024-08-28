@@ -13,8 +13,8 @@ export default function LoginForm() {
     const navigate = useNavigate();
 
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        let { name, value } = e.target as HTMLInputElement;
+    function handleChange(e: React.ChangeEvent<any>): void {
+        let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
         setFormData(oldData => {
             return {
                 ...oldData,

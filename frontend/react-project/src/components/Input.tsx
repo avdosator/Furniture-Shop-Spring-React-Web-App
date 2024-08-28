@@ -4,7 +4,7 @@ type InputProps = {
     value: string | number,
     id: string,
     name: string,
-    onChange: Function,
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void,
     placeholder: string,
     autoComplete?: string,
     autoFocus?: boolean
@@ -21,6 +21,7 @@ export default function Input({ type, className, value, id, name, onChange, plac
             placeholder={placeholder}
             autoComplete={autoComplete}
             autoFocus={autoFocus}
+            {...(id === "numberOfProducts" ? { min: 1 } : {})}
         />
     )
 }
