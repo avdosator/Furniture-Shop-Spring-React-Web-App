@@ -2,6 +2,7 @@ import { useState } from "react";
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Input from "../../components/Input";
+import Select from "../../components/Select";
 
 export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
@@ -39,35 +40,19 @@ export default function SearchProductsForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-floating mb-3 col-md-4">
-                            <Input type="text" className="form-control" value={searchParameters.productName} id="productName" 
-                            name="productName" onChange={handleChange} />
+                            <Input type="text" className="form-control" value={searchParameters.productName} id="productName"
+                                name="productName" onChange={handleChange} />
                             <label htmlFor="productName" className="ms-2">Product Name</label>
                         </div>
                         <div className="row col-md-8 pe-0 pe-md-1">
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-                                <select id="category" name="category" className="form-select"
-                                    value={searchParameters.category}
-                                    onChange={handleChange}
-                                >
-                                    <option value="all" >All</option>
-                                    <option value="chair">Chair</option>
-                                    <option value="double bed">Double Bed</option>
-                                    <option value="kitchen">Kitchen</option>
-                                    <option value="table">Table</option>
-                                </select>
+                                <Select value={searchParameters.category} id="category" name="category" onChange={handleChange}
+                                    options={["all", "chair", "double bed", "kitchen", "table"]} />
                                 <label htmlFor="category" className="ms-2">Category</label>
                             </div>
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
-                                <select id="sortBy" name="sortBy" className="form-select"
-                                    value={searchParameters.sortBy}
-                                    onChange={handleChange}
-                                >
-                                    <option value="name (ascending)">Name (ascending)</option>
-                                    <option value="name (descending)">Name (descending)</option>
-                                    <option value="price (ascending)">Price (ascending)</option>
-                                    <option value="price (descending)">Price (descending)</option>
-                                    <option value="newest">Newest</option>
-                                </select>
+                                <Select value={searchParameters.sortBy} id="sortBy" name="sortBy" onChange={handleChange}
+                                    options={["name (ascending)", "name (descending)", "price (ascending)", "price (descending)", "newest"]} />
                                 <label htmlFor="sortBy" className="ms-2">Sort By</label>
                             </div>
                         </div>
@@ -82,7 +67,7 @@ export default function SearchProductsForm() {
                                 step={10}
                                 value={priceRange}
                                 onChange={handleSliderChange}
-                                style={{marginLeft: "0.5rem"}}
+                                style={{ marginLeft: "0.5rem" }}
                             />
                             <div className="d-flex justify-content-between">
                                 <span>{priceRange[0]}</span>
