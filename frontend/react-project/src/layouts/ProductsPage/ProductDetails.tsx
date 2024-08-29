@@ -22,6 +22,10 @@ export default function ProductDetails() {
         });
     }
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+    }
+
     return (
         <div className="container my-5">
             <Link to={"/products"} className="back-button">All products</Link>
@@ -40,18 +44,20 @@ export default function ProductDetails() {
                         Itaque laudantium enim ad. Sequi earum voluptas temporibus, enim reiciendis dolorem unde vero dicta, placeat,
                         ducimus voluptate.
                     </p>
-                    <div className="form-floating mb-3">
-                        <select id="amount"
-                            name="amount"
-                            className="form-select"
-                            value={amount}
-                            onChange={handleAmount}
-                        >
-                            {generateOptions(10)} {/* 10 should be defined dynamically based on number of products available */}
-                        </select>
-                        <label htmlFor="amount" className="">Amount</label>
-                    </div>
-                    <button className="btn btn-success">Add to cart</button> {/*<Link to={"/cart"}></Link>*/}
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <select id="amount"
+                                name="amount"
+                                className="form-select"
+                                value={amount}
+                                onChange={handleAmount}
+                            >
+                                {generateOptions(10)} {/* 10 should be defined dynamically based on number of products available */}
+                            </select>
+                            <label htmlFor="amount" className="">Amount</label>
+                        </div>
+                        <button className="btn btn-success">Add to cart</button> {/*<Link to={"/cart"}></Link>*/}
+                    </form>
                 </div>
             </div>
         </div>

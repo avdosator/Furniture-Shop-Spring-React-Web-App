@@ -9,18 +9,14 @@ export default function SearchProductsForm() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-
         setSearchParameters(oldData => ({
             ...oldData,
             [name]: value
         }));
-
     }
 
     function handleSliderChange(value: number | number[]): void {
-        if (Array.isArray(value)) {
-            setPriceRange([value[0], value[1]]);
-        }
+        if (Array.isArray(value)) setPriceRange([value[0], value[1]]);
     }
 
     function handleReset(): void {

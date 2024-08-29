@@ -37,6 +37,7 @@ export default function ProductsList() {
                 });
             } catch (error) {
                 console.log('Failed to fetch products:', error);
+                alert("Request failed, try again");
             }
         };
 

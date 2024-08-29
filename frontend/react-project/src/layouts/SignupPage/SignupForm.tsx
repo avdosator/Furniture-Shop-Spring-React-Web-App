@@ -62,6 +62,7 @@ export default function SignupForm() {
                 setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
                 navigate("/home", { replace: true });
             } catch (e) {
+                alert("Error during signup or login");
                 console.error("Error during signup or login", e);
             }
         }

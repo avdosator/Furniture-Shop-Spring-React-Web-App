@@ -35,8 +35,8 @@ export default function LoginForm() {
                     navigate("/home", { replace: true });
                 });
             } catch (e: any) {
-                console.log(e.message);
                 alert("Something went wrong");
+                console.error("Error during logging in", e.message);
             }
         }
 
