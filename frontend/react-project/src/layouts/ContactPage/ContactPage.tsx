@@ -1,7 +1,19 @@
+import { useState } from "react";
 import Input from "../../components/Input";
 import "./ContactPage.css"
 
 export default function Contact() {
+    let [formData, setFormData] = useState({ username: "", email: "", contactPageMessage: "" });
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void {
+        let { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+        setFormData(oldData => {
+            return {
+                ...oldData,
+                [name]: value
+            }
+        })
+    }
     return (
         <div className="container contact-container my-5 mt-5">
             <h1 className="text-center mb-4">Contact Us</h1>
@@ -21,17 +33,22 @@ export default function Contact() {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="contactPageName" className="form-label fw-medium">Username</label>
-                                    <Input type="text" className="form-control contact-form-control" value={2 } id="contactPageName" name="contactPageName"
-                                        onChange={ } placeholder="Enter your username" />
+                                    <Input type="text" className="form-control contact-form-control" value={formData.username}
+                                        id="contactPageName" name="username" onChange={handleChange}
+                                        placeholder="Enter your username" />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="contactPageEmail" className="form-label fw-medium">Email</label>
-                                    <Input type="email" className="form-control contact-form-control" value={2 } id="contactPageEmail" name="contactPageEmail"
-                                        onChange={ } placeholder="Enter your email" />
+                                    <Input type="email" className="form-control contact-form-control" value={formData.email}
+                                        id="contactPageEmail" name="email" onChange={handleChange}
+                                        placeholder="Enter your email" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="contact-page-message" className="form-label fw-medium">Message</label>
-                                    <textarea className="form-control contact-form-control" id="contact-page-message" rows={4} placeholder="Your Message"></textarea>
+                                    <label htmlFor="contactPageMessage" className="form-label fw-medium">Message</label>
+                                    <textarea className="form-control contact-form-control" id="contactPageMessage" rows={4}
+                                        value={formData.contactPageMessage} name="contactPageMessage" onChange={handleChange}
+                                        placeholder="Your Message">
+                                    </textarea>
                                 </div>
                                 <button type="submit" className="btn btn-primary contact-form-button">Send</button>
                             </form>
