@@ -20,6 +20,7 @@ export default function Contact() {
         e.preventDefault();
         //logic for sending message to server
         //display pop up that message is sent
+        alert(`${formData.username}, your message is sent!`);
         setFormData({ username: "", email: "", contactPageMessage: "" });
         navigate("/home");
     }

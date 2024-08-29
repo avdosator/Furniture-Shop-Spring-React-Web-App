@@ -21,6 +21,7 @@ export default function AddProductForm() {
         e.preventDefault();
         console.log(formData);
         //logic for sending request to create product
+        alert(`Product ${formData.productName} is successfully created!`);
         setFormData({ productName: "", price: 0, stock: 1, description: "", category: "" });
     }
 
