@@ -61,7 +61,7 @@ export default function AddProductForm() {
                             <label htmlFor="productDescription">Description</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <select name="category" id="productCategory" className="form-control"
+                            <select name="category" id="productCategory" className="form-select"
                                 value={formData.category}
                                 onChange={handleChange}
                             >
