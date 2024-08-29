@@ -31,10 +31,11 @@ export default function Navbar() {
                             <NavLink className="nav-link" to="/contact">Contact</NavLink>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
+                    {/* Do I need this search bar here? */}
+                    {/* <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> */}
                     <div className="ms-lg-4 me-lg-2 mt-3 mt-lg-0">
                         <a href="#" className="position-relative">
                             <CartIcon />
