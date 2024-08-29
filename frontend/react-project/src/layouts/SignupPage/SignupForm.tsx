@@ -54,7 +54,7 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-                alert(`Hello ${formData.username}, your account is created!`);
+                alert(`Hello ${formData.username}, you successfully created an account!`);
                 // user login    
                 const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
                 localStorage.setItem("accessToken", JSON.stringify(loginResponse));
@@ -68,6 +68,46 @@ export default function SignupForm() {
 
         register();
     }
+
+    
+   {/* function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+
+        const register = () => {
+            const body = {
+                firstname: formData.firstname,
+                lastname: formData.lastname,
+                username: formData.username,
+                password: formData.password,
+                email: formData.email
+            }
+            try {
+                // user creation
+                ApiService.call<SignupResponse>("users", "POST", body).then((response) => {
+                    const user = new User(response.id, // do I need this user...
+                        response.firstname,
+                        response.lastname,
+                        response.username,
+                        response.email,
+                        response.password,
+                        response.dateCreated,
+                        response.role);
+                    alert(`Hello ${formData.username}, you successfully created an account!`);
+                })
+
+                // user login    
+                ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password }).then((response) => {
+                    localStorage.setItem("accessToken", JSON.stringify(response));
+                    setFormData({ firstname: "", lastname: "", username: "", password: "", email: "" });
+                    navigate("/home", { replace: true });
+                });
+            } catch (e) {
+                console.error("Error during signup or login", e);
+            }
+        }
+
+        register();
+    } */}
 
     return (
         <div className="container mt-5">

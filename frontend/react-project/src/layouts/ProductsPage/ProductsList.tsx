@@ -21,19 +21,20 @@ export default function ProductsList() {
     let [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        const getProducts = async () => {
+        const getProducts = () => {
             try {
-                const resJson = await ApiService.call<ProductResponse[]>("api/products", "GET");
-                setProducts(resJson.map((item) => {
-                    return new Product(
-                        item.id,
-                        item.name,
-                        item.price,
-                        item.stock,
-                        item.description,
-                        new Category(item.category.id, item.category.name)
-                    );
-                }));
+                ApiService.call<ProductResponse[]>("api/products", "GET").then((products) => {
+                    setProducts(products.map((item) => {
+                        return new Product(
+                            item.id,
+                            item.name,
+                            item.price,
+                            item.stock,
+                            item.description,
+                            new Category(item.category.id, item.category.name)
+                        );
+                    }));
+                });
             } catch (error) {
                 console.log('Failed to fetch products:', error);
             }

@@ -25,12 +25,19 @@ export default function LoginForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault();
-        const login = async () => {
-            const resJson = await ApiService.call<LoginResponse>("login", "POST", { username: formData.loginUsername, password: formData.loginPassword });
-            localStorage.setItem("accessToken", JSON.stringify(resJson));
-            alert(`Hello ${formData.loginUsername}, you are logged in!`);
-            setFormData({ loginUsername: "", loginPassword: "" });
-            navigate("/home", { replace: true });
+        const login = () => {
+            const body = { username: formData.loginUsername, password: formData.loginPassword };
+            try {
+                ApiService.call<LoginResponse>("login", "POST", body).then((response) => {
+                    localStorage.setItem("accessToken", JSON.stringify(response));
+                    alert(`Hello ${formData.loginUsername}, you are logged in!`);
+                    setFormData({ loginUsername: "", loginPassword: "" });
+                    navigate("/home", { replace: true });
+                });
+            } catch (e: any) {
+                console.log(e.message);
+                alert("Something went wrong");
+            }
         }
 
         login();
