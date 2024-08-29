@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Input from "../../components/Input";
 import "./ContactPage.css"
+import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
     let [formData, setFormData] = useState({ username: "", email: "", contactPageMessage: "" });
+    const navigate = useNavigate();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
@@ -14,6 +16,14 @@ export default function Contact() {
             }
         })
     }
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+        //logic for sending message to server
+        //display pop up that message is sent
+        setFormData({ username: "", email: "", contactPageMessage: "" });
+        navigate("/home");
+    }
+
     return (
         <div className="container contact-container my-5 mt-5">
             <h1 className="text-center mb-4">Contact Us</h1>
@@ -30,7 +40,7 @@ export default function Contact() {
                         </div>
                         <div className="col-md-6">
                             <h3 className="mb-5">Send us a message</h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
                                     <label htmlFor="contactPageName" className="form-label fw-medium">Username</label>
                                     <Input type="text" className="form-control contact-form-control" value={formData.username}
