@@ -3,6 +3,7 @@ import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import Utils from "../../utils/Utils";
 
 export default function SearchProductsForm() {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
@@ -47,12 +48,12 @@ export default function SearchProductsForm() {
                         <div className="row col-md-8 pe-0 pe-md-1">
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
                                 <Select value={searchParameters.category} id="category" name="category" onChange={handleChange}
-                                    options={["all", "chair", "double bed", "kitchen", "table"]} />
+                                    options={Utils.getCategories()} />
                                 <label htmlFor="category" className="ms-2">Category</label>
                             </div>
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
                                 <Select value={searchParameters.sortBy} id="sortBy" name="sortBy" onChange={handleChange}
-                                    options={["name (ascending)", "name (descending)", "price (ascending)", "price (descending)", "newest"]} />
+                                    options={Utils.getSortingOptions()} />
                                 <label htmlFor="sortBy" className="ms-2">Sort By</label>
                             </div>
                         </div>
@@ -60,13 +61,7 @@ export default function SearchProductsForm() {
                     <div className="row">
                         <div className="mb-3 col-md-6">
                             <label className="form-label">Price range</label>
-                            <Slider
-                                range
-                                min={0}
-                                max={10000}
-                                step={10}
-                                value={priceRange}
-                                onChange={handleSliderChange}
+                            <Slider range min={0} max={10000} step={10} value={priceRange} onChange={handleSliderChange}
                                 style={{ marginLeft: "0.5rem" }}
                             />
                             <div className="d-flex justify-content-between">
