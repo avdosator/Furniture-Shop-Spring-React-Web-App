@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Utils from "../../utils/Utils";
 
 export default function AddProductForm() {
     let [formData, setFormData] = useState({ productName: "", price: 0.0, stock: 1, description: "", category: "" });
@@ -43,8 +45,8 @@ export default function AddProductForm() {
                                 <label htmlFor="productPrice" className="ms-2">Price</label>
                             </div>
                             <div className="form-floating mb-3 col-6">
-                                <Input type="number" className="form-control" value={formData.stock} id="numberOfProducts" 
-                                name="stock" onChange={handleChange} placeholder="Enter product price" />
+                                <Input type="number" className="form-control" value={formData.stock} id="numberOfProducts"
+                                    name="stock" onChange={handleChange} placeholder="Enter product price" />
                                 <label htmlFor="numberOfProducts" className="ms-2">Number of products</label>
                             </div>
                         </div>
@@ -61,16 +63,7 @@ export default function AddProductForm() {
                             <label htmlFor="productDescription">Description</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <select name="category" id="productCategory" className="form-select"
-                                value={formData.category}
-                                onChange={handleChange}
-                            >
-                                {categories.map((category, index) => (
-                                    <option key={index} value={category}>
-                                        {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
-                                    </option>
-                                ))}
-                            </select>
+                            <Select value="" id="productCategory" name="category" onChange={handleChange} options={Utils.getCategories()} />
                             <label htmlFor="productCategory">Select category</label>
                         </div>
                         <div>
