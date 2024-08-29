@@ -1,10 +1,10 @@
 type SelectProps = {
     className?: string,
-    value: string,
+    value: string | number,
     id: string,
     name: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void,
-    options: string[]
+    options: string[] | number[]
 }
 
 export default function Select({ className = "form-select", value, id, name, onChange, options }: SelectProps) {
@@ -17,7 +17,9 @@ export default function Select({ className = "form-select", value, id, name, onC
         >
             {options.map((option, index) => (
                 <option key={index} value={option}>
-                    {option.charAt(0).toUpperCase() + option.slice(1).toLowerCase()}
+                    {typeof option === "string"
+                        ? option.charAt(0).toUpperCase() + option.slice(1).toLowerCase()
+                        : option}
                 </option>
             ))}
         </select>

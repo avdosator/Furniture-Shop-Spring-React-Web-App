@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom"
 import "./ProductDetails.css"
+import Select from "../../components/Select";
 
 export default function ProductDetails() {
     const location = useLocation();
     const { id, name, price, stock, description, category } = location.state || {};
     let [amount, setAmount] = useState(1);
 
-    function handleAmount(e: React.ChangeEvent<HTMLSelectElement>): void {
+    function handleAmount(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>): void {
         setAmount(parseInt(e.target.value));
-    }
-
-    function generateOptions(num: number): JSX.Element[] {
-        return Array.from({ length: num }, (_, index) => {
-            const amount = index + 1;
-            return (
-                <option key={amount} value={amount}>
-                    {amount}
-                </option>
-            );
-        });
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
@@ -46,14 +36,8 @@ export default function ProductDetails() {
                     </p>
                     <form onSubmit={handleSubmit}>
                         <div className="form-floating mb-3">
-                            <select id="amount"
-                                name="amount"
-                                className="form-select"
-                                value={amount}
-                                onChange={handleAmount}
-                            >
-                                {generateOptions(10)} {/* 10 should be defined dynamically based on number of products available */}
-                            </select>
+                            <Select value={amount} id="amount" name="amount" onChange={handleAmount}
+                                options={Array.from({ length: 10 }, (_, i) => i + 1)} /> {/* 10 should be defined dynamically based on number of products available */}
                             <label htmlFor="amount" className="">Amount</label>
                         </div>
                         <button className="btn btn-success">Add to cart</button> {/*<Link to={"/cart"}></Link>*/}
