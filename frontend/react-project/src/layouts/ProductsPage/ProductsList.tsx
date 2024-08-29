@@ -19,6 +19,9 @@ type ProductResponse = {
 
 export default function ProductsList() {
     let [products, setProducts] = useState<Product[]>([]);
+    const maxPrice = products.reduce((max, product) => {
+        return product.getPrice() > max ? product.getPrice() : max;
+    }, 0);
 
     useEffect(() => {
         const getProducts = () => {
@@ -46,7 +49,7 @@ export default function ProductsList() {
 
     return (
         <>
-            <SearchProductsForm />
+            <SearchProductsForm maxPrice={maxPrice} />
             <main className="mt-5">
                 <p className="mb-5 col-10 offset-1 fw-bolder border-bottom pb-3"> {products.length} products</p>
                 <div className="container">

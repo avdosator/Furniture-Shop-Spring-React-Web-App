@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Utils from "../../utils/Utils";
 
-export default function SearchProductsForm() {
+export default function SearchProductsForm({ maxPrice }: { maxPrice: number }) {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
-    let [priceRange, setPriceRange] = useState([0, 10000]); //implement to set maxPrice to most expensive product price
+    let [priceRange, setPriceRange] = useState([0, maxPrice]);
+
+    useEffect(() => {
+        setPriceRange([0, maxPrice]); // Update price range whenever maxPrice changes
+    }, [maxPrice]);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -23,7 +27,7 @@ export default function SearchProductsForm() {
 
     function handleReset(): void {
         setSearchParameters({ productName: "", category: "all", sortBy: "name (ascending)" });
-        setPriceRange([0, 10000]);
+        setPriceRange([0, maxPrice]);
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
@@ -32,7 +36,7 @@ export default function SearchProductsForm() {
         console.log(priceRange);
         //logic for searching products
         setSearchParameters({ productName: "", category: "", sortBy: "" });
-        setPriceRange([0, 10000]);
+        setPriceRange([0, maxPrice]);
     }
 
     return (
@@ -61,7 +65,7 @@ export default function SearchProductsForm() {
                     <div className="row">
                         <div className="mb-3 col-md-6">
                             <label className="form-label">Price range</label>
-                            <Slider range min={0} max={10000} step={10} value={priceRange} onChange={handleSliderChange}
+                            <Slider range min={0} max={maxPrice} step={10} value={priceRange} onChange={handleSliderChange}
                                 style={{ marginLeft: "0.5rem" }}
                             />
                             <div className="d-flex justify-content-between">
