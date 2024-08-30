@@ -54,7 +54,7 @@ export default function SignupForm() {
                     registeredUser.password,
                     registeredUser.dateCreated,
                     registeredUser.role);
-                alert(`Hello ${formData.username}, you successfully created an account!`);
+                alert(`Hello ${user.getUsername()}, you successfully created an account!`);
                 // user login    
                 const loginResponse = await ApiService.call<LoginResponse>("login", "POST", { username: formData.username, password: formData.password });
                 localStorage.setItem("accessToken", JSON.stringify(loginResponse));

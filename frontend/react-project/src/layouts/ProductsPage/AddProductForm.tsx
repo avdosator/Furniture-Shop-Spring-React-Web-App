@@ -5,7 +5,6 @@ import Utils from "../../utils/Utils";
 
 export default function AddProductForm() {
     let [formData, setFormData] = useState({ productName: "", price: 0.0, stock: 1, description: "", category: "" });
-    let categories: string[] = ["chair", "double bed", "kitchen", "table"];
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
