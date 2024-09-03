@@ -1,15 +1,35 @@
+import { useState } from "react";
+import Input from "../../components/Input";
 import "./ContactPage.css"
+import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
+    let [formData, setFormData] = useState({ username: "", email: "", contactPageMessage: "" });
+    const navigate = useNavigate();
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void {
+        let { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+        setFormData(oldData => {
+            return {
+                ...oldData,
+                [name]: value
+            }
+        })
+    }
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+        //logic for sending message to server
+        //display pop up that message is sent
+        alert(`${formData.username}, your message was sent!`);
+        setFormData({ username: "", email: "", contactPageMessage: "" });
+        navigate("/home");
+    }
+
     return (
         <div className="container contact-container my-5 mt-5">
             <h1 className="text-center mb-4">Contact Us</h1>
             <div className="card mb-4">
-                <img 
-                    src="https://via.placeholder.com/900x300" 
-                    className="card-img-top" 
-                    alt="Contact Us"
-                />
+                <img src="https://via.placeholder.com/900x300" className="card-img-top" alt="Contact Us" />
                 <div className="card-body">
                     <div className="row">
                         <div className="col-md-6 mb-4">
@@ -21,18 +41,25 @@ export default function Contact() {
                         </div>
                         <div className="col-md-6">
                             <h3 className="mb-5">Send us a message</h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
-                                    <label htmlFor="contact-page-name" className="form-label">Name</label>
-                                    <input type="text" className="form-control contact-form-control" id="contact-page-name" placeholder="Your Name" />
+                                    <label htmlFor="contactPageName" className="form-label fw-medium">Username</label>
+                                    <Input type="text" className="form-control contact-form-control" value={formData.username}
+                                        id="contactPageName" name="username" onChange={handleChange}
+                                        placeholder="Enter your username" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="contact-page-email" className="form-label">Email</label>
-                                    <input type="email" className="form-control contact-form-control" id="contact-page-email" placeholder="Your Email" />
+                                    <label htmlFor="contactPageEmail" className="form-label fw-medium">Email</label>
+                                    <Input type="email" className="form-control contact-form-control" value={formData.email}
+                                        id="contactPageEmail" name="email" onChange={handleChange}
+                                        placeholder="Enter your email" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="contact-page-message" className="form-label">Message</label>
-                                    <textarea className="form-control contact-form-control" id="contact-page-message" rows={4} placeholder="Your Message"></textarea>
+                                    <label htmlFor="contactPageMessage" className="form-label fw-medium">Message</label>
+                                    <textarea className="form-control contact-form-control" id="contactPageMessage" rows={4}
+                                        value={formData.contactPageMessage} name="contactPageMessage" onChange={handleChange}
+                                        placeholder="Your Message">
+                                    </textarea>
                                 </div>
                                 <button type="submit" className="btn btn-primary contact-form-button">Send</button>
                             </form>

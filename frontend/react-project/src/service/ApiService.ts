@@ -1,6 +1,6 @@
 export default class ApiService {
 
-    static async call<T>(route: string, method: string = "GET", body: Object = {}, headers: Record<string, string> = {}): Promise<T> {
+    static async call<T>(route: string, method: string = "GET", body: Object | null = null, headers: Record<string, string> = {}): Promise<T> {
         const options: RequestInit = {
             method: method,
             headers: {
@@ -9,7 +9,9 @@ export default class ApiService {
             }
         }
 
-        if (body) options.body = JSON.stringify(body);
+        if (body && method !== "GET" && method !== "DELETE") {
+            options.body = JSON.stringify(body);
+        }
 
         try {
             const response = await fetch(`http://localhost:8080/${route}`, options);
