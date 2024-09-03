@@ -13,9 +13,9 @@ export default function CategoryProvider({ children }: { children: ReactNode }) 
 
     useEffect(() => {
         const fetchCategories = async () => {
-            let categories = await ApiService.call<Category[]>("api/categories", "GET");
+            let categories: { id: number, name: string }[] = await ApiService.call("api/categories", "GET");
             setCategories(categories.map((category) => {
-                return new Category(category.getId(), category.getName());
+                return new Category(category.id, category.name);
             }));
         }
         fetchCategories();

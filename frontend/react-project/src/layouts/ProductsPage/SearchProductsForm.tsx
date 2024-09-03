@@ -4,10 +4,13 @@ import Slider from 'rc-slider';
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Utils from "../../utils/Utils";
+import { useCategories } from "../../context/CategoryContext";
 
 export default function SearchProductsForm({ maxPrice }: { maxPrice: number }) {
     let [searchParameters, setSearchParameters] = useState({ productName: "", category: "all", sortBy: "name (ascending)" });
     let [priceRange, setPriceRange] = useState([0, maxPrice]);
+
+    const { categories } = useCategories();
 
     useEffect(() => {
         setPriceRange([0, maxPrice]); // Update price range whenever maxPrice changes
@@ -52,7 +55,7 @@ export default function SearchProductsForm({ maxPrice }: { maxPrice: number }) {
                         <div className="row col-md-8 pe-0 pe-md-1">
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
                                 <Select value={searchParameters.category} id="category" name="category" onChange={handleChange}
-                                    options={Utils.getCategories()} />
+                                    options={["all", ...categories.map((category) => category.getName())]} />
                                 <label htmlFor="category" className="ms-2">Category</label>
                             </div>
                             <div className="form-floating mb-3 col-sm-6 pe-0 pe-md-1">
@@ -65,9 +68,7 @@ export default function SearchProductsForm({ maxPrice }: { maxPrice: number }) {
                     <div className="row">
                         <div className="mb-3 col-md-6">
                             <label className="form-label">Price range</label>
-                            <Slider range min={0} max={maxPrice} step={10} value={priceRange} onChange={handleSliderChange}
-                                style={{ marginLeft: "0.5rem" }}
-                            />
+                            <Slider range min={0} max={maxPrice} step={10} value={priceRange} onChange={handleSliderChange} />
                             <div className="d-flex justify-content-between">
                                 <span>{priceRange[0]}</span>
                                 <span>{priceRange[1]}</span>

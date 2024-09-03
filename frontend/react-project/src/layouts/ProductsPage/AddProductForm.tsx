@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
-import Utils from "../../utils/Utils";
+import { useCategories } from "../../context/CategoryContext";
 
 export default function AddProductForm() {
     let [formData, setFormData] = useState({ productName: "", price: 0.0, stock: 1, description: "", category: "" });
+
+    const {categories} = useCategories();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         let { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -62,7 +64,8 @@ export default function AddProductForm() {
                             <label htmlFor="productDescription">Description</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <Select value="" id="productCategory" name="category" onChange={handleChange} options={Utils.getCategories()} />
+                            <Select value="" id="productCategory" name="category" onChange={handleChange} 
+                            options={categories.map((category) => category.getName())} />
                             <label htmlFor="productCategory">Select category</label>
                         </div>
                         <div>
