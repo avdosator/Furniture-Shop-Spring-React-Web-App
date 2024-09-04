@@ -31,7 +31,7 @@ This is a repository for a full-stack webshop application that allows users to b
 ### Completed
 - [x] Setup React application with TypeScript
 - [x] Create static pages/components (#19 - #25) - [PR #19](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/19), [PR #20](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/20), [PR #21](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/21), [PR #22](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/22), [PR #23](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/23), [PR #24](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/24), [PR #25](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/25)
-- [x] Create models with same strucutre like domain models from backend - [PR #26](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/26)
+- [x] Create models with same structure like domain models from backend - [PR #26](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/26)
 - [x] Implement Router - [PR #27](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/27)
 - [x] Implement product listing and details pages - [PR #32](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/17), [PR #33](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/33)
 - [x] Implement user authentication flow - [PR #35](https://github.com/avdosator/Furniture-Shop-Spring-React-Web-App/pull/35)
