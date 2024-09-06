@@ -24,7 +24,12 @@ This is a repository for a full-stack webshop application that allows users to b
 - [ ] Add email notifications for order confirmations
 - [ ] Optimize database queries for better performance
 - [ ] Add caching for frequently accessed data
-
+- [ ] Standardize logging and set up CloudWatch
+- [ ] Deployment & CI/CD
+- [ ] Deploy backend on AWS (EC2 or EKS)
+- [ ] Use AWS RDS for the database
+- [ ] Set up a CI/CD pipeline
+- [ ] Add Sonar checks for PRs
 
 ## Frontend Checklist
 
@@ -47,3 +52,5 @@ This is a repository for a full-stack webshop application that allows users to b
 - [ ] Improve error handling and user feedback
 - [ ] Implement product search and filtering
 - [ ] Implement payment integration
+- [ ] Deploy the frontend to a static hosting provider
+
